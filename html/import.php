@@ -266,7 +266,7 @@ while (false !== ($filename = readdir($logdir)))
 			unlink($filename);
 			continue;
 	}
-	
+
 	if(substr($filename, strlen($filename) - strlen($import_log_extension)) != $import_log_extension) 	continue;
 	if(substr($oldfilename, 0, strlen($import_log_start)) != $import_log_start) continue;
 
@@ -288,7 +288,7 @@ while (false !== ($filename = readdir($logdir)))
 		KEY `part1` (`col1` (20),`col2` (20)),
 		KEY `part2` (`col0` (20),`col1` (20),`col2` (20)),
 		KEY `full` (`col0` (20),`col1` (20),`col2` (20),`col3` (20),`col4` (20))
-		) TYPE=". ($import_use_heap_tables ? 'HEAP' : 'MyISAM') .";";
+		) ENGINE=". ($import_use_heap_tables ? 'HEAP' : 'MyISAM') .";";
 
 		$result = mysql_query($sql);
 		if ($result) break;
@@ -299,7 +299,7 @@ while (false !== ($filename = readdir($logdir)))
 			$import_use_temporary_tables = false;
 			continue;
 		}
-		die("<br><strong>Unable to create the temporary table - are you allowed to create tables in this database?<br><br></strong>");
+		die("<br><strong>Unable to create the temporary table:<br>". mysql_error() ."<br><br></strong>");
 	}
 	$id = 0;
 
@@ -431,7 +431,7 @@ while (false !== ($filename = readdir($logdir)))
 	}
 
 	// Check if anything happened, if it didnt stop everything now
-	// 
+	//
 	IF (($qm_kills[kills] == 0 && $qm_deaths[deaths] == 0) && ($qm_gamename[col3] != "Bunny Track")) {
 		echo "No (Empty Match)\n";
 		if ($html) echo '</td></tr>';

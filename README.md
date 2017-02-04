@@ -159,7 +159,7 @@ logs manually to the logs folder and then run the importer via the Import link.
 If you have ftp access and can do ftp via php, edit the config.php file and input your UT servers ftp
 information into there. Now run the importer via the Import link.
 Additionally you can use [UTStats Trigger](http://ut.fuzzeh.com/serverfiles/UTSTATS_Trigger.zip)
-Server Mutator, which triggers UTStats import after every map switch.
+Mutator, which triggers UTStats import after every map switch.
 
 **Option 3:**
 Automate the process using a cron job or scheduled task.

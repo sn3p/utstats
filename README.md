@@ -77,6 +77,14 @@ chmod 777 logs/ace
 chmod 777 includes/ftptimestamp.php
 ```
 
+Optionally, you can add images of maps:
+
+- [Standard pack](http://www.ut-files.com/index.php?dir=Stats/&file=utstats_maps1.zip)
+- [Additional CTF pack](http://www.rork.nl/junkyard/downloads/files/utstats_maps_ctf1.zip)
+- [Enakins pack](http://if36g.ho.ua/files/img.rar)
+
+There's also a tool that extracts screenshots [here](http://www.unrealadmin.org/forums/showthread.php?t=29928).
+
 ### Update from version 4.2 and newer
 
 The current install is compatible with the database of version 4.2 and later.

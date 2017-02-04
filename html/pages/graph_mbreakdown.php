@@ -54,10 +54,14 @@ if (substr_count($bgwhere, ' or ') == 0){
 }
 
 // Country Breakdown
-$sql_gcountries = "SELECT country AS res_country, COUNT(*) AS res_count FROM
-	(SELECT p.country AS country FROM uts_player AS p, uts_match AS m 
-	WHERE m.id = p.matchid AND $bgwhere GROUP BY p.pid) AS res_table 
-GROUP BY res_country ORDER BY res_count DESC";
+$sql_gcountries = "SELECT country AS res_country, COUNT(*) AS res_count
+FROM (SELECT p.country AS country
+	FROM uts_player AS p, uts_match AS m
+	WHERE m.id = p.matchid AND $bgwhere
+	GROUP BY p.pid, country) AS res_table
+GROUP BY res_country
+ORDER BY res_count DESC";
+
 $q_gcountries = mysql_query($sql_gcountries) or die(mysql_error());
 $country_max = 0;
 $country_sum = 0;

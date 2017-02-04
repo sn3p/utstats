@@ -10,28 +10,33 @@ echo'<br>
 	<td class="heading" colspan="11" align="center">Special Events</td>
   </tr>
   <tr>
-	<td class="smheading" align="center" rowspan="2" width="">Player</td>
-	<td class="smheading" align="center" rowspan="2" width="60">First Blood</td>
-	<td class="smheading" align="center" colspan="4" width="160" '.OverlibPrintHint('Multis').'>Multis</td>
-	<td class="smheading" align="center" colspan="5" width="200" '.OverlibPrintHint('Sprees').'>Sprees</td>
+  	<td class="smheading" align="center" rowspan="2" width="">Player</td>
+  	<td class="smheading" align="center" rowspan="2" width="60">First Blood</td>
+  	<td class="smheading" align="center" colspan="4" width="160" '.OverlibPrintHint('Multis').'>Multis</td>
+  	<td class="smheading" align="center" colspan="5" width="200" '.OverlibPrintHint('Sprees').'>Sprees</td>
   </tr>
   <tr>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('DK').'>Dbl</td>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('MK').'>Multi</td>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('UK').'>Ultra</td>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('MOK').'>Mons</td>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('KS').'>Kill</td>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('RA').'>Ram</td>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('DO').'>Dom</td>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('US').'>Uns</td>
-	<td class="smheading" align="center" width="40" '.OverlibPrintHint('GL').'>God</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('DK').'>Dbl</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('MK').'>Multi</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('UK').'>Ultra</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('MOK').'>Mons</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('KS').'>Kill</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('RA').'>Ram</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('DO').'>Dom</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('US').'>Uns</td>
+  	<td class="smheading" align="center" width="40" '.OverlibPrintHint('GL').'>God</td>
   </tr>';
+
 $sql_firstblood = small_query("SELECT firstblood FROM uts_match WHERE id = $mid");
 $sql_multis = "SELECT p.pid, pi.name, p.country, SUM(spree_double) AS spree_double, SUM(spree_multi) AS spree_multi,
 SUM(spree_ultra) AS spree_ultra, SUM(spree_monster)  AS spree_monster,
 SUM(spree_kill) AS spree_kill, SUM(spree_rampage) AS spree_rampage, SUM(spree_dom) AS spree_dom,
 SUM(spree_uns) AS spree_uns, SUM(spree_god) AS spree_god
-FROM uts_player as p, uts_pinfo AS pi  WHERE p.pid = pi.id  AND pi.banned <> 'Y' AND matchid = $mid GROUP BY pid ORDER BY name ASC";
+FROM uts_player as p, uts_pinfo AS pi
+WHERE p.pid = pi.id  AND pi.banned <> 'Y' AND matchid = $mid
+GROUP BY pid, p.country
+ORDER BY name ASC";
+
 $q_multis = mysql_query($sql_multis) or die(mysql_error());
 $i = 0;
 while ($r_multis = zero_out(mysql_fetch_array($q_multis))) {
@@ -42,17 +47,17 @@ while ($r_multis = zero_out(mysql_fetch_array($q_multis))) {
 
   echo'
   <tr>
-	<td nowrap class="darkhuman" align="left"><a class="darkhuman" href="./?p=matchp&amp;mid='.$mid.'&amp;pid='.$r_multis['pid'].'">'.FormatPlayerName($r_multis[country], $r_multis[pid], $r_pname, $gid, $gamename).'</a></td>
-	<td class="'.$class.'" align="center">', ($sql_firstblood['firstblood'] == $r_multis['pid'] ? "Yes": ""), '</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_double].'</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_multi].'</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_ultra].'</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_monster].'</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_kill].'</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_rampage].'</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_dom].'</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_uns].'</td>
-	<td class="'.$class.'" align="center">'.$r_multis[spree_god].'</td>
+  	<td nowrap class="darkhuman" align="left"><a class="darkhuman" href="./?p=matchp&amp;mid='.$mid.'&amp;pid='.$r_multis['pid'].'">'.FormatPlayerName($r_multis[country], $r_multis[pid], $r_pname, $gid, $gamename).'</a></td>
+  	<td class="'.$class.'" align="center">', ($sql_firstblood['firstblood'] == $r_multis['pid'] ? "Yes": ""), '</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_double].'</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_multi].'</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_ultra].'</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_monster].'</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_kill].'</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_rampage].'</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_dom].'</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_uns].'</td>
+  	<td class="'.$class.'" align="center">'.$r_multis[spree_god].'</td>
   </tr>';
 }
 
@@ -75,7 +80,11 @@ if ((strpos($gamename, '(insta)') === false) && (strpos($gamename, "Last Man Sta
 
 	$sql_pickups = "SELECT p.pid, pi.name, p.country, SUM(p.pu_pads) AS pu_pads, SUM(p.pu_armour) AS pu_armour, SUM(p.pu_keg) AS pu_keg,
 	SUM(p.pu_invis) AS pu_invis, SUM(p.pu_belt) AS pu_belt, SUM(p.pu_amp) AS pu_amp
-	FROM uts_player as p, uts_pinfo AS pi  WHERE p.pid = pi.id AND pi.banned <> 'Y' AND matchid = $mid GROUP BY pid ORDER BY name ASC";
+	FROM uts_player as p, uts_pinfo AS pi
+  WHERE p.pid = pi.id AND pi.banned <> 'Y' AND matchid = $mid
+  GROUP BY pid, p.country
+  ORDER BY name ASC";
+
 	$q_pickups = mysql_query($sql_pickups) or die(mysql_error());
 	$i = 0;
 	while ($r_pickups = zero_out(mysql_fetch_array($q_pickups))) {

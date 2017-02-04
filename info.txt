@@ -1,0 +1,52 @@
+UTStats
+Copyright (C) 2004/2005 azazel, )°DoE°(-AnthraX and toa
+
+This program is free software; you can redistribute and/or modify
+it under the terms of the Open Unreal Mod License.
+See license.txt for more information.
+
+===================
+UTStats Information
+===================
+
+What Is It
+----------
+UTStats is a Serverside Actor and websystem for the original Unreal Tournament 
+that generates statistics from a custom NGStats log file.
+
+
+What Does It Record
+-------------------
+Lots of stuff
+
+
+What Will I Need
+----------------
+Access to the logs
+PHP & MySQL enabled website
+PHP needs to allow ftpconnect etc if you wish to use auto-ftp of logs
+
+
+What Game Types Does it Support
+-------------------------------
+All the official game types.
+
+
+Do You Have A Preview Site?
+-------------------------------
+Yes. http://utstats.unrealadmin.org/
+
+
+Why Beta?/Any New Stuff to Come
+-------------------------------
+Possible new stuff, but until we're happy its 100% stable it stays as beta :)
+
+
+I Want to Help What Can I Do?
+-----------------------------
+When the Beta is released please check the pages.
+They might be able to be done more efficiently or other things could be added.
+If you work something out, let us know, share, don't be one of the selfish people 
+in life who keeps it to themselves.
+Remember, the maps you likely play, the mods you use, someone shared them. 
+If you can, now is your opportunity to share back.

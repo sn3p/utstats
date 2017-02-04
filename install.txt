@@ -1,0 +1,186 @@
+UTStats
+Copyright (C) 2004/2005 azazel, )°DoE°(-AnthraX and toa
+
+This program is free software; you can redistribute and/or modify
+it under the terms of the Open Unreal Mod License.
+See license.txt for more information.
+
+===============================================================================
+Contents
+===============================================================================
+
+1. Installing the Server Actor
+2. Installing the web stuff (new install and upgrade)
+3. Importing Logs
+4. Known Bugs/Issues Still
+5. License
+
+===============================================================================
+1. UTStats Actor Install Information
+===============================================================================
+
+From the System folder in the zip file, copy to your UTServer\System folder the
+following files:
+
+UTSAccuBeta4_2.u
+UTStatsBeta4_2.u
+
+Remove any previous entries for UTStats and UTSAccuBeta from [Engine.GameEngine]
+
+Add to [Engine.GameEngine] the following lines:
+
+ServerPackages=UTSAccuBeta4_2
+ServerActors=UTStatsBeta4_2.UTStatsSA
+
+Under the [Engine.GameInfo] check for:
+bLocalLog=True or bLocalLog=False
+
+This line HAS to be:
+bLocalLog=False
+
+Setting it to True will not give you complete logs (don't ask why it just won't).
+
+Log files are recorded to the UTServer\Logs folder.
+
+
+===============================================================================
+2. UTStats Web Install Information
+===============================================================================
+
+UPGRADING from Version 4.2 and newer
+-------------------------------------------------------------------------------
+The current install is compatible with the database of version 4.2 and later.
+However bunny track stats are only available from version 4.2.5.
+
+Just remove all the files/folders (apart from the logs folder, if you wish to
+keep your backup logs), and upload all the files in the html folder to your
+webserver.
+
+Then visit the admin area and click "Check Server Settings" near the bottom of
+the list. This will install databases if they're missing and fix the Bunny
+Track captimes to the new format if needed.
+
+If you use your old config.php make sure the following section is included:
+
+// ================ START OF ADDITINAL CONFIG.PHP OPTIONS =====================
+// Screenshot files start with...
+$import_utdc_screenshot_start = "[UTDC]";
+
+// Screenshot files end with...
+$import_utdc_screenshot_extension = ".enc";
+
+// UTStats can download and manage your ACE logs
+// Enable downloading of ACE logs?
+$import_ace_download_enable = false;
+
+// Log files start with...
+$import_ace_log_start = "[ACE]";
+
+// Log files end with...
+$import_ace_log_extension = ".log";
+
+// Log files start with...
+$import_ace_screenshot_start = "[ACE]";
+
+// Log files end with...
+$import_ace_screenshot_extension = ".jpg";
+
+// Compress ACE logfiles after download? [compress/gzip/no]
+// (see $import_log_backup for available options)
+$import_ace_log_compress = "compress";
+
+// Purge old ACE logs after x days. 0 to disable.
+$import_ace_log_purge_after = 0;
+// ================= END OF ADDITINAL CONFIG.PHP OPTIONS ======================
+
+UPGRADING from older versions:
+-------------------------------------------------------------------------------
+Firstly we don't advise using any old logs, you will not benefit from any new 
+features AND it will likely mess up some page data.
+We apologise for not being able to save this information but there are a 
+massive amount of new features that are well worth ditching the old logs for :)
+
+If you do wish to keep the old logs you need to do a full install anyway, so 
+drop all the tables you had and remove all the 
+files/folders (making sure you don't delete the logs backups).
+When you edit config.php make sure to change the option:
+$import_incompatible_logs=false;
+to 
+$import_incompatible_logs=true;
+
+If you are wisely going to ditch the old logs just clear out your old install 
+and all the tables and start from here.
+
+FULL INSTALL:
+-------------------------------------------------------------------------------
+From the html folder in the zip file, upload all the files to your webserver 
+wherever you like.  I suggest under a folder called utstats.
+After the files have uploaded browse to the stats folder where you should see 
+the following folders:
+
+\images
+\import
+\includes
+\logs
+\pages
+
+Now edit the config.php file.
+
+Enter in your mysql database, hostname, username and password at the top.
+You must set an adminkey in here or you won't be able to import/use the admin 
+feature.
+Check all the other options to see if they are as you wish (they are set to 
+what we consider the best options).
+If you are going to use ftp transferring of log files amend the FTP connection 
+as required.
+
+Now visit the admin area and click "Check Server Settings" near the bottom.
+This will setup the database, if the tables allready exist it will keep the
+old tables. It will also check the file permissions. If it can't set
+the file permissions you'll have to do it yourself,
+
+Using whatever means (usually the ftp client) you need to CHMOD the logs folder 
+to 777.
+Now go into the logs folder.
+Now CHMOD the backups, utdc, ac and ace folders to 777.
+
+Now go back a level and into the includes folder.
+CHMOD the file ftptimestamp.php to 777.
+
+=================
+3. Importing Logs
+=================
+
+Depending on the level of access you have and how competent you are you can do this 4 ways.
+*** Important *** 
+Make sure you edit config.php and set an adminkey at the top!
+
+Way 1:
+If you don't have ftp access to your UT server or allowed to use ftp via php then upload your 
+logs manually to the logs folder and then run the importer via the Import link.
+
+Way 2:
+If you have ftp access and can do ftp via php, edit the config.php file and input your UT servers ftp
+information into there.
+Now run the importer via the Import link.
+
+Way 3:
+Automate the process using a cron job or scheduled task.
+Just get this to run cd to the root of stats (where import.php is) and execute the import.php file
+with php.
+
+Way 4:
+Automate the web process using a web service cron job.
+
+====================
+4. Known Bugs/Issues
+====================
+
+If you find any bugs or issues please post them at our forums:
+http://www.unrealadmin.org/forums/forumdisplay.php?f=173
+
+====================
+5. License
+====================
+
+This product includes GeoLite data created by MaxMind, available from http://www.maxmind.com/.

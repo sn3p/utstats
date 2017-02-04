@@ -2,23 +2,28 @@
 $mid = preg_replace('/\D/', '', $_GET[mid]);
 $pid = preg_replace('/\D/', '', $_GET[pid]);
 
-$r_infos = small_query("SELECT p.playerid, p.country, pi.name, pi.banned, p.gid, g.name AS gamename FROM uts_player p, uts_pinfo pi, uts_games g WHERE p.gid = g.id AND p.pid = pi.id AND p.pid = '$pid'  AND matchid = '$mid' LIMIT 0,1;");
+$r_infos = small_query("SELECT p.playerid, p.country, pi.name, pi.banned, p.gid, g.name AS gamename
+  FROM uts_player p, uts_pinfo pi, uts_games g
+  WHERE p.gid = g.id AND p.pid = pi.id AND p.pid = '$pid'
+  AND matchid = '$mid'
+  LIMIT 0,1;");
 
 if (!$r_infos) {
-	echo "Unable to retrieve data!";
-	include("includes/footer.php");
-	exit;
+  echo "Unable to retrieve data!";
+  include("includes/footer.php");
+  exit;
 }
+
 if ($r_infos['banned'] == 'Y') {
-	if (isset($is_admin) and $is_admin) {
-		echo "Warning: Banned player - Admin override<br>";
-	} else {
-		echo "Sorry, this player has been banned!";
-		include("includes/footer.php");
-		exit;
-	}
+  if (isset($is_admin) and $is_admin) {
+    echo "Warning: Banned player - Admin override<br>";
+  } else {
+    echo "Sorry, this player has been banned!";
+    include("includes/footer.php");
+    exit;
+  }
 }
-	
+
 $playerid = $r_infos['playerid'];
 $playername = $r_infos['name'];
 $country = $r_infos['country'];
@@ -28,9 +33,10 @@ $gid = $r_infos['gid'];
 echo'
 <table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
   <tbody><tr>
-    <td class="heading" align="center">Individual Match Stats for <a href="./?p=pinfo&amp;pid='.$pid.'">'.FlagImage($country) .' '. htmlentities($playername) .'</a>
-	 <span style="font-size: 70%">'. RankImageOrText($pid, $playername, NULL, $gid, $gamename, true, '(%IT% in %GN% with %RP% ranking points)') .'</span>
-	 </td>
+    <td class="heading" align="center">Individual Match Stats for
+      <a href="./?p=pinfo&amp;pid='.$pid.'">'.FlagImage($country) .' '. htmlentities($playername) .'</a>
+      <span style="font-size: 70%">'. RankImageOrText($pid, $playername, NULL, $gid, $gamename, true, '(%IT% in %GN% with %RP% ranking points)') .'</span>
+    </td>
   </tr>
 </tbody></table>
 <br>';
@@ -56,19 +62,20 @@ echo '
   </tr>';
 
 $r_gsumm = zero_out(small_query("SELECT gamescore, frags, SUM(frags+suicides) AS kills, deaths, suicides, teamkills, eff, accuracy, ttl, gametime, spree_kill, spree_rampage, spree_dom, spree_uns, spree_god
-FROM uts_player WHERE matchid = $mid AND pid = '$pid'
-GROUP BY pid"));
+  FROM uts_player
+  WHERE matchid = $mid AND pid = '$pid'
+  GROUP BY pid, gamescore, frags, deaths, suicides, teamkills, eff, accuracy, ttl, gametime, spree_kill, spree_rampage, spree_dom, spree_uns, spree_god"));
 
   echo'
   <tr>
-	<td class="grey" align="center">'.$r_gsumm[frags].'</td>
-	<td class="grey" align="center">'.$r_gsumm[kills].'</td>
-	<td class="grey" align="center">'.$r_gsumm[deaths].'</td>
-	<td class="grey" align="center">'.$r_gsumm[suicides].'</td>
-	<td class="grey" align="center">'.$r_gsumm[eff].'</td>
-	<td class="grey" align="center">'.$r_gsumm[accuracy].'</td>
-	<td class="grey" align="center">'.$r_gsumm[ttl].'</td>
-	<td class="grey" align="center">'.GetMinutes($r_gsumm[gametime]).'</td>
+    <td class="grey" align="center">'.$r_gsumm[frags].'</td>
+    <td class="grey" align="center">'.$r_gsumm[kills].'</td>
+    <td class="grey" align="center">'.$r_gsumm[deaths].'</td>
+    <td class="grey" align="center">'.$r_gsumm[suicides].'</td>
+    <td class="grey" align="center">'.$r_gsumm[eff].'</td>
+    <td class="grey" align="center">'.$r_gsumm[accuracy].'</td>
+    <td class="grey" align="center">'.$r_gsumm[ttl].'</td>
+    <td class="grey" align="center">'.GetMinutes($r_gsumm[gametime]).'</td>
   </tr>';
 
 echo'
@@ -96,30 +103,30 @@ echo'
   </tr>';
 
 $r_gsumm = zero_out(small_query("SELECT spree_double, spree_multi, spree_ultra, spree_monster, spree_kill, spree_rampage, spree_dom, spree_uns, spree_god
-FROM uts_player WHERE matchid = $mid AND pid = '$pid'
-GROUP BY pid"));
+  FROM uts_player
+  WHERE matchid = $mid AND pid = '$pid'
+  GROUP BY pid, spree_double, spree_multi, spree_ultra, spree_monster, spree_kill, spree_rampage, spree_dom, spree_uns, spree_god"));
 
 $sql_firstblood = small_query("SELECT firstblood FROM uts_match WHERE id = $mid");
 
-IF ($sql_firstblood[firstblood] == $pid) {
-	$firstblood = "Yes";
+if ($sql_firstblood[firstblood] == $pid) {
+  $firstblood = "Yes";
 } else {
-	$firstblood = "No";
+  $firstblood = "No";
 }
 
-
-  echo'
+echo'
   <tr>
-	<td class="grey" align="center">'.$firstblood.'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_double].'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_multi].'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_ultra].'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_monster].'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_kill].'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_rampage].'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_dom].'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_uns].'</td>
-	<td class="grey" align="center">'.$r_gsumm[spree_god].'</td>
+    <td class="grey" align="center">'.$firstblood.'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_double].'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_multi].'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_ultra].'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_monster].'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_kill].'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_rampage].'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_dom].'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_uns].'</td>
+    <td class="grey" align="center">'.$r_gsumm[spree_god].'</td>
   </tr>
   </tbody></table>
 <br>';
@@ -129,23 +136,23 @@ weaponstats($mid, $pid);
 
 $r_pings = small_query("SELECT lowping, avgping, highping FROM uts_player WHERE pid = $pid  and matchid = $mid and lowping > 0");
 if ($r_pings and $r_pings['lowping']) {
-echo '
-	<br>
-	<table class = "box" border="0" cellpadding="0" cellspacing="2">
-	<tbody><tr>
-		<td class="heading" colspan="6" align="center">Pings</td>
-	</tr>
-	<tr>
-		<td class="smheading" align="center" width="80">Min</td>
-		<td class="smheading" align="center" width="80">Avg</td>
-		<td class="smheading" align="center" width="80">Max</td>
-	</tr>
-	<tr>
-		<td class="grey" align="center">'.ceil($r_pings['lowping']).'</td>
-		<td class="grey" align="center">'.ceil($r_pings['avgping']).'</td>
-		<td class="grey" align="center">'.ceil($r_pings['highping']).'</td>
-	</tr>
-	</tbody></table>';
+  echo '
+  <br>
+  <table class = "box" border="0" cellpadding="0" cellspacing="2">
+  <tbody><tr>
+    <td class="heading" colspan="6" align="center">Pings</td>
+  </tr>
+  <tr>
+    <td class="smheading" align="center" width="80">Min</td>
+    <td class="smheading" align="center" width="80">Avg</td>
+    <td class="smheading" align="center" width="80">Max</td>
+  </tr>
+  <tr>
+    <td class="grey" align="center">'.ceil($r_pings['lowping']).'</td>
+    <td class="grey" align="center">'.ceil($r_pings['avgping']).'</td>
+    <td class="grey" align="center">'.ceil($r_pings['highping']).'</td>
+  </tr>
+  </tbody></table>';
 }
 
 ?>

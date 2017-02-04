@@ -23,18 +23,18 @@ switch($real_gamename) {
 	case "Assault (insta)":
 		include("pages/match_info_ass.php");
 		break;
-		
+
 	case "Capture the Flag":
 	case "Capture the Flag (insta)":
 		include("pages/match_info_ctf.php");
 		teamstats($mid, 'Match Summary');
   		break;
-		
+
 	case "Domination":
 	case "Domination (insta)":
 		teamstats($mid, 'Match Summary', 'dom_cp', 'Dom Pts');
 		break;
-	
+
 	case "JailBreak":
 	case "JailBreak (insta)":
 		teamstats($mid, 'Match Summary', 'ass_obj', 'Team Releases');
@@ -62,7 +62,6 @@ switch($real_gamename) {
 			teamstats($mid, 'Player Summary');
 		}
 }
-	
 
 if ($real_gamename == "Assault" or $real_gamename== "Assault (insta)") {
 	include("pages/match_info_other2.php");

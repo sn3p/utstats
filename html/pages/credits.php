@@ -1,15 +1,13 @@
-<?php
-echo'
 <div class="text" align="left">
 <p><span class="txttitle">Credits</span></p>
 
-<blockquote><p>
-&nbsp;1. <a href="#developers">Developers</a><br>
-&nbsp;2. <a href="#changelog">Change Log</a><br>
-&nbsp;3. <a href="#todolist">To Do List</a><br>
-&nbsp;4. <a href="#thanks">Thanks</a><br>
-&nbsp;5. <a href="#copyright">Copyright Notices</a><br>
-</p></blockquote>
+<ol>
+	<li><a href="#developers">Developers</a></li>
+	<li><a href="#changelog">Change Log</a></li>
+	<li><a href="#todolist">To Do List</a></li>
+	<li><a href="#thanks">Thanks</a></li>
+	<li><a href="#copyright">Copyright Notices</a></li>
+</ol>
 
 <p><a name="developers"></a><b>Developers</b></p>
 <blockquote><p>UTStats was developed by azazel, )&deg;DoE&deg;(-AnthraX, PJMODOS and toa.<br>
@@ -91,18 +89,18 @@ All original pages are W3C <a href="http://validator.w3.org/check?uri=referer" t
 	Included IpToCountry patch into the release, added GeoIP.dat from March 2010 (By Loki)<br><br></dd>
 	<dd>Bug Fixes:<br>
 	Fixed PHP opening tags (By Loki)<br><br></dd>
-	
+
 	<dt>beta 4.2.3 (18/01/09 by 2399Skillz)</dt>
 	<dd>Bug Fixes:<br>
 	Lots of bug fixes/database corrections (By Enakin)<br><br></dd>
-	
+
 	<dt>beta 4.2.2 (30/12/08 by 2399Skillz)</dt>
 	<dd>Added:<br>
 	Option to import AnthChecker logs (admin viewable only) (Added by Skillz)<br>
 	New player merger page for admins(Added by killereye)<br><br></dd>
 	<dd>Bug Fixes:<br>
 	UT Stats DOM fix (Edited by killereye)<br><br></dd>
-	
+
 	<dt>beta 4.2 (20/10/2005 by Azazel)</dt>
 	<dd>Added:<br>
     Ranking re-calculation option added to admin section<br>
@@ -128,7 +126,7 @@ All original pages are W3C <a href="http://validator.w3.org/check?uri=referer" t
     Updated import.php for new server actor<br>
     Few actor fixes<br>
     Weapon stats for second attacking team in assault games were not correct (reported by wgray8231)<br>
-    Delete player from match didn\'t correctly remove the player from the match (reported by wgray8231)<br><br></dd>
+    Delete player from match didn't correctly remove the player from the match (reported by wgray8231)<br><br></dd>
 
 	<dt>beta 4.0</dt>
 	<dd>Added:<br>
@@ -236,8 +234,8 @@ All original pages are W3C <a href="http://validator.w3.org/check?uri=referer" t
 
 	<dt>beta 1.1</dt>
 	<dd>Added:<br>
-	Clanbse Reports for CTF Match\'s<br>
-	30 Recent Match\'s to Player View<br><br></dd>
+	Clanbse Reports for CTF Match's<br>
+	30 Recent Match's to Player View<br><br></dd>
 
 	<dt>beta 1</dt>
 	<dd>Stats output for:<br>
@@ -307,5 +305,4 @@ All original pages are W3C <a href="http://validator.w3.org/check?uri=referer" t
     <td align="right">&nbsp;</td>
   </tr>
 </tbody></table>
-</div>';
-?>
+</div>

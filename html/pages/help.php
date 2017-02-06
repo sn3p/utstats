@@ -1,19 +1,26 @@
-<?php
-echo'
 <div class="text" align="left">
+<p><span class="txttitle">Help</span></p>
+<p>
+	For help and documentation please visit
+	<a href="https://github.com/sn3p/utstats" target="_blank">https://github.com/sn3p/utstats</a>.<br>
+	Please report issues and feature requests in the
+	<a href="https://github.com/sn3p/utstats/issues" target="_blank">issue tracker</a>.
+</p>
+<br>
+
 <p><span class="txttitle">Frequently Asked Questions</span></p>
 
-<blockquote><p>
- 1. <a href="#servers">Stat Tracking Servers</a><br>
- 2. <a href="#enable">Enabling your personal stats tracking</a><br>
- 3. <a href="#info">Information about how the stats work</a><br>
- 4. <a href="#types">What are the \'official\' Unreal Tournament gametypes?</a><br>
- 5. <a href="#rank">How does ranking work?</a><br>
- 6. <a href="#score">Scoring - Individual player points awarded?</a><br>
-&nbsp;7. <a href="#tscore">Team Scores?</a><br>
- 8. <a href="#glossary">Glossary - Terms and abbreviations.</a><br>
-&nbsp;9. <a href="#statserver">Enabling Stats on a Server</a><br>
-</p></blockquote>
+<ol>
+	<li><a href="#servers">Stat Tracking Servers</a></li>
+	<li><a href="#enable">Enabling your personal stats tracking</a></li>
+	<li><a href="#info">Information about how the stats work</a></li>
+	<li><a href="#types">What are the 'official' Unreal Tournament gametypes?</a></li>
+	<li><a href="#rank">How does ranking work?</a></li>
+	<li><a href="#score">Scoring - Individual player points awarded?</a></li>
+	<li><a href="#tscore">Team Scores?</a></li>
+	<li><a href="#glossary">Glossary - Terms and abbreviations.</a></li>
+	<li><a href="#statserver">Enabling Stats on a Server</a></li>
+</ol>
 
 <p><a name="servers"></a><b>Stat Tracking Servers</b></p>
 <blockquote><p>UTStats only does stats tracking for servers that have UTStats
@@ -29,17 +36,17 @@ echo'
 
 <p><a name="info"></a><b>Information about how the stats work</b></p>
 <blockquote><p>A server with stat tracking enabled will send information to the
-stats server about the game - each frag, score, etc.  Once the game is
-completed the match is processed and posted on the stats pages.  The best
+stats server about the game - each frag, score, etc. Once the game is
+completed the match is processed and posted on the stats pages. The best
 way to look up a recent match you played is either by your stats ID or the
-server ID.  You can search for your user ID or the server ID by name.
+server ID. You can search for your user ID or the server ID by name.
 The user names used on the stats pages are based on the last player name you
 used in a match - your stats user name you entered in the networking settings is
 not displayed.</p>
 <p>Bots are not logged, nor are any kills against them.</p>
 </blockquote>
 
-<p><a name="types"></a><b>What are the \'official\' Unreal Tournament gametypes?</b></p>
+<p><a name="types"></a><b>What are the 'official' Unreal Tournament gametypes?</b></p>
 <blockquote><p>Out of the box Unreal Tournament features the gametypes
 Deathmatch, Team Deathmatch, Capture the Flag, Assault and Domination.<br>
 There are separate rankings for each of the official game types.</p></blockquote>
@@ -64,7 +71,7 @@ your team as a whole, for fulfilling a gametype specific objective:<br>
 </p><ul>
   <li>Capture the Flag - capturing, covering, killing and returning the flag.</li>
   <li>Assault - achieving an objective.</li>
-  <li>Domination - \'holding\' domination points.</li>
+  <li>Domination - 'holding' domination points.</li>
 </ul>
 Note: A team based game is won by the Team Score; the individual player score
 sums do not matter!<p></p></blockquote>
@@ -92,12 +99,12 @@ player died holding that weapon.</p></blockquote>
 
 <p><a name="fDodging"></a><b>Dodging</b></p>
 <blockquote><p>Special move in Unreal Tournament, that can be activated by
-tapping any movement key twice.  Used by many good players to improve their
+tapping any movement key twice. Used by many good players to improve their
 maneuverability.</p></blockquote>
 
 <p><a name="fEff"></a><b>Efficiency</b></p>
-<blockquote><p>A ratio that denotes the player\'s kill skill by comparing it with
-his overall performance.  A perfect efficiency is equal to 1 (100%),
+<blockquote><p>A ratio that denotes the player's kill skill by comparing it with
+his overall performance. A perfect efficiency is equal to 1 (100%),
 anything less than 0.5 (50%) is below average.<br>
 Formula:   Kills / (Kills + Deaths + Suicides [+Team Kills])</p></blockquote>
 
@@ -112,13 +119,13 @@ the other things going on in a game, that are not frag-related.</p></blockquote>
 newly started match.</p></blockquote>
 
 <p><a name="fFrags"></a><b>Frags</b></p>
-<blockquote><p>A player\'s frag count is equal to their kills minus
-suicides.  In team games team kills (not team suicides) are also subtracted
-from the player\'s kills.</p></blockquote>
+<blockquote><p>A player's frag count is equal to their kills minus
+suicides. In team games team kills (not team suicides) are also subtracted
+from the player's kills.</p></blockquote>
 
 <p><a name="fFPH"></a><b>Frags Per Hour</b></p>
 <blockquote><p>A ratio between the number of frags a player scores per one
-hour.  30 frags in 5 minutes will give you 360 FPH.<br>
+hour. 30 frags in 5 minutes will give you 360 FPH.<br>
 Formula: Frags / (Time played in hours)</p></blockquote>
 
 <p><a name="fKills"></a><b>Kills</b></p>
@@ -128,8 +135,8 @@ related events are tracked at the <i>admins discretion</i>.</p></blockquote>
 
 <p><a name="fMK"></a><b>Multi Kills</b></p>
 <blockquote><p>Special event awarded to the player for killing other players in
-a certain time frame.  Every time a player scores a kill he has up to 3
-seconds to make another kill.  So 2 kills in 3 seconds gets you a Double
+a certain time frame. Every time a player scores a kill he has up to 3
+seconds to make another kill. So 2 kills in 3 seconds gets you a Double
 Kill, 3 kills within 3 seconds apart from another a Multi Kill and so on:<br>
 - Double Kill = 2 kills<br>
 - Multi Kill = 3 kills<br>
@@ -137,8 +144,8 @@ Kill, 3 kills within 3 seconds apart from another a Multi Kill and so on:<br>
 - Monster Kill = 6 kills</p></blockquote>
 
 <p><a name="fPing"></a><b>Ping</b></p>
-<blockquote><p>Measure of your connection quality.  Ping is the round trip
-delay in milliseconds that your computer has to the game server.  Low
+<blockquote><p>Measure of your connection quality. Ping is the round trip
+delay in milliseconds that your computer has to the game server. Low
 values are not important for a fun game, but it sure helps.</p></blockquote>
 
 <p><a name="fSpree"></a><b>Killing Sprees</b></p>
@@ -163,7 +170,7 @@ someone on their own team.</p></blockquote>
 <p><a name="fTK"></a><b>Team Kills</b></p>
 <blockquote><p>Number of times a player in a team based game kills someone on
 their own team.<br>
-Note: Team kills subtract from a player\'s personal frags and thus the team frags
+Note: Team kills subtract from a player's personal frags and thus the team frags
 as a whole.</p></blockquote>
 
 <p><a name="fTTL"></a><b>TTL</b></p>
@@ -179,5 +186,4 @@ thus giving an average time of how long you will live.</p></blockquote>
 
 <br>
 <a href="#Top">Back to Top</a>
-</div>';
-?>
+</div>

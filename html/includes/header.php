@@ -52,7 +52,6 @@ echo'
 
 include("includes/sidebar.php");
 
-
 echo'
 <table align="center" border="0" cellpadding="0" cellspacing="0">
   <tbody><tr>

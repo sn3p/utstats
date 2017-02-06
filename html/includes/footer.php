@@ -1,16 +1,21 @@
-<?php
-echo'<br><br><br>
-<table class = "box" border="0" cellpadding="1" width="720">';
+<br><br><br>
 
-// Please leave this bit in, its the least you can do with all the work we have done :)
+<table class="box" border="0" cellpadding="1" width="720">
+	<tr>
+	  <td class="smheading" align="center">
 
-		  echo'<tr>
-			<td class="smheading" align="center"><a href="http://utstats.unrealadmin.org/" target="_blank">
-			UTStats Beta 4.2.8</a> &copy; 2005 azazel, AnthraX and toa</td>
-		  </tr>
-		  </table>
+			<!-- Please leave this bit in, its the least you can do with all the work we have done :) -->
+			<p>
+				<a href="https://github.com/sn3p/utstats" target="_blank">
+			  UTStats Beta 4.2.8</a> &copy; 2005 azazel, AnthraX and toa
+			</p>
+
+		</td>
+  </tr>
+</table>
+
 </center>
 </td></tr></tbody></table>
-</body></html>';
+</body></html>
 
-ob_end_flush();
+<?php ob_end_flush(); ?>

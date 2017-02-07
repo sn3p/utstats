@@ -5,9 +5,6 @@ $hostname = "";
 $uname = "";
 $upass = "";
 
-$dbconnect = mysql_connect($hostname,$uname,$upass);
-$dbconnect2 = mysql_select_db($dbname);
-
 // The key needed to run the import script
 $import_adminkey = 'fietsbel';
 
@@ -19,11 +16,11 @@ $import_homedir = '';
 
 // Use the MySQL temporary tables feature?
 // Available since MySQL 3.23 - requires CREATE TEMPORARY TABLE privilege since 4.0.2
-$import_use_temporary_tables = true;		// set to true if available
+$import_use_temporary_tables = true;    // set to true if available
 
 // Use temporary heap tables?
 // This will (at any cost) keep the entire table in RAM and may speed and/or fuck things up
-$import_use_heap_tables = false;				// DON'T USE IF YOU DON'T KNOW WHAT YOU'RE DOING!
+$import_use_heap_tables = false;        // DON'T USE IF YOU DON'T KNOW WHAT YOU'RE DOING!
 
 // Log files start with...
 $import_log_start = "Unreal.ngLog";
@@ -141,48 +138,49 @@ $pic_enable = true;
 
 
 // FTP Connection Details
-$ftp_use = false;			      	// Whether to auto get the log files
-$ftp_interval = 0;			    	// How often in minutes to allow stats update
-$ftp_type = 'sockets';				// Which FTP module do you want to use?
-											// sockets - (recommended)
-											//           Use PHP's socket extension to connect to the FTP server
-											//           will fallback to 'pure' if no sockets available
-											// pure    - Use fsockopen() to connnect to the FTP server
-											//           should work with any php version
-											// php     - Use PHP's FTP extension (must be compiled in)
-											//           Debugging will not be available with this module and
-											//           error handling may not be as good as with the other modules
+$ftp_use = false;             // Whether to auto get the log files
+$ftp_interval = 0;            // How often in minutes to allow stats update
+$ftp_type = 'sockets';        // Which FTP module do you want to use?
+                              // sockets - (recommended)
+                              //           Use PHP's socket extension to connect to the FTP server
+                              //           will fallback to 'pure' if no sockets available
+                              // pure    - Use fsockopen() to connnect to the FTP server
+                              //           should work with any php version
+                              // php     - Use PHP's FTP extension (must be compiled in)
+                              //           Debugging will not be available with this module and
+                              //           error handling may not be as good as with the other modules
 
-$ftp_debug = false;					// Debugging output that may help you to resolve ftp problems
+$ftp_debug = false;           // Debugging output that may help you to resolve ftp problems
 
 
 // UT Server 1
 $i = 0;
-$ftp_hostname[$i]	= '';				// FTP server location here
-$ftp_port[$i] 		= 21;				// FTP Port - do not remove this even if you do not use ftp
-											// Do not add '' around the port either
-$ftp_uname[$i] 	= '';				// FTP Username
-$ftp_upass[$i] 	= '';				// FTP Password
-$ftp_dir[$i][] 	= '/';			// Directory of the log files - MUST NOT end with a /
-//$ftp_dir[$i][] 	= '/';			// You may repeat this entry as often as you wish but please remember
-//$ftp_dir[$i][] 	= '/';			// to enter the directory relative to the last one
-//$ftp_dir[$i][] 	= '/';			// (or use an absolute path)
-$ftp_passive[$i] 	= true;			// Use passive transfer mode for this connection?
-$ftp_delete[$i] 	= true; 			// Delete logs after download?
+$ftp_hostname[$i] = '';       // FTP server location here
+$ftp_port[$i]     = 21;       // FTP Port - do not remove this even if you do not use ftp
+                              // Do not add '' around the port either
+$ftp_uname[$i]    = '';       // FTP Username
+$ftp_upass[$i]    = '';       // FTP Password
+$ftp_dir[$i][]    = '/';      // Directory of the log files - MUST NOT end with a /
+// $ftp_dir[$i][]    = '/';     // You may repeat this entry as often as you wish but please remember
+// $ftp_dir[$i][]    = '/';     // to enter the directory relative to the last one
+// $ftp_dir[$i][]    = '/';     // (or use an absolute path)
+$ftp_passive[$i]  = true;     // Use passive transfer mode for this connection?
+$ftp_delete[$i]   = true;     // Delete logs after download?
 
 /*
 // UT Server 2 --- Uncomment this one if needed, or copy/paste the block above if more servers are needed.
 $i++;
-$ftp_hostname[$i]	= '';				// FTP server location here
-$ftp_port[$i] 		= 21;				// FTP Port - do not remove this even if you do not use ftp
-											// Do not add '' around the port either
-$ftp_uname[$i] 	= '';				// FTP Username
-$ftp_upass[$i] 	= '';				// FTP Password
-$ftp_dir[$i][] 	= '/';			// Directory of the log files - MUST NOT end with a /
-//$ftp_dir[$i][] 	= '/';			// You may repeat this entry as often as you wish but please remember
-//$ftp_dir[$i][] 	= '/';			// to enter the directory relative to the last one
-//$ftp_dir[$i][] 	= '/';			// (or use an absolute path)
-$ftp_passive[$i] 	= true;			// Use passive transfer mode for this connection?
-$ftp_delete[$i] 	= true; 			// Delete logs after download?
+$ftp_hostname[$i] = '';        // FTP server location here
+$ftp_port[$i]     = 21;        // FTP Port - do not remove this even if you do not use ftp
+                               // Do not add '' around the port either
+$ftp_uname[$i]    = '';        // FTP Username
+$ftp_upass[$i]    = '';        // FTP Password
+$ftp_dir[$i][]    = '/';       // Directory of the log files - MUST NOT end with a /
+// $ftp_dir[$i][]    = '/';      // You may repeat this entry as often as you wish but please remember
+// $ftp_dir[$i][]    = '/';      // to enter the directory relative to the last one
+// $ftp_dir[$i][]    = '/';      // (or use an absolute path)
+$ftp_passive[$i]  = true;      // Use passive transfer mode for this connection?
+$ftp_delete[$i]   = true;      // Delete logs after download?
 */
+
 ?>

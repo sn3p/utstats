@@ -1,6 +1,12 @@
 <?php
+// Connect to database
+mysql_connect($hostname, $uname, $upass);
+mysql_select_db($dbname);
+
+// Error reporting
 // error_reporting(E_ALL & ~E_NOTICE);
-error_reporting(0);
+// error_reporting(-1); // Turn on all errors
+error_reporting(0); // Turn off all errors
 @ini_set('track_errors', '1');
 
 // Image Rotation Code
@@ -27,14 +33,14 @@ require_once(dirname(__FILE__) .'/countries.php');
 
 // Addslashes if magic_quotes are off
 function my_addslashes($data) {
-	IF (!get_magic_quotes_gpc()) {
+	if (!get_magic_quotes_gpc()) {
 	   $data = addslashes($data);
 	}
 	return $data;
 }
 
 function my_stripslashes($data) {
-	IF (!get_magic_quotes_gpc()) {
+	if (!get_magic_quotes_gpc()) {
 	   $data = $data;
 	} else {
 	   $data = stripslashes($data);
@@ -46,7 +52,7 @@ function my_fgets($fp, $length = -1, $compression = 'none') {
 	static $use_fgets = NULL;
 
 	if ($use_fgets === NULL) $use_fgets = (version_compare(phpversion(), "4.3.0", ">=")) ? true : false;
-	
+
 	if ($use_fgets and $compression == 'none') {
 		if ($length == -1) {
 			return(fgets($fp));
@@ -54,7 +60,7 @@ function my_fgets($fp, $length = -1, $compression = 'none') {
 			return(fgets($fp, $length));
 		}
 	}
-	
+
 	$buffer = '';
 	$i = 0;
 	while(!feof($fp)) {
@@ -90,7 +96,7 @@ function my_fopen($filename, $mode, &$compression) {
 			}
 		}
 	}
-	
+
 	switch($compression) {
 		case 'bz2':		$fp = @bzopen($filename, $mode); break;
 		case 'zlib': 	$fp = @gzopen($filename, $mode); break;
@@ -99,16 +105,13 @@ function my_fopen($filename, $mode, &$compression) {
 	return($fp);
 }
 
-
 function my_fclose($fp, $compression) {
 	switch($compression) {
 		case 'bz2':		return(@bzclose($fp));
 		case 'zlib': 	return(@gzclose($fp));
 		default:			return(@fclose($fp));
 	}
-
 }
-
 
 // Small query
 function small_query($query) {
@@ -127,22 +130,21 @@ function small_count($query) {
 }
 
 // uid generator
-function str_rand($length = 8, $seeds = 'abcdefghijklmnopqrstuvwxyz0123456789')
-{
-    $str = '';
-    $seeds_count = strlen($seeds);
+function str_rand($length = 8, $seeds = 'abcdefghijklmnopqrstuvwxyz0123456789') {
+  $str = '';
+  $seeds_count = strlen($seeds);
 
-    // Seed
-    list($usec, $sec) = explode(' ', microtime());
-    $seed = (float) $sec + ((float) $usec * 100000);
-    mt_srand($seed);
+  // Seed
+  list($usec, $sec) = explode(' ', microtime());
+  $seed = (float) $sec + ((float) $usec * 100000);
+  mt_srand($seed);
 
-    // Generate
-    for ($i = 0; $length > $i; $i++) {
-        $str .= $seeds{mt_rand(0, $seeds_count - 1)};
-    }
+  // Generate
+  for ($i = 0; $length > $i; $i++) {
+      $str .= $seeds{mt_rand(0, $seeds_count - 1)};
+  }
 
-    return $str;
+  return $str;
 }
 
 function zero_out($data) {
@@ -192,7 +194,6 @@ function mtimestamp($date) {
 }
 
 function mdate($date) {
-
 	$ourdate = date('D, M j Y \a\t g:i a', mtimestamp($date));
 	return ($ourdate);
 }
@@ -229,7 +230,7 @@ function btcaptime($time) {
 	}
 	if ($time < 0) {
 		return "-:--";
-        }
+  }
 	$minutes = intval($time / 60);
 	$seconds = intval($time % 60);
 	$hundreds = substr($time, -2, 2);
@@ -240,31 +241,25 @@ function btcaptime($time) {
 		$hundreds = "00";
 	}
 	if ($seconds < 10) {
-		$seconds = "0" . $seconds; 
-        }
+		$seconds = "0" . $seconds;
+  }
 	return $minutes . ":" . $seconds . ":" . $hundreds;
 }
 
 // UT Server Query Functions
-function GetItemInfo ($itemname, $itemchunks)
-{
-
+function GetItemInfo ($itemname, $itemchunks) {
   $retval = "N/A";
   for ($i = 0; $i < count($itemchunks); $i++) {
      //Found this item
-
      if (strcasecmp($itemchunks[$i], $itemname) == 0) {
         $retval = $itemchunks[$i+1];
-
      }
   }
 
-  //Return value
-  return  $retval;
+  return $retval;
 }
 
-function GetMinutes($seconds)
-{
+function GetMinutes($seconds) {
 	$timemins = intval($seconds / 60);
 	$timesecs = ($seconds % 60);
 
@@ -273,7 +268,6 @@ function GetMinutes($seconds)
 	if ($Reqlength-strlen($timesecs) > 0) $timesecs = str_repeat("0",($Reqlength-strlen($timesecs))) . $timesecs;
 	return $timemins . ":" . $timesecs;
 }
-
 
 function FlagImage($country, $mini = true) {
 	global $a_countries;
@@ -284,7 +278,6 @@ function FlagImage($country, $mini = true) {
 	$countryname = (isset($a_countries[$country])) ? $a_countries[$country] : '';
 	return('<img src="images/flags/'. $country .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="'. $country .'" title="'. $countryname .'">');
 }
-
 
 function RankMovement($diff) {
 	$diff = round($diff, 2);
@@ -310,9 +303,7 @@ function RankMovement($diff) {
 	return($moveimg);
 }
 
-
 function ordinal($number) {
-
     // when fed a number, adds the English ordinal suffix. Works for any
     // number, even negatives
 
@@ -347,7 +338,6 @@ function ordinal($number) {
     return $suffix;
 }
 
-
 function RankImageOrText($pid, $name, $rank, $gid, $gamename, $mini = true, $format = NULL, $rankchange = NULL) {
 
 	$points = 0;
@@ -371,7 +361,6 @@ function RankImageOrText($pid, $name, $rank, $gid, $gamename, $mini = true, $for
 	if ($rankchange !== NULL) {
 		$moveimg =  ' '. RankMovement($rankchange);
 	}
-	
 
 	if (empty($format)) {
 		if ($img) {
@@ -385,7 +374,6 @@ function RankImageOrText($pid, $name, $rank, $gid, $gamename, $mini = true, $for
 	$replace = array($ranktext,	$rank,	$points,	$img,		$gamename,	$name,	$imageortext);
 	return(str_replace($search, $replace, $format));
 }
-
 
 function FormatPlayerName($country, $pid, $name, $gid = NULL, $gamename = NULL, $mini = true, $rankchange = NULL) {
 	static $cache = array();
@@ -409,7 +397,6 @@ function QuoteHintText($text) {
 	$replace = array('\\\\', '\\\'', '\\(', '\\)');
 	return(str_replace($search, $replace, $text));
 }
-
 
 function OverlibPrintHint($name, $text = NULL, $caption = NULL) {
 	include(dirname(__FILE__) .'/hints.php');
@@ -481,7 +468,6 @@ function compress_file($method, $in, $out, $stripx00) {
 		if ($bytes === false) return(false);
 	}
 
-
 	@fclose($fp_in);
 	switch($method) {
 		case 'bz2':		@bzclose($fp_out); break;
@@ -513,7 +499,7 @@ function backup_logfile($method, $filename, $backupfilename, $stripx00) {
 
 		default:
 			if ($stripx00) {
-				if (compress_file('none', $filename, $backupfilename, $stripx00)) { 
+				if (compress_file('none', $filename, $backupfilename, $stripx00)) {
 					return('Succeeded (uncompressed)');
 				} else {
 					return('FAILED' . (!empty($php_errormsg) ? ': '. $php_errormsg : ''));
@@ -549,7 +535,6 @@ function purge_backups($dir, $maxage) {
 	return($deleted);
 }
 
-
 function file_size_info($filesize) {
 	$bytes = array('KB', 'KB', 'MB', 'GB', 'TB'); # values are always displayed
 	if ($filesize < 1024) $filesize = 1; # in at least kilobytes.
@@ -570,13 +555,13 @@ function GetCurrentWatchlist() {
 }
 
 function PlayerOnWatchlist($pid) {
-	$watchlist = GetCurrentWatchlist();	
+	$watchlist = GetCurrentWatchlist();
 	return(in_array($pid, $watchlist));
 }
 
 function ToggleWatchStatus($pid) {
 	$watchlist = GetCurrentWatchlist();
-	
+
 	if (in_array($pid, $watchlist)) {
 		$key = array_search($pid, $watchlist);
 		unset($watchlist[$key]);

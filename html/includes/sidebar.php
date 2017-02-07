@@ -11,7 +11,7 @@
   <p><a class="sidebar" href="./?p=maps">Maps</a></p>
   <p><a class="sidebar" href="./?p=totals">Totals</a></p>
   <p><a class="sidebar" href="./?p=watchlist">Watchlist</a></p>
-  <p><a class="sidebar" href="./import.php?'.str_rand().'='.str_rand().'">Import</a></p>
+  <p><a class="sidebar" href="./import.php?<?php echo str_rand() . '=' . str_rand(); ?>">Import</a></p>
   <p><a class="sidebar" href="./admin.php">Admin</a></p>
   <p><a class="sidebar" href="./?p=credits">Credits</a></p>
   <p><a class="sidebar" href="./?p=help">Help</a></p>

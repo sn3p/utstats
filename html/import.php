@@ -4,17 +4,16 @@ function add_info($name, $value) {
 	return(htmlentities($name) ." ". htmlentities($value) ."<br>");
 }
 
-?>
-<?php
 @ignore_user_abort(true);
 @set_time_limit(0);
+
 if (isset($_REQUEST['rememberkey'])) setcookie('uts_importkey', $_REQUEST['key'], time()+60*60*24*30*365);
 if (isset($_COOKIE['uts_importkey'])) $adminkey = $_REQUEST['uts_importkey'];
+
 require ("includes/config.php");
 require ("includes/functions.php");
 
 $compatible_actor_versions = array('0.4.0', '0.4.1', '0.4.2', 'beta 4.0', 'beta 4.1', 'beta 4.2');
-
 
 // Get key from web browser
 if (isset($_REQUEST['key'])) $adminkey = $_REQUEST['key'];
@@ -25,9 +24,6 @@ $debug = isset($_REQUEST['debug']) ? $_REQUEST['debug'] : false;
 
 // Output HTML?
 $html = isset($_REQUEST['html']) ? $_REQUEST['html'] : true;
-
-
-
 
 // Were running from the command line (cron-jobs)
 if (php_sapi_name() == 'cli' or !isset($_SERVER['SERVER_PORT']) or !$_SERVER['SERVER_PORT'])  {
@@ -52,8 +48,7 @@ if ($html) {
 	</tr>';
 }
 
-
-IF (empty($import_adminkey)) {
+if (empty($import_adminkey)) {
 	if ($html) echo'<tr><td class="smheading" align="left" width="150">Error:</td><td class="grey" align="left">';
 	echo "\$import_adminkey not set in config.php!\n";
 	if ($html) {
@@ -63,14 +58,14 @@ IF (empty($import_adminkey)) {
 	return;
 }
 
-IF (!empty($adminkey) and $adminkey != $import_adminkey) {
+if (!empty($adminkey) and $adminkey != $import_adminkey) {
 	if ($html) echo'<tr><td class="smheading" align="left" width="150">Error:</td><td class="grey" align="left">';
 	echo "Keys do not match\n";
 	$adminkey = '';
 	if (!$html) return;
 }
 
-IF (empty($adminkey)) {
+if (empty($adminkey)) {
 	if (!$html) die('Please provide the adminkey' ."\n");
 	echo'<tr>
 		  <td class="smheading" align="left" width="150">Enter Admin key:</td>
@@ -84,8 +79,7 @@ IF (empty($adminkey)) {
 	return;
 }
 
-
-IF (!@is_dir('logs')) {
+if (!@is_dir('logs')) {
 	if ($html) echo'<tr><td class="smheading" align="left" width="150">Error:</td><td class="grey" align="left">';
 	echo "Can't find the logs directory!\n";
 	if ($html) echo "<br>";
@@ -98,8 +92,6 @@ IF (!@is_dir('logs')) {
 	}
 	return;
 }
-
-
 
 if ($html) echo'</table><br>';
 echo "\n";
@@ -118,13 +110,11 @@ else {
 	DeBugMessage("Use ftp: no\n\$ftp_use: " . gettype($ftp_use) . ":". var_export($ftp_use, true));
 }
 
-
 $logdir = opendir('logs');
 
 DeBugMessage("Open logdir and read logs");
 
-while (false !== ($filename = readdir($logdir)))
-{
+while (false !== ($filename = readdir($logdir))) {
 // Our (self set) timelimit exceeded => reload the page to prevent srcipt abort
 	if (!empty($import_reload_after) and $start_time + $import_reload_after <= time()) {
 		if (!$html) die('Time limit exceeded - unable to reload page (no HTML output)' ."\n");
@@ -148,7 +138,7 @@ while (false !== ($filename = readdir($logdir)))
 	$backupfilename = 'logs/backup/' . $oldfilename;
 
 	// UTDC log: Move to logs/utdc/
-	if		($import_utdc_download_enable
+	if ($import_utdc_download_enable
 		and substr($filename, strlen($filename) - strlen($import_utdc_log_extension)) == $import_utdc_log_extension
 		and substr($oldfilename, 0, strlen($import_utdc_log_start)) == $import_utdc_log_start) {
 			if ($import_utdc_log_compress == 'no') $import_utdc_log_compress = 'yes';
@@ -172,7 +162,7 @@ while (false !== ($filename = readdir($logdir)))
 	}
 
 	// UTDC shot: Move to logs/utdc/
-	if		($import_utdc_download_enable
+	if ($import_utdc_download_enable
 		and substr($filename, strlen($filename) - strlen($import_utdc_screenshot_extension)) == $import_utdc_screenshot_extension
 		and substr($oldfilename, 0, strlen($import_utdc_screenshot_start)) == $import_utdc_screenshot_start) {
 			if ($import_utdc_log_compress == 'no') $import_utdc_log_compress = 'yes';
@@ -196,7 +186,7 @@ while (false !== ($filename = readdir($logdir)))
 	}
 
 	// ACE log: Move to logs/ace/
-	if		($import_ace_download_enable
+	if ($import_ace_download_enable
 		and substr($filename, strlen($filename) - strlen($import_ace_log_extension)) == $import_ace_log_extension
 		and substr($oldfilename, 0, strlen($import_ace_log_start)) == $import_ace_log_start) {
 			if ($import_ace_log_compress == 'no') $import_ace_log_compress = 'yes';
@@ -219,7 +209,7 @@ while (false !== ($filename = readdir($logdir)))
 			continue;
 	}
 
-	if		($import_ace_download_enable
+	if ($import_ace_download_enable
 		and substr($filename, strlen($filename) - strlen($import_ace_screenshot_extension)) == $import_ace_screenshot_extension
 		and substr($oldfilename, 0, strlen($import_ace_screenshot_start)) == $import_ace_screenshot_start) {
 			if ($html) {
@@ -241,10 +231,8 @@ while (false !== ($filename = readdir($logdir)))
 			continue;
 	}
 
-
-
 	// AnthChecker log: Move to logs/ac/
-	if		($import_ac_download_enable
+	if ($import_ac_download_enable
 		and substr($filename, strlen($filename) - strlen($import_ac_log_extension)) == $import_ac_log_extension
 		and substr($oldfilename, 0, strlen($import_ac_log_start)) == $import_ac_log_start) {
 			if ($import_ac_log_compress == 'no') $import_ac_log_compress = 'yes';
@@ -267,8 +255,8 @@ while (false !== ($filename = readdir($logdir)))
 			continue;
 	}
 
-	if(substr($filename, strlen($filename) - strlen($import_log_extension)) != $import_log_extension) 	continue;
-	if(substr($oldfilename, 0, strlen($import_log_start)) != $import_log_start) continue;
+	if (substr($filename, strlen($filename) - strlen($import_log_extension)) != $import_log_extension) continue;
+	if (substr($oldfilename, 0, strlen($import_log_start)) != $import_log_start) continue;
 
 	// Create a unique ID
 	$uid = str_rand();
@@ -363,8 +351,6 @@ while (false !== ($filename = readdir($logdir)))
 	if ($html) echo'<td class="grey" align="left" width="200">';
 	echo "Yes\n";
 
-
-
 	$log_incompatible = false;
 	$actor_version = 'unknown';
 	$qm_logtype = small_query("SELECT col3 FROM uts_temp_$uid WHERE col1 = 'info' AND col2 = 'Log_Standard'");
@@ -383,7 +369,6 @@ while (false !== ($filename = readdir($logdir)))
 			$log_incompatible = true;
 		}
 	}
-
 
 	if ($html) echo '</td></tr><tr><td class="smheading" align="left" width="350">';
 	echo "Match Data Created: ";
@@ -417,7 +402,7 @@ while (false !== ($filename = readdir($logdir)))
 	$s_deaths = $qm_deaths[deaths];
 
 	// Add teamkills only if its a team game, else add them to kills total
-	IF ($qm_teamgame[col3] == "True") {
+	if ($qm_teamgame[col3] == "True") {
 		$s_kills = $qm_kills[kills];
 		$s_teamkills = $qm_teamkills[teamkills];
 	} else {
@@ -432,7 +417,7 @@ while (false !== ($filename = readdir($logdir)))
 
 	// Check if anything happened, if it didnt stop everything now
 	//
-	IF (($qm_kills[kills] == 0 && $qm_deaths[deaths] == 0) && ($qm_gamename[col3] != "Bunny Track")) {
+	if (($qm_kills[kills] == 0 && $qm_deaths[deaths] == 0) && ($qm_gamename[col3] != "Bunny Track")) {
 		echo "No (Empty Match)\n";
 		if ($html) echo '</td></tr>';
 	} elseIF (($qm_playercount < 2) || (($qm_gamename == "Bunny Track") and ($qm_playercount < 1)))  {
@@ -479,7 +464,6 @@ while (false !== ($filename = readdir($logdir)))
                 $gamestart = $qm_gamestart[col0];
 		$gameend = $qm_gameend[col0];
 
-
 		$tournament = $qm_tournament[col3];
 		$teamgame = $qm_teamgame[col3];
 		$mapname = addslashes($qm_mapname[col3]);
@@ -488,13 +472,13 @@ while (false !== ($filename = readdir($logdir)))
 		// Lazy Hack for unknown gametypes
 		$unknowngt = substr("$mapfile", 0, 3);	// Gets first 3 characters
 
-		IF ($unknowngt == "JB-") {
+		if ($unknowngt == "JB-") {
 			$gamename = "JailBreak";
 			$teamgame = 'True';
 		}
 
 		// Append insta to game if it was an insta game
-		IF (($qm_insta[col3] == "True") && ($gamename != "Bunny Track")) { $gameinsta = 1; $gamename = "$gamename (insta)"; } else { $gameinsta = 0; }
+		if (($qm_insta[col3] == "True") && ($gamename != "Bunny Track")) { $gameinsta = 1; $gamename = "$gamename (insta)"; } else { $gameinsta = 0; }
 
 		// Get the unique ID of this gametype.
 		// Create a new one if it has none yet.
@@ -505,7 +489,6 @@ while (false !== ($filename = readdir($logdir)))
 			mysql_query("INSERT INTO uts_games SET gamename = '$gamename', name = '$gamename'") or die(mysql_error());
 			$gid = mysql_insert_id();
 		}
-
 
 		// Check wheter we want to override the gametype for this match
 		// (Useful if we want a server to have separate stats for one server or if we want to
@@ -533,15 +516,12 @@ while (false !== ($filename = readdir($logdir)))
 			break;
 		}
 
-
 		$qm_firstblood = small_query("SELECT col2 FROM uts_temp_$uid WHERE col1 = 'first_blood'");
 
 		$firstblood = addslashes($qm_firstblood[col2]);
 
-
 		$serverinfo = addslashes("Admin: $qm_serveran[col3]<br>Email: $qm_serverae[col3] <br><br>
 		<u>MOTD</u><br>$qm_serverm1[col3]<br>$qm_serverm2[col3]<br>$qm_serverm3[col3]<br>$qm_serverm4[col3]");
-
 
 		$gameinfo = addslashes(	add_info('Time Limit:', $qm_gameinfotl[col3]) .
 										add_info('Frag Limit:', $qm_gameinfofl[col3]) .
@@ -562,7 +542,6 @@ while (false !== ($filename = readdir($logdir)))
 
 		$gametime = utdate($gametime);
 
-
 		// Get Teams Info
 		$sql_tinfo = "SELECT col4 FROM uts_temp_$uid WHERE col1 = 'player' AND col2 = 'TeamName'  GROUP BY col4 ORDER BY col4 ASC";
 		$q_tinfo = mysql_query($sql_tinfo) or die(mysql_error());
@@ -573,10 +552,10 @@ while (false !== ($filename = readdir($logdir)))
 		$t3info = 0;
 
 		while ($r_tinfo = mysql_fetch_array($q_tinfo)) {
-		      IF ($r_tinfo[col4] == "Red") { $t0info = 1; }
-		      IF ($r_tinfo[col4] == "Blue") { $t1info = 1; }
-		      IF ($r_tinfo[col4] == "Green") { $t2info = 1; }
-		      IF ($r_tinfo[col4] == "Gold") { $t3info = 1; }
+      if ($r_tinfo[col4] == "Red") { $t0info = 1; }
+      if ($r_tinfo[col4] == "Blue") { $t1info = 1; }
+      if ($r_tinfo[col4] == "Green") { $t2info = 1; }
+      if ($r_tinfo[col4] == "Gold") { $t3info = 1; }
 		}
 
 		// Get Teamscores
@@ -595,7 +574,6 @@ while (false !== ($filename = readdir($logdir)))
 			if ($r_tscore['team'] == "3") $t3score = $r_tscore['score'];
 		}
 
-
 // Insert Server Info Into Database
 $sql_serverinfo = "INSERT INTO uts_match (time, servername, serverip, gamename, gid, gametime, mutators, insta, tournament, teamgame, mapname, mapfile, serverinfo, gameinfo, frags, kills, suicides, teamkills, deaths,
 t0, t1, t2, t3, t0score, t1score, t2score, t3score)
@@ -605,8 +583,6 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 
 		$q_serverinfo = mysql_query($sql_serverinfo) or die(mysql_error());
 		$matchid = mysql_insert_id();			// Get our Match ID
-
-
 
 		echo "Yes (ID: $matchid)\n";
 		if ($html) echo '</td></tr>';
@@ -623,13 +599,13 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 		// Get List of Player IDs and Process What They Have Done
 		$sql_player = "SELECT DISTINCT col4 FROM uts_temp_$uid WHERE col1 = 'player' AND col2 = 'rename' AND col4 <> ''";
 		$q_player = mysql_query($sql_player) or die(mysql_error());
+
 		while ($r_player = mysql_fetch_array($q_player)) {
 			$playerid = $r_player[col4];
 
 			// Get players last name used
 			$r_player2 = small_query("SELECT col3 FROM uts_temp_$uid WHERE col1 = 'player' AND col2 = 'rename' AND col4 = $playerid ORDER BY id DESC LIMIT 0,1");
 			$playername = addslashes($r_player2[col3]);
-
 
 			// Are they a Bot
 			$r_player1 = small_query("SELECT col4 FROM uts_temp_$uid WHERE col1 = 'player' AND col2 = 'IsABot' AND col3 = $playerid ORDER BY id DESC LIMIT 0,1");
@@ -678,16 +654,16 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 			}
 
 			// Get Gametype specific stuff done
-			IF ($gamename == "Assault" || $gamename == "Assault (insta)") { include("import/import_ass.php"); }
-			IF ($gamename == "Capture the Flag" || $gamename == "Capture the Flag (insta)") { include("import/import_ctf.php"); }
-			IF ($gamename == "Bunny Track") { include("import/import_bt.php"); }
-			IF ($gamename == "Domination" || $gamename == "Domination (insta)") { include("import/import_dom.php"); }
-			IF ($gamename == "Tournament Team Game" || $gamename == "Tournament Team Game (insta)") { include("import/import_tdm.php"); }
-			IF ($gamename == "JailBreak" || $gamename == "JailBreak (insta)") { include("import/import_jailbreak.php"); }
-			IF ($gamename == "Last Man Standing" || $gamename == "Last Man Standing (insta)") { include("import/import_lms.php"); }
-			IF ($gamename == "Extended Last Man Standing" || $gamename == "Extended Last Man Standing (insta)") { include("import/import_lms.php"); }
-			IF ($gamename == "Last Man Standing +" || $gamename == "Last Man Standing + (insta)") { include("import/import_lms.php"); }
-			IF ($gamename == "Last Man Standing++" || $gamename == "Last Man Standing++ (insta)") { include("import/import_lms.php"); }
+			if ($gamename == "Assault" || $gamename == "Assault (insta)") { include("import/import_ass.php"); }
+			if ($gamename == "Capture the Flag" || $gamename == "Capture the Flag (insta)") { include("import/import_ctf.php"); }
+			if ($gamename == "Bunny Track") { include("import/import_bt.php"); }
+			if ($gamename == "Domination" || $gamename == "Domination (insta)") { include("import/import_dom.php"); }
+			if ($gamename == "Tournament Team Game" || $gamename == "Tournament Team Game (insta)") { include("import/import_tdm.php"); }
+			if ($gamename == "JailBreak" || $gamename == "JailBreak (insta)") { include("import/import_jailbreak.php"); }
+			if ($gamename == "Last Man Standing" || $gamename == "Last Man Standing (insta)") { include("import/import_lms.php"); }
+			if ($gamename == "Extended Last Man Standing" || $gamename == "Extended Last Man Standing (insta)") { include("import/import_lms.php"); }
+			if ($gamename == "Last Man Standing +" || $gamename == "Last Man Standing + (insta)") { include("import/import_lms.php"); }
+			if ($gamename == "Last Man Standing++" || $gamename == "Last Man Standing++ (insta)") { include("import/import_lms.php"); }
 
 			// Do the rankings
 			include("import/import_ranking.php");
@@ -705,7 +681,7 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 		// Check if theres any players left, if none or one delete the match (its possible ...)
 		$final_pcount = small_count("SELECT id FROM uts_player WHERE matchid = $matchid");
 
-		IF ($final_pcount == NULL || ($final_pcount == 1 && $gamename != "Bunny Track")) {
+		if ($final_pcount == NULL || ($final_pcount == 1 && $gamename != "Bunny Track")) {
 				echo'<tr>
 				<td class="smheading" align="left" width="350">Deleting Match:</td>
 				<td class="grey" align="left" width="200">0 or 1 Player Entries Left</td>
@@ -856,7 +832,6 @@ if ($files != 0) {
 	echo "(". get_dp($elapsed / $files) ." seconds/file)\n";
 	if ($html) echo '</p><br>';
 }
-
 
 // Optimise database
 if (rand(0, 5) == 0) {

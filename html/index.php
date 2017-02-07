@@ -1,10 +1,10 @@
 <?php
 include ("includes/config.php");
 include ("includes/functions.php");
+
 if (!isset($_GET['noheader'])) include ("includes/header.php");
 
 switch ($_GET["p"])
-
 {
 	case "": page(); break; 			// Our opening page
 
@@ -31,9 +31,10 @@ switch ($_GET["p"])
 	case "totals": totals(); break;		// Totals summary
 
 	case "watchlist": watchlist(); break;		// The viewer's watchlist
-	
+
 	case "credits": credits(); break;	// Credits
 	case "help": help(); break;			// Help Page
+
 	default : page(); break; 			// Our opening page
 }
 

@@ -312,7 +312,7 @@ WHERE
   m.id = p.matchid AND
   e.col1 = 'btcap'
 GROUP BY
-  m.mapfile
+  m.mapfile, e.col3, e.col4
 ORDER BY
   m.mapfile,
   0 + e.col3 ASC";

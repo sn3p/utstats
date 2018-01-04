@@ -11,6 +11,7 @@ echo '
 </tbody></table>
 <br>';
 include("pages/match_info_server.php");
+include("pages/match_info_charts.php");
 
 $GLOBALS['gid'] = $gid;
 $_GLOBALS['gid'] = $gid;
@@ -23,18 +24,18 @@ switch($real_gamename) {
 	case "Assault (insta)":
 		include("pages/match_info_ass.php");
 		break;
-
+		
 	case "Capture the Flag":
 	case "Capture the Flag (insta)":
 		include("pages/match_info_ctf.php");
 		teamstats($mid, 'Match Summary');
   		break;
-
+		
 	case "Domination":
 	case "Domination (insta)":
 		teamstats($mid, 'Match Summary', 'dom_cp', 'Dom Pts');
 		break;
-
+	
 	case "JailBreak":
 	case "JailBreak (insta)":
 		teamstats($mid, 'Match Summary', 'ass_obj', 'Team Releases');
@@ -42,6 +43,13 @@ switch($real_gamename) {
 
 	case "Bunny Track":
 		include("pages/match_info_bt.php");
+		break;
+		
+	case "Tournament DeathMatch":
+	case "Tournament Team Game":
+	case "Tournament DeathMatch (insta)":
+	case "Tournament Team Game (insta)":
+		teamstats($mid, 'Match Summary');
 		break;
 
 	case "Extended Last Man Standing":
@@ -62,6 +70,7 @@ switch($real_gamename) {
 			teamstats($mid, 'Player Summary');
 		}
 }
+	
 
 if ($real_gamename == "Assault" or $real_gamename== "Assault (insta)") {
 	include("pages/match_info_other2.php");

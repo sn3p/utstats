@@ -36,12 +36,27 @@ echo'
   <meta http-equiv="Content-Type" content="text/html; CHARSET=iso-8859-1">
   <link rel="icon" href="images/favicon.ico" type="image/ico">
   <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="includes/js/jquery-1.11.1.min.js"></script>
   <script type="text/javascript">
   <!--
     var ol_fgclass="dark"; var ol_bgclass="darkbox"; var ol_textfontclass="dark"; var ol_captionfontclass="hlheading";
   -->
   </script>
   <script type="text/javascript" src="includes/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
+<script type="text/javascript" src="includes/js/adapters/standalone-framework.js"></script>
+<script type="text/javascript" src="includes/js/highcharts.js"></script>
+<script type="text/javascript" src="includes/js/highcharts-more.js"></script>
+<script type="text/javascript" src="includes/js/highcharts-functions.js"></script>
+<script type="text/javascript" src="includes/js/themes/dark-blue.js"></script>
+<script type="text/javascript" src="./includes/js/clickrows.js"></script>
+<link rel="stylesheet" type="text/css" href="includes/css/tooltipster.css" >
+<script type="text/javascript" src="includes/js/jquery.tooltipster.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function() {
+            $(".tooltip").tooltipster();
+        });
+    </script>
+
 </head>
 <body>
 

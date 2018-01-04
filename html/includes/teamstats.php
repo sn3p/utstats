@@ -109,17 +109,17 @@ function teamstats($mid, $title, $extra = NULL, $extratitle = NULL, $order = 'ga
 		} else {
 			echo '<td nowrap class="darkhuman" align="left"><span style="text-decoration: line-through;">'.FormatPlayerName($r_players['country'], $r_players['pid'], $r_players['name'], $gid, $gamename, true, $r_players['rank']).'</span></td>';
 		}
-		echo '<td class="'.$class.'" align="center">'.GetMinutes($r_players[gametime]).'</td>';
-		echo '<td class="'.$class.'" align="center">'.$r_players[gamescore].'</td>';
+		echo '<td class="'.$class.'" align="center">'.GetMinutes($r_players['gametime']/TIMERATIO).'</td>';
+		echo '<td class="'.$class.'" align="center">'.$r_players['gamescore'].'</td>';
 
 		if ($extra) echo '<td class="'.$class.'" align="center">'.$r_players[$extra].'</td>';
 
-		echo '<td class="'.$class.'" align="center">'.$r_players[frags].'</td>';
+		echo '<td class="'.$class.'" align="center">'.$r_players['frags'].'</td>';
 		echo '<td class="'.$class.'" align="center">'.$kills.'</td>';
-		echo '<td class="'.$class.'" align="center">'.$r_players[deaths].'</td>';
-		echo '<td class="'.$class.'" align="center">'.$r_players[suicides].'</td>';
+		echo '<td class="'.$class.'" align="center">'.$r_players['deaths'].'</td>';
+		echo '<td class="'.$class.'" align="center">'.$r_players['suicides'].'</td>';
 
-		if ($teams) echo '<td class="'.$class.'" align="center">'.$r_players[teamkills].'</td>';
+		if ($teams) echo '<td class="'.$class.'" align="center">'.$r_players['teamkills'].'</td>';
 
 		echo '<td class="'.$class.'" align="center">'.$eff.'</td>';
 		echo '<td class="'.$class.'" align="center">'.$acc.'</td>';

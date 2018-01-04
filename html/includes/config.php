@@ -16,7 +16,8 @@ $import_homedir = '';
 
 // Use the MySQL temporary tables feature?
 // Available since MySQL 3.23 - requires CREATE TEMPORARY TABLE privilege since 4.0.2
-$import_use_temporary_tables = true;    // set to true if available
+// No longer supported from utstats version 4.3 onwards. Left here for historical purposes.
+$import_use_temporary_tables = false;    // Do not set to true unless all jpgraph import changes have been disabled.
 
 // Use temporary heap tables?
 // This will (at any cost) keep the entire table in RAM and may speed and/or fuck things up
@@ -182,5 +183,63 @@ $ftp_dir[$i][]    = '/';       // Directory of the log files - MUST NOT end with
 $ftp_passive[$i]  = true;      // Use passive transfer mode for this connection?
 $ftp_delete[$i]   = true;      // Delete logs after download?
 */
+
+// This section is for stats graphs as of version 4.3
+$renderer_folder = "renderings";
+$renderer_width = 350;
+$renderer_heigth = 250;
+$renderer_color['team'][0][0] = '#ff3333';			// team red color 1
+$renderer_color['team'][0][1] = '#cc0000';			// team red color 2
+$renderer_color['team'][1][0] = '#0080ff';			// team blue color 1
+$renderer_color['team'][1][1] = '#0000cc';			// team blue color 2
+$renderer_color['team'][2][0] = '#88d8b0';			// team green color 1
+$renderer_color['team'][2][1] = '#009f50';			// team green color 2
+$renderer_color['team'][3][0] = '#ffeead';			// team gold color 1
+$renderer_color['team'][3][1] = '#e5b021';			// team gold color 2
+$renderer_color['player'][0][0] = '#a7d848';	// player 1 color 1
+$renderer_color['player'][0][1] = '#98be44';	// player 1 color 2
+$renderer_color['player'][1][0] = '#6ccdd0';	// player 2 color 1
+$renderer_color['player'][1][1] = '#66af9f';	// player 2 color 2
+$renderer_color['player'][2][0] = '#ffce59';	// player 3 color 1
+$renderer_color['player'][2][1] = '#ffa65a';	// player 3 color 2
+$renderer_color['player'][3][0] = '#fba263';	// player 4 color 1
+$renderer_color['player'][3][1] = '#eb7254';	// player 4 color 2
+$renderer_color['player'][4][0] = '#fb6370 ';	// player 5 color 1
+$renderer_color['player'][4][1] = '#fb6363';	// player 5 color 2
+$renderer_color['background'] = '#262626';// background color 1
+$renderer_color['band'][0] = '#666666';// band color 1
+$renderer_color['band'][1] = '#515151';// band color 2
+$renderer_color['heading'] = '#bbdeff';// font heading
+$renderer_color['font'] = '#999999';// font other
+$renderer_color['amp'] = '#aa02db';// color amp
+$renderer_color_transparancy = 0.3;// color amp
+
+define("TIMERATIO", 1.09863333333333333333333333333333333333333333333333333333333);
+
+define("RENDERER_CHARTTYPE_LINE", "line");
+define("RENDERER_CHARTTYPE_COLUMN", "column");
+define("RENDERER_CHARTTYPE_BAR", "bar");
+define("RENDERER_CHARTTYPE_LINESTEP", "linestep");
+define("RENDERER_CHARTTYPE_LINECOLUMN", "linecolumn");
+define("RENDERER_CHARTTYPE_LINESTEPCOLUMN", "linestepcolumn");
+define("RENDERER_CHARTTYPE_RADAR", "radar");
+
+define("RENDERER_CHART_CTF_TEAMSCORE", 10);
+define("RENDERER_CHART_CTF_GRABBREAKDOWN", 11);
+
+define("RENDERER_CHART_DOM_SCOREDERIV", 21);
+
+define("RENDERER_CHART_FRAGS_TEAMSCORE", 90);
+define("RENDERER_CHART_FRAGS_TEAMDERIV", 91);
+define("RENDERER_CHART_FRAGS_TEAMNORMAL", 92);
+define("RENDERER_CHART_FRAGS_PLAYERSCORE", 93);
+define("RENDERER_CHART_FRAGS_PLAYERDERIV", 94);
+define("RENDERER_CHART_FRAGS_PLAYERNORMAL", 95);
+define("RENDERER_CHART_FRAGS_PLAYERSCORE5", 96);
+define("RENDERER_CHART_FRAGS_PLAYERNORMAL5", 97);
+
+define("RENDERER_CHART_ITEMS_TEAMPICKUPS", 100);
+define("RENDERER_CHART_ITEMS_PLAYERPICKUPS", 101);
+define("RENDERER_CHART_ITEMS_AMPRUNS", 102);
 
 ?>

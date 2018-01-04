@@ -81,7 +81,11 @@ if (file_exists($mappic)) {
    $mappic = ("images/maps/blank.jpg");
 }
 
-  $myurl = urlencode($mapname);
+$myurl = urlencode($mapname);
+
+$mapnameToPrint = $matchinfo['mapname'];
+if($mapnameToPrint == "Untitled")
+	$mapnameToPrint = $mapname;
 
   echo'
   <tr>
@@ -94,7 +98,7 @@ if (file_exists($mappic)) {
     <td class="dark" align="center">Match Type</td>
     <td class="grey" align="center">'.$gamename.'</td>
     <td class="dark" align="center">Map Name</td>
-    <td class="greyhuman" align="center"><a class="grey" href="./?p=minfo&amp;map='.$myurl.'">'.$matchinfo[mapname].'</a></td>
+    <td class="greyhuman" align="center"><a class="grey" href="./?p=minfo&amp;map='.$myurl.'">'.$mapnameToPrint.'</a></td>
   </tr>
   <tr>
     <td class="dark" align="center">Server Info</td>
@@ -111,4 +115,15 @@ if (file_exists($mappic)) {
   </tr>
 </tbody></table>
 <br>';
+
+
+// Get Summary Info
+$teamscore = small_query("SELECT SUM(t0score + t1score + t2score + t3score) AS result FROM uts_match WHERE id = $mid");
+$playerscore = small_query("SELECT SUM(gamescore) AS result FROM uts_player WHERE matchid = $mid");
+$fragcount = small_query("SELECT SUM(frags) AS result FROM uts_match WHERE id = $mid");
+$killcount = small_query("SELECT SUM(kills) AS result FROM uts_match WHERE id = $mid");
+$deathcount = small_query("SELECT SUM(deaths) AS result FROM uts_match WHERE id = $mid");
+$suicidecount = small_query("SELECT SUM(suicides) AS result FROM uts_match WHERE id = $mid");
+
+
 ?>

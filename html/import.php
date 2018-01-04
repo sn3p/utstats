@@ -740,6 +740,7 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 			echo "Done\n";
 			if ($html) echo'</td></tr>';
 
+			include('import/import_renderer-preconfig.php');
 
 			$updategameinfo = false;
 			if (count($ignored_players) > 0) {
@@ -756,6 +757,30 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 			if ($updategameinfo) {
 				mysql_query("UPDATE uts_match SET gameinfo = '$gameinfo' WHERE id = '$matchid'");
 				$updategameinfo = false;
+			}
+			if ($gamename == "Domination" || $gamename == "Domination (insta)" ) {
+				if ($html) echo '<tr><td class="smheading" align="left" width="350">';
+				echo "Generating dom graphs: ";
+				if ($html) echo '</td><td class="grey" align="left" width="200">';
+				include("import/import_renderer-dom.php"); 
+				echo "Done\n";
+				if ($html) echo'</td></tr>';
+			} 
+			else if ($gamename == "Tournament DeathMatch" || $gamename == "Tournament DeathMatch (insta)" || $gamename == "Tournament Team Game" || $gamename == "Tournament Team Game (insta)" ) {
+				if ($html) echo '<tr><td class="smheading" align="left" width="350">';
+				echo "Generating dm graphs: ";
+				if ($html) echo '</td><td class="grey" align="left" width="200">';
+				include("import/import_renderer-dm.php"); 
+				echo "Done\n";
+				if ($html) echo'</td></tr>';
+			}
+			else if ($gamename == "Capture the Flag" || $gamename ==  "Capture the Flag (insta)" ) {
+				if ($html) echo '<tr><td class="smheading" align="left" width="350">';
+				echo "Generating ctf graphs: ";
+				if ($html) echo '</td><td class="grey" align="left" width="200">';
+				include("import/import_renderer-ctf.php"); 
+				echo "Done\n";
+				if ($html) echo'</td></tr>';
 			}
 		}
 	}

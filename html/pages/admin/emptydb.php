@@ -20,43 +20,48 @@ $i++;
 
 $results = adminselect($options);
 
-
 IF ($results['sure'] == "Yes" and $results['really'] == "Yes") {
-	echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
-	<tr>
-		<td class="smheading" align="center" colspan="2">Empty Database</td>
-	</tr>
-	<tr>
-		<td class="smheading" align="left" width="300">Emptying All Tables but uts_ip2country and uts_weaponstats</td>';
-	mysql_query("TRUNCATE uts_events;") or die(mysql_error());
-	mysql_query("TRUNCATE uts_games;") or die(mysql_error());
-	mysql_query("TRUNCATE uts_gamestype;") or die(mysql_error());
-	mysql_query("TRUNCATE uts_killsmatrix;") or die(mysql_error());
-	mysql_query("TRUNCATE uts_match;") or die(mysql_error());
-	mysql_query("TRUNCATE uts_pinfo;") or die(mysql_error());
-	mysql_query("TRUNCATE uts_player;") or die(mysql_error());
-	mysql_query("TRUNCATE uts_rank;") or die(mysql_error());
-	mysql_query("DELETE FROM uts_weapons WHERE id > 19") or die(mysql_error());
-	mysql_query("ALTER TABLE uts_weapons AUTO_INCREMENT=20") or die(mysql_error());
-	mysql_query("TRUNCATE uts_weaponstats;") or die(mysql_error());
-		echo'<td class="grey" align="left" width="300">Done</td>
-	</tr>
-	<tr>
-		<td class="smheading" align="center" colspan="2">Database Emptied - <a href="./admin.php?key='.$_REQUEST[key].'">Go Back To Admin Page</a></td>
-	</tr></table>';
-} else {
-	echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
-	<tr>
-		<td class="smheading" align="center" colspan="2">Empty Database</td>
-	</tr>
-	<tr>
-		<td class="smheading" align="left" width="300">Database Not Emptied</td>
-		<td class="grey" align="left" width="300">Answer Was No</td>
-	</tr>
-	<tr>
-		<td class="smheading" align="center" colspan="2">Database Not Emptied - <a href="./admin.php?key='.$_REQUEST[key].'">Go Back To Admin Page</a></td>
-	</tr></table>';
-}
+  echo '<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+  <tr>
+    <td class="smheading" align="center" colspan="2">Empty Database</td>
+ </tr>
+  <tr>
+    <td class="smheading" align="left" width="300">
+      Emptying All Tables except uts_ip2country, uts_weaponstats and uts_charttypes
+    </td>';
 
+    mysql_query("TRUNCATE uts_chartdata;") or die(mysql_error());
+    mysql_query("TRUNCATE uts_events;") or die(mysql_error());
+    mysql_query("TRUNCATE uts_games;") or die(mysql_error());
+    mysql_query("TRUNCATE uts_gamestype;") or die(mysql_error());
+    mysql_query("TRUNCATE uts_killsmatrix;") or die(mysql_error());
+    mysql_query("TRUNCATE uts_match;") or die(mysql_error());
+    mysql_query("TRUNCATE uts_pinfo;") or die(mysql_error());
+    mysql_query("TRUNCATE uts_player;") or die(mysql_error());
+    mysql_query("TRUNCATE uts_rank;") or die(mysql_error());
+    mysql_query("DELETE FROM uts_weapons WHERE id > 19") or die(mysql_error());
+    mysql_query("ALTER TABLE uts_weapons AUTO_INCREMENT=20") or die(mysql_error());
+    mysql_query("TRUNCATE uts_weaponstats;") or die(mysql_error());
+
+    echo '<td class="grey" align="left" width="300">Done</td>
+  </tr>
+  <tr>
+    <td class="smheading" align="center" colspan="2">
+      Database Emptied - <a href="./admin.php?key='.$_REQUEST[key].'">Go Back To Admin Page</a>
+    </td>
+  </tr></table>';
+} else {
+  echo '<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+  <tr>
+    <td class="smheading" align="center" colspan="2">Empty Database</td>
+  </tr>
+  <tr>
+    <td class="smheading" align="left" width="300">Database Not Emptied</td>
+    <td class="grey" align="left" width="300">Answer Was No</td>
+  </tr>
+  <tr>
+    <td class="smheading" align="center" colspan="2">Database Not Emptied - <a href="./admin.php?key='.$_REQUEST[key].'">Go Back To Admin Page</a></td>
+  </tr></table>';
+}
 
 ?>

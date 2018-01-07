@@ -7,13 +7,13 @@ $uname = "";
 $upass = "";
 
 // The key needed to run the import script
-$import_adminkey = 'fietsbel';
+$import_adminkey = "fietsbel";
 
 // When runnning from the command-line (cron jobs):
 // The absolute path to UTStats's home directory.
 // Only needed if you're starting the importer from another directory
 // Leave emtpy if unsure
-$import_homedir = '';
+$import_homedir = "";
 
 // Use the MySQL temporary tables feature?
 // Available since MySQL 3.23 - requires CREATE TEMPORARY TABLE privilege since 4.0.2

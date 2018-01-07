@@ -36,28 +36,23 @@ echo'
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <link rel="icon" href="images/favicon.ico" type="image/ico">
 
-  <link rel="stylesheet" type="text/css" href="includes/css/tooltipster.css">
+  <link rel="stylesheet" href="assets/lib/tooltipster/tooltipster.css">
   <link rel="stylesheet" href="assets/style.css">
 
-  <script type="text/javascript" src="includes/js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="assets/lib/jquery-1.11.1.min.js"></script>
   <script type="text/javascript">
     <!--
     var ol_fgclass="dark"; var ol_bgclass="darkbox"; var ol_textfontclass="dark"; var ol_captionfontclass="hlheading";
     -->
   </script>
-  <script type="text/javascript" src="includes/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
-  <script type="text/javascript" src="includes/js/adapters/standalone-framework.js"></script>
-  <script type="text/javascript" src="includes/js/highcharts.js"></script>
-  <script type="text/javascript" src="includes/js/highcharts-more.js"></script>
-  <script type="text/javascript" src="includes/js/highcharts-functions.js"></script>
-  <script type="text/javascript" src="includes/js/themes/dark-blue.js"></script>
-  <script type="text/javascript" src="includes/js/jquery.tooltipster.min.js"></script>
-  <script type="text/javascript" src="./includes/js/clickrows.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-        $(".tooltip").tooltipster();
-    });
-  </script>
+  <script type="text/javascript" src="assets/lib/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
+  <script type="text/javascript" src="assets/lib/highcharts/adapters/standalone-framework.js"></script>
+  <script type="text/javascript" src="assets/lib/highcharts/highcharts.js"></script>
+  <script type="text/javascript" src="assets/lib/highcharts/highcharts-more.js"></script>
+  <script type="text/javascript" src="assets/lib/highcharts/highcharts-functions.js"></script>
+  <script type="text/javascript" src="assets/lib/highcharts/themes/dark-blue.js"></script>
+  <script type="text/javascript" src="assets/lib/tooltipster/jquery.tooltipster.min.js"></script>
+	<script type="text/javascript" src="assets/main.js"></script>
 </head>
 <body>
 

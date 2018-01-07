@@ -1,4 +1,5 @@
 <?php
+
 // Database connection details
 $dbname = "";
 $hostname = "";

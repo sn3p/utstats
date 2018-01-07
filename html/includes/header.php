@@ -5,7 +5,7 @@ ob_start();
 // Date in the past
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 
-// always modified
+// Always modified
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 
 // HTTP/1.1
@@ -27,7 +27,6 @@ if (isset($_COOKIE['uts_lastvisit'])) {
 }
 setcookie('uts_lastvisit', time(), time()+60*60*24*30*365);
 
-
 echo'
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -35,28 +34,29 @@ echo'
   <title>Unreal Tournament Stats - Powered by UTStats</title>
   <meta http-equiv="Content-Type" content="text/html; CHARSET=iso-8859-1">
   <link rel="icon" href="images/favicon.ico" type="image/ico">
-  <link rel="stylesheet" href="style.css">
+
+	<link rel="stylesheet" type="text/css" href="includes/css/tooltipster.css">
+	<link rel="stylesheet" href="style.css">
+
   <script type="text/javascript" src="includes/js/jquery-1.11.1.min.js"></script>
   <script type="text/javascript">
-  <!--
+  	<!--
     var ol_fgclass="dark"; var ol_bgclass="darkbox"; var ol_textfontclass="dark"; var ol_captionfontclass="hlheading";
-  -->
+  	-->
   </script>
   <script type="text/javascript" src="includes/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
-<script type="text/javascript" src="includes/js/adapters/standalone-framework.js"></script>
-<script type="text/javascript" src="includes/js/highcharts.js"></script>
-<script type="text/javascript" src="includes/js/highcharts-more.js"></script>
-<script type="text/javascript" src="includes/js/highcharts-functions.js"></script>
-<script type="text/javascript" src="includes/js/themes/dark-blue.js"></script>
-<script type="text/javascript" src="./includes/js/clickrows.js"></script>
-<link rel="stylesheet" type="text/css" href="includes/css/tooltipster.css" >
-<script type="text/javascript" src="includes/js/jquery.tooltipster.min.js"></script>
-<script type="text/javascript">
-        $(document).ready(function() {
-            $(".tooltip").tooltipster();
-        });
-    </script>
-
+	<script type="text/javascript" src="includes/js/adapters/standalone-framework.js"></script>
+	<script type="text/javascript" src="includes/js/highcharts.js"></script>
+	<script type="text/javascript" src="includes/js/highcharts-more.js"></script>
+	<script type="text/javascript" src="includes/js/highcharts-functions.js"></script>
+	<script type="text/javascript" src="includes/js/themes/dark-blue.js"></script>
+	<script type="text/javascript" src="includes/js/jquery.tooltipster.min.js"></script>
+	<script type="text/javascript" src="./includes/js/clickrows.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function() {
+        $(".tooltip").tooltipster();
+    });
+  </script>
 </head>
 <body>
 

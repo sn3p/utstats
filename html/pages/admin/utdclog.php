@@ -17,7 +17,7 @@ if (!empty($filename)) {
 
 
 if (empty($filename)) {
-	echo'<br><table class = "box" border="0" cellpadding="1" cellspacing="2" width="600">
+	echo'<br><table class = "box" border="0" cellpadding="0" cellspacing="0" width="600">
 	<tr>
 		<td class="smheading" align="center" width="100%" colspan="4">Available UTDC Logs:</td>
 	</tr>';
@@ -70,7 +70,7 @@ if (empty($filename)) {
 
 if (!empty($filename)) {
 	if (!file_exists('logs/utdc/'. $filename) or !is_file('logs/utdc/'. $filename)) die('bla');
-	echo'<br><table class = "box" border="0" cellpadding="1" cellspacing="2" width="600">
+	echo'<br><table class = "box" border="0" cellpadding="0" cellspacing="0" width="600">
 	<tr>
 		<td class="smheading" align="center" width="95%" colspan="3">'.$filename.'</td>
 		<td class="smheading" align="center" width="5%" align="right">';

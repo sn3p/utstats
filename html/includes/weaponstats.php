@@ -26,7 +26,6 @@ function weaponstats($_mid, $_pid, $title = 'Weapons Summary') {
 							AND	(wn.id = w.weapon)
 							AND wn.hide <> 'Y'";
 
-
 	if ($_pid == 0 and $_mid != 0) {
 		$sql_weapons = "SELECT	w.matchid,
 										w.pid AS playerid,
@@ -99,15 +98,15 @@ uts_weaponstats AS w
 	}
 
 	echo'
-	<table class = "box" border="0" cellpadding="0" cellspacing="2">
-	<tbody>
-	<tr>
-		<td class="heading" colspan="'. ((count($wsort) * $colspan) + $playercol) .'" align="center">'.htmlentities($title).'</td>
-	</tr>';
-
+	<table class = "box zebra" border="0" cellpadding="0" cellspacing="0" width="700">
+		<tbody>
+		<tr>
+			<th class="heading" colspan="'. ((count($wsort) * $colspan) + $playercol) .'" align="center">'.htmlentities($title).'</th>
+		</tr>';
 
 	if ($one) {
 		ws_header($wsort, $weapons, $colspan, $one, $playercol);
+
 		echo '<tr>';
 		foreach($wsort as $wid => $bar) {
 			for ($i = 1; $i <= $colspan; $i++) {
@@ -119,8 +118,7 @@ uts_weaponstats AS w
 					case 5: $extra = 'Dmg'; break;
 				}
 				$extra = '<span style="font-size: 100%">'. $extra .'</span>';
-				echo '
-					  <td class="smheading" align="center" width="35">'.$extra.'</td>';
+				echo '<th class="smheading" align="center" width="35">'.$extra.'</th>';
 			}
 		}
 		echo '</tr>';
@@ -128,10 +126,10 @@ uts_weaponstats AS w
 		$i = 0;
 		foreach($psort as $pid => $foo) {
 			$i++;
-			echo '<tr>';
+			echo '<tr class="clickableRow" href="./?p=matchp&amp;mid='.$_mid.'&amp;pid='.urlencode($pid).'">';
 			if ($playercol) {
 				echo '
-					<td nowrap class="darkhuman" align="left"><a class="darkhuman" href="./?p=matchp&amp;mid='.$_mid.'&amp;pid='.urlencode($pid).'">'.FormatPlayerName($wd[$pid]['country'], $pid,  $wd[$pid]['playername'], $gid, $gamename).'</a></td>';
+					<td nowrap align="left"><a href="./?p=matchp&amp;mid='.$_mid.'&amp;pid='.urlencode($pid).'">'.FormatPlayerName($wd[$pid]['country'], $pid,  $wd[$pid]['playername'], $gid, $gamename).'</a></td>';
 			}
 			foreach($wsort as $wid => $bar) {
 				ws_cell($wd, $pid, $wid, 'kills', $i);
@@ -146,23 +144,22 @@ uts_weaponstats AS w
 
 	if (!$one) {
 		ws_block($wd, $weapons, $wsort, $psort, $colspan, $playercol, $one, $_mid, $gamename, 'Kills', 'kills');
-		ws_block($wd, $weapons, $wsort, $psort, $colspan, $playercol, $one, $_mid, $gamename, 'Shots', 'shots');
-		ws_block($wd, $weapons, $wsort, $psort, $colspan, $playercol, $one, $_mid, $gamename, 'Hits', 'hits');
+		//ws_block($wd, $weapons, $wsort, $psort, $colspan, $playercol, $one, $_mid, $gamename, 'Shots', 'shots');
+		//ws_block($wd, $weapons, $wsort, $psort, $colspan, $playercol, $one, $_mid, $gamename, 'Hits', 'hits');
 		ws_block($wd, $weapons, $wsort, $psort, $colspan, $playercol, $one, $_mid, $gamename, 'Damage', 'damage');
 		ws_block($wd, $weapons, $wsort, $psort, $colspan, $playercol, $one, $_mid, $gamename, 'Accuracy', 'acc');
 	}
-
 
 	echo '</tbody></table>';
 }
 
 function ws_header(&$wsort, &$weapons, $colspan, $one, $playercol) {
 	echo '<tr>';
-	if ($playercol and $playercol != -1) echo '<td class="smheading" align="center" width="150" '.(($one) ? 'rowspan="2"' : '') .'>Player</td>';
-	if ($playercol == -1) echo '<td class="smheading" align="center" width="150">&nbsp;</td>';
+	if ($playercol and $playercol != -1) echo '<td class="smheading" align="center" width="220" '.(($one) ? 'rowspan="2"' : '') .'><img src="images/playersmall.png" style="max-width:50px; max-height:50px;"></td>';
+	if ($playercol == -1) echo '<td class="smheading" align="center" width="220">&nbsp;</td>';
 	foreach($wsort as $wid => $bar) {
 		if (!empty($weapons[$wid]['image'])) {
-			$content = '<img border="0" src="images/weapons/'.$weapons[$wid]['image'].'" alt="'.$weapons[$wid]['name'].'" title="'.$weapons[$wid]['name'].'">';
+			$content = '<img border="0" class="tooltip" style="min-width: 15px; max-width:40px; max-height:50px;" src="images/weapons/'.$weapons[$wid]['image'].'" alt="'.$weapons[$wid]['name'].'" title="'.$weapons[$wid]['name'].'"></a>';
 		} else {
 			$content = '<span style="font-size: 60%;">'.$weapons[$wid]['name'].'</span>';
 		}
@@ -172,27 +169,23 @@ function ws_header(&$wsort, &$weapons, $colspan, $one, $playercol) {
 	echo '</tr>';
 }
 
-
 function ws_cell(&$wd, $pid, $wid, $field, $i) {
 	$content = '';
 	if (isset($wd[$pid][$wid][$field])) $content = $wd[$pid][$wid][$field];
 	$class = ($i % 2) ? 'grey' : 'grey2';
 	echo '
-		<td class="'.$class.'" align="center">'.$content.'</td>';
+		<td align="center">'.$content.'</td>';
 }
-
-
-
 
 function ws_block(&$wd, &$weapons, &$wsort, &$psort, &$colspan, $playercol, $one,$_mid, $gamename, $caption, $field) {
 	global $gamename, $gid;
 	if (count($psort) != 1) {
 		echo '
 		<tr>
-			<td height="5" colspan="'. ((count($wsort) * $colspan) + $playercol) .'" align="center"></td>
+			<td class="weapspacer" height="5" colspan="'. ((count($wsort) * $colspan) + $playercol) .'" align="center"></td>
 		</tr>
 		<tr>
-			<td class="smheading" height="20" colspan="'. ((count($wsort) * $colspan) + $playercol) .'"  align="center">'.$caption.'</td>
+			<th class="smheading" height="20" colspan="'. ((count($wsort) * $colspan) + $playercol) .'"  align="center">'.$caption.'</th>
 		</tr>';
 		ws_header($wsort, $weapons, $colspan, $one, $playercol);
 	}
@@ -204,8 +197,8 @@ function ws_block(&$wd, &$weapons, &$wsort, &$psort, &$colspan, $playercol, $one
 	$i = 0;
 	foreach($psort as $pid => $foo) {
 		$i++;
-		echo '<tr>';
-		if ($playercol and $playercol != -1) echo '<td nowrap class="darkhuman" align="left"><a class="darkhuman" href="./?p=matchp&amp;mid='.$_mid.'&amp;pid='.urlencode($pid).'">'.FormatPlayerName($wd[$pid]['country'], $pid, $wd[$pid]['playername'], $gid, $gamename).'</a></td>';
+		echo '<tr class="clickableRow" href="./?p=matchp&amp;mid='.$_mid.'&amp;pid='.urlencode($pid).'">';
+		if ($playercol and $playercol != -1) echo '<td nowrap align="left"><a href="./?p=matchp&amp;mid='.$_mid.'&amp;pid='.urlencode($pid).'">'.FormatPlayerName($wd[$pid]['country'], $pid, $wd[$pid]['playername'], $gid, $gamename).'</a></td>';
 		if ($playercol == -1) echo '<td nowrap class="dark" align="center">'.$caption.'</td>';
 		foreach($wsort as $wid => $bar) {
 			ws_cell($wd, $pid, $wid, $field, $i);
@@ -213,4 +206,5 @@ function ws_block(&$wd, &$weapons, &$wsort, &$psort, &$colspan, $playercol, $one
 		echo '</tr>';
 	}
 }
+
 ?>

@@ -16,7 +16,7 @@ if (isset($_REQUEST['submit'])) {
 	}
 }
 
-echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 <tr>
 	<td class="medheading" align="center" colspan="2">Edit games</td>
 </tr>

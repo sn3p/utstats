@@ -98,14 +98,14 @@ $r_friendlyfire = getiteminfo("friendlyfire",$chunks);
 $r_gamestyle = getiteminfo("gamestyle",$chunks);
 
 echo'
-<table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
+<table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
   <tbody><tr>
     <td class="heading" colspan="4" align="center">Server Status for '.$r_hostname.'</td>
   </tr>
   <tr>
     <td class="dark" align="center" width="110">Server IP</td>
     <td class="grey" align="center" width="350"><a class="grey" href="unreal://'.$serverip.':'.$serverport.'">'.$serverip.':'.$serverport.'</a></td>
-    <td class="dark" align="center" rowspan="5" colspan="2"><img border="0" alt="'.$mapname.'" title="'.$mapname.'" src="'.$mappic.'"></td>
+    <td class="tooltip" align="center" rowspan="5" colspan="2"><img border="0" alt="'.$mapname.'" title="'.$mapname.'" src="'.$mappic.'"></td>
   </tr>
   <tr>
     <td class="dark" align="center">Map Name</td>
@@ -139,7 +139,7 @@ echo'
 </tbody></table>
 <br>
 
-<table class = "box" border="0" cellpadding="0" cellspacing="2" width="720">
+<table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
   <tbody>
   <tr>
     <td class="heading" colspan="5" align="center">Player Information</td>

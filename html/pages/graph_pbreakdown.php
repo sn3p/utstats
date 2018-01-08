@@ -41,7 +41,7 @@ while ($r_gmonths = mysql_fetch_array($q_gmonths)) {
 
 
 echo'
-<table class = "box" border="0" cellpadding="0" cellspacing="2">
+<table class = "box" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr><td>
 <table border="0" cellpadding="0" cellspacing="0">

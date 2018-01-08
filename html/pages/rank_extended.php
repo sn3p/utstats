@@ -40,17 +40,17 @@ $lpageurl = "<a class=\"pages\" href=\"./?p=ext_rank&amp;gid=$gid&amp;page=$lpag
 IF ($cpage == "$lpage") { $lpageurl = "[Last]"; }
 
 echo'
-<div class="pages"><b>Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</b></div>
-<table class="box" border="0" cellpadding="1" cellspacing="1">
+<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>
+<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
   <tbody>
   <tr>
-	<td class="heading" colspan="4" align="center">'.$gamename.' Ranking Players</td>
+	<th class="heading" colspan="4" align="center">'.$gamename.' Ranking Players</th>
   </tr>
   <tr>
-	<td class="smheading" align="center" width="75">N&deg;</td>
-	<td class="smheading" align="center" width="150">Player Name</td>
-	<td class="smheading" align="center" width="75">Rank</td>
-	<td class="smheadingx" align="center" width="75">Matches</td>
+	<th class="smheading" align="center" width="75">N&deg;</th>
+	<th class="smheading" align="center" width="150">Player Name</th>
+	<th class="smheading" align="center" width="75">Rank</th>
+	<th class="smheading" align="center" width="75">Matches</th>
   </tr>';
 
 	$ranking = $qpage;
@@ -61,15 +61,15 @@ echo'
 
 		$ranking++;
 	  echo'
-	  <tr>
-		<td class="grey" align="center">'.$ranking.'</td>
-		<td nowrap class="dark" align="left"><a class="darkhuman" href="./?p=pinfo&amp;pid='.$r_rplayer['pid'].'">'.FlagImage($r_rplayer[country]).' '.htmlspecialchars($r_rplayer[name]) .' '. RankMovement($r_rplayer['rank'] - $r_rplayer['prevrank']) .'</a></td>
-		<td class="dark" align="center">'.get_dp($r_rplayer[rank]).'</td>
-		<td class="grey" align="center">'.$r_rplayer[matches].'</td>
+	  <tr class="clickableRow" href="./?p=pinfo&amp;pid='.$r_rplayer['pid'].'">
+		<td   align="center">'.$ranking.'</td>
+		<td nowrap   align="left"><a href="./?p=pinfo&amp;pid='.$r_rplayer['pid'].'">'.FlagImage($r_rplayer[country]).' '.htmlspecialchars($r_rplayer[name]) .' '. RankMovement($r_rplayer['rank'] - $r_rplayer['prevrank']) .'</a></td>
+		<td   align="center">'.get_dp($r_rplayer[rank]).'</td>
+		<td   align="center">'.$r_rplayer[matches].'</td>
 	  </tr>';
 
 }
 echo'
 </tbody></table>
-<div class="pages"><b>Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</b></div>';
+<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>';
 ?>

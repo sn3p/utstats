@@ -1,9 +1,9 @@
 <?php
 
 // Database connection details
-$dbname = "utstats";
-$hostname = "localhost";
-$uname = "root";
+$dbname = "";
+$hostname = "";
+$uname = "";
 $upass = "";
 
 // The key needed to run the import script

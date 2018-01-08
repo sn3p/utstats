@@ -11,7 +11,7 @@ IF($mid2 != NULL) {
 
 echo'
 <br>
-<table class = "box" border="0" cellpadding="0" cellspacing="2" width="720">
+<table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
   <tbody><tr>
     <td class="heading" colspan="7" align="center">Pickups Summary - '.$ass_att.' Attacking</td>
   </tr>
@@ -53,7 +53,7 @@ IF($mid2 == NULL) {
 } else {
 	echo'</tbody></table>
 	<br>
-	<table class = "box" border="0" cellpadding="0" cellspacing="2" width="720">
+	<table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="720">
 	  <tbody><tr>
 		<td class="heading" colspan="7" align="center">Pickups Summary - '.$ass_att2.' Attacking</td>
 	  </tr>
@@ -81,7 +81,7 @@ IF($mid2 == NULL) {
 
 		  echo'
 		  <tr>
-			<td nowrap class="darkhuman" align="left"><a class="darkhuman" href="./?p=matchp&amp;mid='.$mid.'&amp;pid='.$r_pickups[pid].'">'.FormatPlayerName($r_pickups[country], $r_pickups[pid], $r_pname, $gid, $gamename).'</a></td>
+			<td nowrap align="left"><a href="./?p=matchp&amp;mid='.$mid.'&amp;pid='.$r_pickups[pid].'">'.FormatPlayerName($r_pickups[country], $r_pickups[pid], $r_pname, $gid, $gamename).'</a></td>
 			<td class="'.$class.'" align="center">'.$r_pickups[pu_pads].'</td>
 			<td class="'.$class.'" align="center">'.$r_pickups[pu_armour].'</td>
 			<td class="'.$class.'" align="center">'.$r_pickups[pu_keg].'</td>
@@ -104,32 +104,32 @@ $sql_multis2 = small_query("SELECT SUM(spree_double) AS spree_double, SUM(spree_
 }
 echo'</tbody></table>
 <br>
-<table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
+<table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="720">
   <tbody><tr>
-    <td class="heading" colspan="2" align="center">Special Events - '.$ass_att.' Attacking</td>
-    <td class="heading" colspan="2" align="center">Special Events - '.$ass_att2.' Attacking</td>
+    <th class="heading" colspan="2" align="center">Special Events - '.$ass_att.' Attacking</th>
+    <th class="heading" colspan="2" align="center">Special Events - '.$ass_att2.' Attacking</th>
   </tr>
   <tr>
-    <td class="dark" align="center" width="150">First Blood</td>
-    <td class="grey" align="center" width="150">'.FormatPlayerName($sql_firstblood[country], $sql_firstblood[firstblood], $sql_firstblood[name], $gid, $gamename).'</td>
-    <td class="dark" align="center" width="150">First Blood</td>
-    <td class="grey" align="center" width="150">'.FormatPlayerName($sql_firstblood2[country], $sql_firstblood[firstblood], $sql_firstblood2[name], $gid, $gamename).'</td>
+    <th align="center" width="150">First Blood</th>
+    <th align="center" width="150">'.FormatPlayerName($sql_firstblood[country], $sql_firstblood[firstblood], $sql_firstblood[name], $gid, $gamename).'</th>
+    <th align="center" width="150">First Blood</th>
+    <th align="center" width="150">'.FormatPlayerName($sql_firstblood2[country], $sql_firstblood[firstblood], $sql_firstblood2[name], $gid, $gamename).'</th>
   </tr>
   <tr>
-    <td class="dark" align="center">Double Kills</td>
-    <td class="grey2" align="center">'.$sql_multis[spree_double].'</td>
-    <td class="dark" align="center">Double Kills</td>
-    <td class="grey2" align="center">'.$sql_multis2[spree_double].'</td>
+    <th align="center">Double Kills</th>
+    <th align="center">'.$sql_multis[spree_double].'</td>
+    <th align="center">Double Kills</td>
+    <th align="center">'.$sql_multis2[spree_double].'</td>
   </tr>
   <tr>
-    <td class="dark" align="center">Multi Kills</td>
-    <td class="grey" align="center">'.$sql_multis[spree_multi].'</td>
-    <td class="dark" align="center">Multi Kills</td>
-    <td class="grey" align="center">'.$sql_multis2[spree_multi].'</td>
+    <td align="center">Multi Kills</td>
+    <td align="center">'.$sql_multis[spree_multi].'</td>
+    <td align="center">Multi Kills</td>
+    <td align="center">'.$sql_multis2[spree_multi].'</td>
   </tr>
   <tr>
-    <td class="dark" align="center">Ultra Kills</td>
-    <td class="grey2" align="center">'.$sql_multis[spree_ultra].'</td>
+    <td align="center">Ultra Kills</td>
+    <td  align="center">'.$sql_multis[spree_ultra].'</td>
     <td class="dark" align="center">Ultra Kills</td>
     <td class="grey2" align="center">'.$sql_multis2[spree_ultra].'</td>
   </tr>

@@ -8,4 +8,9 @@ $(document).ready(function() {
       window.document.location = $(this).attr("href");
     }
   });
+
+  // Credits changelog toggle
+  $(".changeLog").click(function() {
+    $("#contentChangeLog").slideToggle(300);
+  });
 });

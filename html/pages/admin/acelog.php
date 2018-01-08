@@ -90,7 +90,7 @@ if (empty($filename)) {
 	}
 	</script>
 	<form name = "filter">
-	<table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
+	<table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
 	<tr>
 		<td class="heading" align="center" width="100%" colspan="5">Available ACE Logs:</td>
 	</tr>
@@ -252,7 +252,7 @@ if (empty($filename)) {
 
 if (!empty($filename)) {
 	if (!file_exists('logs/ace/'. $filename) or !is_file('logs/ace/'. $filename)) die('File not found (2)');
-	echo'<br><table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
+	echo'<br><table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
 	<tr>
 		<td class="smheading" align="center" width="95%" colspan="4">'.$filename.'</td>
 		<td class="smheading" align="center" width="5%" align="right">';

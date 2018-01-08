@@ -41,9 +41,9 @@ $gametime2 = sec2min($gametime2);
 teamstats($mid, 'Match Summary - '.$ass_att.' Team Attacking', 'ass_obj', 'Ass Obj');
 
 echo'
-<table class = "box" border="0" cellpadding="0" cellspacing="2" width="720">
+<table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
   <tbody><tr>
-    <td class="hlheading" colspan="15" align="center">'.$asswin.'</td>
+    <th class="smheading" colspan="15" align="center">'.$asswin.'</th>
   </tr>
 </tbody></table>
 <br>';
@@ -54,9 +54,9 @@ IF($mid2 != NULL) {
 	teamstats($mid2, 'Match Summary - '.$ass_att2.' Team Attacking', 'ass_obj', 'Ass Obj');
 	
 	echo'
-	<table class = "box" border="0" cellpadding="0" cellspacing="2" width="720">
+	<table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="720">
 	<tbody><tr>
-		<td class="hlheading" colspan="15" align="center">'.$asswin2.'</td>
+		<th class="smheading" colspan="15" align="center">'.$asswin2.'</th>
 	</tr>
 	</tbody></table>
 	<br>';

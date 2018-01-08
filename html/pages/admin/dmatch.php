@@ -20,7 +20,7 @@ $results = adminselect($options);
 
 $matchid = $results['mid'];
 
-echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 <tr>
 	<td class="smheading" align="center" colspan="2">Deleting Match ID '.$matchid.'</td>
 </tr>
@@ -47,7 +47,7 @@ while ($r_radjust = mysql_fetch_array($q_radjust)) {
 	mysql_query("UPDATE uts_rank SET rank = $newrank, prevrank = $oldrank, matches = $matchcount WHERE id = $rid") or die(mysql_error());
 	mysql_query("DELETE FROM uts_rank WHERE matches = 0") or die(mysql_error());
 }
-	echo'<td class="grey" align="left" width="400">Done</td>
+	echo'<td class="grey" align="left" width="700">Done</td>
 </tr>
 <tr>
 	<td class="smheading" align="left" width="200">Removing Match Record:</td>';

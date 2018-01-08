@@ -12,79 +12,78 @@ $_GLOBALS['gamename'] = $gamename;
 
 include("includes/teamstats.php");
 include("pages/match_info_charts.php");
-echo "<h1>WOOOt<h1>";
 
 switch($real_gamename) {
 
-	case "Assault":
-	case "Assault (insta)":
-		include("pages/match_info_ass.php");
-		break;
+  case "Assault":
+  case "Assault (insta)":
+    include("pages/match_info_ass.php");
+    break;
 
-	case "Capture the Flag":
-	case "Capture the Flag (insta)":
-	case "5v5 iCTF":
-	case "1v1 iCTF":
-	case "2v2 iCTF":
-	case "3v3 iCTF":
-	case "5v5 teleCTF":
-	case "5v5 saCTF":
-	case "5v5 nwCTF":
-	case "3v3 nwCTF":
-		include("pages/match_info_ctf.php");
-		teamstats($mid, 'Match Summary');
-		break;
+  case "Capture the Flag":
+  case "Capture the Flag (insta)":
+  case "5v5 iCTF":
+  case "1v1 iCTF":
+  case "2v2 iCTF":
+  case "3v3 iCTF":
+  case "5v5 teleCTF":
+  case "5v5 saCTF":
+  case "5v5 nwCTF":
+  case "3v3 nwCTF":
+    include("pages/match_info_ctf.php");
+    teamstats($mid, 'Match Summary');
+    break;
 
-	case "Domination":
-	case "Domination (insta)":
-	case "4v4 iDOM":
-	case "4v4 sDOM":
-	case "4v4 nwDOM":
-		teamstats($mid, 'Match Summary', 'dom_cp', 'Dom Pts');
-		break;
+  case "Domination":
+  case "Domination (insta)":
+  case "4v4 iDOM":
+  case "4v4 sDOM":
+  case "4v4 nwDOM":
+    teamstats($mid, 'Match Summary', 'dom_cp', 'Dom Pts');
+    break;
 
-	case "JailBreak":
-	case "JailBreak (insta)":
-		teamstats($mid, 'Match Summary', 'ass_obj', 'Team Releases');
-		break;
+  case "JailBreak":
+  case "JailBreak (insta)":
+    teamstats($mid, 'Match Summary', 'ass_obj', 'Team Releases');
+    break;
 
-	case "Bunny Track":
-		include("pages/match_info_bt.php");
-		break;
+  case "Bunny Track":
+    include("pages/match_info_bt.php");
+    break;
 
-	case "Tournament DeathMatch":
-	case "Tournament Team Game":
-	case "Tournament DeathMatch (insta)":
-	case "Tournament Team Game (insta)":
-	case "FFA iDM":
-	case "2v2v2v2 iTDM":
-		teamstats($mid, 'Match Summary');
-		break;
+  case "Tournament DeathMatch":
+  case "Tournament Team Game":
+  case "Tournament DeathMatch (insta)":
+  case "Tournament Team Game (insta)":
+  case "FFA iDM":
+  case "2v2v2v2 iTDM":
+    teamstats($mid, 'Match Summary');
+    break;
 
-	case "Extended Last Man Standing":
-	case "Extended Last Man Standing (insta)":
-	case "Last Man Standing":
-	case "Last Man Standing (insta)":
-	case "Last Man Standing +":
-	case "Last Man Standing + (insta)":
-	case "Last Man Standing++":
-	case "Last Man Standing++ (insta)":
-		include("pages/match_info_lms.php");
-		break;
+  case "Extended Last Man Standing":
+  case "Extended Last Man Standing (insta)":
+  case "Last Man Standing":
+  case "Last Man Standing (insta)":
+  case "Last Man Standing +":
+  case "Last Man Standing + (insta)":
+  case "Last Man Standing++":
+  case "Last Man Standing++ (insta)":
+    include("pages/match_info_lms.php");
+    break;
 
-	default:
-		if ($teamgame) {
-			teamstats($mid, 'Match Summary');
- 		} else {
-			teamstats($mid, 'Player Summary');
-		}
+  default:
+    if ($teamgame) {
+      teamstats($mid, 'Match Summary');
+     } else {
+      teamstats($mid, 'Player Summary');
+    }
 }
 
 if ($real_gamename == "Assault" or $real_gamename == "Assault (insta)") {
-	include("pages/match_info_other2.php");
+  include("pages/match_info_other2.php");
 }
 else if ($real_gamename != "Bunny Track") {
-	include("pages/match_info_other.php");
+  include("pages/match_info_other.php");
 }
 
 if ($real_gamename == "Capture the Flag" or $real_gamename == "Capture the Flag (insta)") {

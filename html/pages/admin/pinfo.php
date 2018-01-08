@@ -25,7 +25,7 @@ echo '<br>';
 $sql_ips = "SELECT INET_NTOA(p.ip) AS ip, COUNT(p.id) AS matches, MIN(m.time) AS first, MAX(m.time) AS last FROM uts_player AS p, uts_match AS m WHERE p.pid = ".$pid." AND m.id = p.matchid GROUP BY ip ORDER BY ip";
 $q_ips = mysql_query($sql_ips) or die("Can't get ip's: " . mysql_error());
 echo '
-<table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
+<table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
   <tbody>
   <tr>
     <td class="heading" colspan="5" align="center">IP\'s used</td>
@@ -60,7 +60,7 @@ mysql_free_result($q_ips);
 $sql_fakes = "SELECT INET_NTOA(p1.ip) AS ip, pi.name FROM uts_player AS p1, uts_player AS p2, uts_pinfo AS pi WHERE p1.pid = ".$pid." AND p1.ip = p2.ip AND p1.pid <> p2.pid AND pi.id = p2.pid GROUP BY pi.name";
 $q_fakes = mysql_query($sql_fakes) or die("Can't retrieve fake nicks: " . mysql_error());
 echo '
-<table class = "box" border="0" cellpadding="1" cellspacing="2" width="480">
+<table class = "box" border="0" cellpadding="0" cellspacing="0" width="480">
   <tbody>
   <tr>
     <td class="heading" colspan="2" align="center">Possible aliasses</td>

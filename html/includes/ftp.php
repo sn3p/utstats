@@ -109,7 +109,7 @@ function ftpupdate()
 
 	if (!$ftp_debug) {
 
-		if ($html) echo'<table class="box" border="0" cellpadding="1" cellspacing="2" style="table-layout:fixed"><tr><td class="smheading" align="center" height="25" width="550" colspan="2">';
+		if ($html) echo'<table class="zebra box" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed"><tr><td class="smheading" align="center" height="25" width="550" colspan="2">';
 
 		echo "FTP Transferring Log Files...\n";
 

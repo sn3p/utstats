@@ -36,8 +36,8 @@ $lpageurl = "<a class=\"pages\" href=\"./?p=servers&amp;page=$lpage\">[Last]</a>
 IF ($cpage == "$lpage") { $lpageurl = "[Last]"; }
 
 echo'
-<div class="pages"><b>Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</b></div>
-<table class="box" border="0" cellpadding="1" cellspacing="1">
+<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>
+<table class="box" border="0" cellpadding="0" cellspacing="0">
   <tbody><tr>
     <td class="heading" colspan="6" align="center">Unreal Tournament Server List</td>
   </tr>
@@ -59,16 +59,16 @@ while ($r_servers = mysql_fetch_array($q_servers)) {
 
 	  echo'
 	  <tr>
-		<td class="dark" align="center"><a class="darkhuman" href="./?p=sinfo&amp;serverip='.$r_servers[serverip].'">'.$r_servers[servername].'</a></td>
-		<td class="grey" align="center"><a href="./?p=squery&amp;serverip='.$r_servers[serverip].'"><img border="0" alt="Server Status" title="Server Status" src="images/magnify.gif"></a></td>
-		<td class="grey" align="center">'.$r_servers[matchcount].'</td>
-		<td class="grey" align="center">'.$r_servers[frags].'</td>
-		<td class="grey" align="center">'.$r_servers[matchscore].'</td>
-		<td class="grey" align="center">'.$r_gametime.'</td>
+		<td align="center"><a href="./?p=sinfo&amp;serverip='.$r_servers[serverip].'">'.$r_servers[servername].'</a></td>
+		<td class="tooltip" align="center"><a href="./?p=squery&amp;serverip='.$r_servers[serverip].'"><img border="0" alt="Server Status" title="Server Status" src="images/magnify.gif"></a></td>
+		<td align="center">'.$r_servers[matchcount].'</td>
+		<td align="center">'.$r_servers[frags].'</td>
+		<td align="center">'.$r_servers[matchscore].'</td>
+		<td align="center">'.$r_gametime.'</td>
 	  </tr>';
 }
 
 echo'
 </tbody></table>
-<div class="pages"><b>Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</b></div>';
+<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>';
 ?>

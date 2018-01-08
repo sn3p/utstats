@@ -43,13 +43,13 @@ if($debug) {
 }
 
 // Print header & links
-echo '<P><B>Player merging tool</B></P>';
+echo '<P>Player merging tool</P>';
 echo "<P><A href=admin.php?key=".$adminkey."&action=plm>Merge ip's</A> - <A href=admin.php?key=".$adminkey."&action=plm&onlyrange=true>Merge ip's, limited on range</A> - <A href=admin.php?key=".$adminkey."&action=plm&manignore=true>Manage ignored ip's</A> - <A href=admin.php?key=".$adminkey."&action=plm&manignore=true&onlyrange=true>Manage ignored ip's - only range</A><BR><BR></P>";
 
 // CASE: MANAGE IGNORED IPS
 if($_GET['manignore'] == "true") {
 	if($_POST['submit'] == "Remove from ignored list") {
-    	echo "<P><B>Stopped ignore ip's</B></P>";
+    	echo "<P>Stopped ignore ip's</P>";
         foreach($_POST as $key=>$value) {
             if($key !='submit') {
                 $key = mysql_real_escape_string(str_replace("_",".",$key));
@@ -60,7 +60,7 @@ if($_GET['manignore'] == "true") {
         }
 	} else if($_GET['onlyrange'] == "true") {
     	if($_POST['submit'] == "Confirm") {
-			echo '<P><B>Ignored ip\'s in range '.htmlentities($_POST['from']).' to '.htmlentities($_POST['to']).'</B><br><I>If you want to stop ignoring some ip\'s, because for example you accidently ignored these, check these and press the button at the lower end to confirm this</I></P>';
+			echo '<P>Ignored ip\'s in range '.htmlentities($_POST['from']).' to '.htmlentities($_POST['to']).'<br><I>If you want to stop ignoring some ip\'s, because for example you accidently ignored these, check these and press the button at the lower end to confirm this</I></P>';
 			echo '<FORM METHOD="POST" ACTION="admin.php?key='.$adminkey.'&action=plm&manignore=true" target="_blank">';    		
 			
 			$from = mysql_real_escape_string($_POST['from']);
@@ -75,7 +75,7 @@ if($_GET['manignore'] == "true") {
 		            $trueplayerip = long2ip($playerip);
 		            $pidcount = $r_pipcheck[pidcount];
 		            
-		                echo "<br><input type=checkbox name=$trueplayerip> <b>$trueplayerip</b>";
+		                echo "<br><input type=checkbox name=$trueplayerip> $trueplayerip";
 		                
 		                // Query for player names and ids associated to that ip during the cycle
 		                $sql_pcheck = "SELECT pi.id, pi.name, pi.country, p.pid, p.ip FROM uts_pinfo AS pi, uts_player AS p WHERE pi.id = p.pid AND p.ip = $playerip GROUP BY pi.id, pi.name, p.pid, p.ip, pi.country";
@@ -90,13 +90,13 @@ if($_GET['manignore'] == "true") {
 		    	echo "<BR><P>No ignored ip's found</P>";
 		    }
     	} else {
-    		echo "<P><B>Ignored ip's in range: Enter range to filter on</B></P>";
+    		echo "<P>Ignored ip's in range: Enter range to filter on</P>";
         	echo '<FORM METHOD="POST" ACTION="admin.php?key='.$adminkey.'&action=plm&manignore=true&onlyrange=true">';
         	echo '<BR>Ranging from <INPUT TYPE="TEXT" NAME="from" SIZE="20" VALUE="0.0.0.0"> to <INPUT TYPE="TEXT" NAME="to" SIZE="20" VALUE="255.255.255.255">';
     		echo '<BR><BR><INPUT TYPE="SUBMIT" NAME="submit" VALUE="Confirm"></FORM>';
     	}		
 	} else {
-		echo '<P><B>Ignored ip\'s</B><br><I>If you want to stop ignoring some ip\'s, because for example you accidently ignored these, check these and press the button at the lower end to confirm this</I></P>';
+		echo '<P>Ignored ip\'s<br><I>If you want to stop ignoring some ip\'s, because for example you accidently ignored these, check these and press the button at the lower end to confirm this</I></P>';
 		echo '<FORM METHOD="POST" ACTION="admin.php?key='.$adminkey.'&action=plm&manignore=true" target="_blank">';
 		
         $ignore_ips = mysql_query("SELECT ip FROM uts_ignoreips ORDER BY ip ASC");
@@ -107,7 +107,7 @@ if($_GET['manignore'] == "true") {
 	            $trueplayerip = long2ip($playerip);
 	            $pidcount = $r_pipcheck[pidcount];
 	            
-	                echo "<br><input type=checkbox name=$trueplayerip> <b>$trueplayerip</b>";
+	                echo "<br><input type=checkbox name=$trueplayerip> $trueplayerip";
 	                
 	                // Query for player names and ids associated to that ip during the cycle
 	                $sql_pcheck = "SELECT pi.id, pi.name, pi.country, p.pid, p.ip FROM uts_pinfo AS pi, uts_player AS p WHERE pi.id = p.pid AND p.ip = $playerip GROUP BY pi.id, pi.name, p.pid, p.ip, pi.country";
@@ -125,7 +125,7 @@ if($_GET['manignore'] == "true") {
     
 // CASE: IGNORE SUBMITTED IP'S
 } else if($_POST['submit'] == "ignore") {
-	echo "<P><B>Ignored ips</B></P>";
+	echo "<P>Ignored ips</P>";
     foreach($_POST as $key=>$value) {
         if($key !='submit') {
             $key = mysql_real_escape_string(str_replace("_",".",$key));
@@ -138,7 +138,7 @@ if($_GET['manignore'] == "true") {
     
 // CASE: SHOW NICKS WITH GIVEN SHARED IP   
 } else if(substr($_POST['submit'],0,8) == "merge - ") {
-	echo "<P><B>Merge nicks with shared ip</B></P>";
+	echo "<P>Merge nicks with shared ip</P>";
 	
     $ip = mysql_real_escape_string(str_replace("_",".",substr($_POST['submit'],8)));
     $sql_pipcheck = "SELECT ip, COUNT(DISTINCT pid) AS pidcount FROM uts_player WHERE ip = INET_ATON('$ip') GROUP BY ip ORDER BY ip ASC";
@@ -152,7 +152,7 @@ if($_GET['manignore'] == "true") {
         // If there is more than one pid associated to an IP ...
         IF ($pidcount > 1 ) {
             echo '<FORM METHOD="POST" ACTION="admin.php?key='.$adminkey.'&action=plm">';
-            echo "<br><b>$trueplayerip</b>";
+            echo "<br>$trueplayerip";
             
             // Query for player names and ids associated to that ip during the cycle
             $sql_pcheck = "SELECT pi.id, pi.name, pi.country, p.pid, p.ip FROM uts_pinfo AS pi, uts_player AS p WHERE pi.id = p.pid AND p.ip = $playerip GROUP BY pi.id, pi.name, p.pid, p.ip, pi.country";
@@ -170,7 +170,7 @@ if($_GET['manignore'] == "true") {
         
 // CASE: MERGE NICKS WITH SHARED IP              
 } else if($_POST['submit'] == "Player merge") {
-	echo "<P><B>Merging nicks with shared ip</B></P>";
+	echo "<P>Merging nicks with shared ip</P>";
 	
     $ip = mysql_real_escape_string(str_replace("_",".",$_POST['ip']));
     $merge_to_pid = mysql_real_escape_string($_POST['merge_to']);
@@ -184,7 +184,7 @@ if($_GET['manignore'] == "true") {
         
         // If there is more than one pid associated to an IP ...
         IF ($pidcount > 1 ) {
-            echo "<b>$trueplayerip</b><br><br>merge:<br>";
+            echo "$trueplayerip<br><br>merge:<br>";
             
             // Query for player names and ids associated to that ip during the cycle
             $sql_pcheck = "SELECT p.pid FROM uts_pinfo AS pi, uts_player AS p WHERE pi.id = p.pid AND p.ip = $playerip GROUP BY pi.id, pi.name, p.pid, p.ip, pi.country";
@@ -210,7 +210,7 @@ if($_GET['manignore'] == "true") {
 // CASE: SHOW ALL IP'S LINKED TO MORE THAN ONE NICK - ONLY RANGE    
 } else if($_GET['onlyrange'] == "true") {
 	if($_POST['submit'] == "Confirm") {
-		echo "<P><B>Showing all ip's in range ".htmlentities($_POST['from'])." to ".htmlentities($_POST['to'])."</B><br><I>If you want to ignore some ip's, because for example different but unrelated nicks are associated with it, check these and press the button at the lower end to confirm this</I></P>";
+		echo "<P>Showing all ip's in range ".htmlentities($_POST['from'])." to ".htmlentities($_POST['to'])."<br><I>If you want to ignore some ip's, because for example different but unrelated nicks are associated with it, check these and press the button at the lower end to confirm this</I></P>";
 		$from = mysql_real_escape_string($_POST['from']);
 		$to = mysql_real_escape_string($_POST['to']);
 		
@@ -240,7 +240,7 @@ if($_GET['manignore'] == "true") {
 		        // If there is more than one pid associated to an IP ...
 		        IF ($pidcount > 1 ) {
 		            
-		            echo "<br><input type=checkbox name=$trueplayerip> <b>$trueplayerip</b>";
+		            echo "<br><input type=checkbox name=$trueplayerip> $trueplayerip";
 		            
 		            // Query for player names and ids associated to that ip during the cycle
 		            $sql_pcheck = "SELECT pi.id, pi.name, pi.country, p.pid, p.ip FROM uts_pinfo AS pi, uts_player AS p WHERE pi.id = p.pid AND p.ip = $playerip GROUP BY pi.id, pi.name, p.pid, p.ip, pi.country";
@@ -260,7 +260,7 @@ if($_GET['manignore'] == "true") {
 		}
 	    	
 	} else {
-		echo "<P><B>Showing all ip's in range - Enter range to filter on</B></P>";
+		echo "<P>Showing all ip's in range - Enter range to filter on</P>";
     	echo '<FORM METHOD="POST" ACTION="admin.php?key='.$adminkey.'&action=plm&onlyrange=true">';
     	echo '<BR>Ranging from <INPUT TYPE="TEXT" NAME="from" SIZE="20" VALUE="0.0.0.0"> to <INPUT TYPE="TEXT" NAME="to" SIZE="20" VALUE="255.255.255.255">';
 		echo '<BR><BR><INPUT TYPE="SUBMIT" NAME="submit" VALUE="Confirm"></FORM>';
@@ -268,7 +268,7 @@ if($_GET['manignore'] == "true") {
 
 // CASE: SHOW ALL IP'S LINKED TO MORE THAN ONE NICK
 } else {
-	echo "<P><B>IP's linked with more than one nick</B><br><I>If you want to ignore some ip's, because for example different but unrelated nicks are associated with it, check these and press the button at the lower end to confirm this</I></P>";
+	echo "<P>IP's linked with more than one nick<br><I>If you want to ignore some ip's, because for example different but unrelated nicks are associated with it, check these and press the button at the lower end to confirm this</I></P>";
 	
     $ignore_ips = mysql_query("SELECT ip FROM uts_ignoreips");
     $extended_query = "";
@@ -299,7 +299,7 @@ if($_GET['manignore'] == "true") {
 	        // If there is more than one pid associated to an IP ...
 	        IF ($pidcount > 1 ) {
 	            
-	            echo "<br><input type=checkbox name=$trueplayerip> <b>$trueplayerip</b>";
+	            echo "<br><input type=checkbox name=$trueplayerip> $trueplayerip";
 	            
 	            // Query for player names and ids associated to that ip during the cycle
 	            $sql_pcheck = "SELECT pi.id, pi.name, pi.country, p.pid, p.ip FROM uts_pinfo AS pi, uts_player AS p WHERE pi.id = p.pid AND p.ip = $playerip GROUP BY pi.id, pi.name, p.pid, p.ip, pi.country";

@@ -29,7 +29,7 @@ if (isset($_REQUEST['submit'])) {
 					") or die(mysql_error());
 	
 	if (isset($_REQUEST['update'])) {
-		echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+		echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 				<tr>
 					<td class="smheading" align="center" colspan="2">Updating...</td>
 				</tr>
@@ -102,7 +102,7 @@ if (isset($_REQUEST['del'])) {
 
 
 
-echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 <tr>
 	<td class="medheading" align="center" colspan="8">Current Mappings</td>
 </tr>
@@ -153,7 +153,7 @@ echo '</tr></table>';
 
 
 
-echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 <tr>
 	<td class="medheading" align="center" colspan="2">Add new gamestype</td>
 </tr>

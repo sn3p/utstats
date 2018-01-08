@@ -26,7 +26,7 @@ $results = adminselect($options);
 $pid = $results['pid'];
 
 if ($ban) {
-	echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+	echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 	<tr>
 		<td class="smheading" align="center" colspan="2">Banning Player</td>
 	</tr>
@@ -45,7 +45,7 @@ if ($ban) {
 		<td class="smheading" align="center" colspan="2">Player Banned - <a href="./admin.php?key='.$_REQUEST[key].'">Go Back To Admin Page</a></td>
 	</tr></table>';
 } else {
-	echo'<table border="0" cellpadding="1" cellspacing="2" width="600">
+	echo'<table border="0" cellpadding="0" cellspacing="0" width="600">
 	<tr>
 		<td class="smheading" align="center" colspan="2">Unbanning Player</td>
 	</tr>

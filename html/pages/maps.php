@@ -9,7 +9,7 @@ function SortPic($curr_field, $filter, $sort) {
 	if ($curr_field != $filter) return;
 	$fname = 'images/s_'. strtolower($sort) .'.png';
 	if (!file_exists($fname)) return;
-	return('&nbsp;<img src="'. $fname .'" border="0" width="11" height="9" alt="" title="('.strtolower($sort).'ending)">');
+	return('&nbsp;<img src="'. $fname .'" border="0" width="11" height="9" alt="" class="tooltip" title="('.strtolower($sort).'ending)">');
 }
 
 
@@ -84,13 +84,13 @@ IF ($cpage == "$lpage") { $lpageurl = "[Last]"; }
 
 echo'
 <form NAME="mapfilter" METHOD="get" ACTION="">
-<div class="pages"><b>Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</b></div>
-<table class="box" border="0" cellpadding="1" cellspacing="1">
+<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>
+<table class="zebra box" border="0" cellpadding="0" cellspacing="0">
   <tbody><tr>
-    <td class="heading" colspan="5" align="center">Unreal Tournament Maps List</td>
+    <th class="heading" colspan="5" align="center">Unreal Tournament Maps List</th>
   </tr>
   <tr>
-    <td class="smheading" align="center" width="100%" colspan="5">
+    <th class="smheading" align="center" width="100%" colspan="5">
 	<input type = "hidden" name = "p" value = "maps">
 	<input type = "hidden" name = "sort" value = "'.$sort.'">
 	<input type = "hidden" name = "filter" value = "'.$filter.'">
@@ -104,17 +104,19 @@ while ($r_game = mysql_fetch_array($q_game)) {
 	echo '<option '.$selected.' value="'.$r_game['gid'].'">'. $r_game['name'] .'</option>';
 }
 echo '</select> ';
-echo ' Search: <input type = "text" name="q" size="16"'.(empty($q) ? '' : ' value="'.htmlentities($q).'"').'>';
-echo ' <input class="searchform" type="Submit" value="Apply">';
+
+echo '<div class="darksearch">	  
+	  <span><input type="text" class="search square" placeholder="Search maps..." name="q" value="'.htmlentities($q).'"><input class="searchbutton" type="submit" value="Search"></span></div>';
+
 echo '
-    </td>
+    </th>
   </tr>
   <tr>
-    <td class="smheading" align="center" width="250"><a class="smheading" href="./?p=maps&amp;filter=mapfile&amp;sort='.InvertSort('mapfile', $filter, $sort).$url_condition.'">Map Name</a>'.SortPic('mapfile', $filter, $sort).'</td>
-    <td class="smheading" align="center" width="150"><a class="smheading" href="./?p=maps&amp;filter=matchcount&amp;sort='.InvertSort('matchcount', $filter, $sort).$url_condition.'">Matches</a>'.SortPic('matchcount', $filter, $sort).'</td>
-    <td class="smheading" align="center"><a class="smheading" href="./?p=maps&amp;filter=frags&amp;sort='.InvertSort('frags', $filter, $sort).$url_condition.'">Avg. Frags</a>'.SortPic('frags', $filter, $sort).'</td>
-    <td class="smheading" align="center" width="100"><a class="smheading" href="./?p=maps&amp;filter=matchscore&amp;sort='.InvertSort('matchscore', $filter, $sort).$url_condition.'">Avg. Score</a>'.SortPic('matchscore', $filter, $sort).'</td>
-    <td class="smheading" align="center" width="100"><a class="smheading" href="./?p=maps&amp;filter=gametime&amp;sort='.InvertSort('gametime', $filter, $sort).$url_condition.'">Time</a>'.SortPic('gametime', $filter, $sort).'</td>
+    <th class="smheading" align="center" width="250"><a class="smheading" href="./?p=maps&amp;filter=mapfile&amp;sort='.InvertSort('mapfile', $filter, $sort).$url_condition.'">Map Name</a>'.SortPic('mapfile', $filter, $sort).'</th>
+    <th class="smheading" align="center" width="150"><a class="smheading" href="./?p=maps&amp;filter=matchcount&amp;sort='.InvertSort('matchcount', $filter, $sort).$url_condition.'">Matches</a>'.SortPic('matchcount', $filter, $sort).'</th>
+    <th class="smheading" align="center"><a class="smheading" href="./?p=maps&amp;filter=frags&amp;sort='.InvertSort('frags', $filter, $sort).$url_condition.'">Avg. Frags</a>'.SortPic('frags', $filter, $sort).'</th>
+    <th class="smheading" align="center" width="100"><a class="smheading" href="./?p=maps&amp;filter=matchscore&amp;sort='.InvertSort('matchscore', $filter, $sort).$url_condition.'">Avg. Score</a>'.SortPic('matchscore', $filter, $sort).'</th>
+    <th class="smheading" align="center" width="100"><a class="smheading" href="./?p=maps&amp;filter=gametime&amp;sort='.InvertSort('gametime', $filter, $sort).$url_condition.'">Time</a>'.SortPic('gametime', $filter, $sort).'</th>
   </tr>';
 
 $sql_maps = "SELECT IF(RIGHT(mapfile,4) LIKE '.unr', mapfile, CONCAT(mapfile, '.unr')) as mapfile, COUNT(id) AS matchcount, AVG(frags) AS frags, AVG(t0score+t1score+t2score+t3score) AS matchscore, SUM(gametime) AS gametime
@@ -127,17 +129,17 @@ while ($r_maps = mysql_fetch_array($q_maps)) {
 	  $r_gametime = GetMinutes($r_maps[gametime]);
 
 	  echo'
-	  <tr>
-		<td class="dark" align="center"><a class="darkhuman" href="./?p=minfo&amp;map='.$myurl.'">'.$r_mapfile.'</a></td>
-		<td class="grey" align="center">'.$r_maps[matchcount].'</td>
-		<td class="grey" align="center">'.get_dp($r_maps[frags]).'</td>
-		<td class="grey" align="center">'.get_dp($r_maps[matchscore]).'</td>
-		<td class="grey" align="center">'.$r_gametime.'</td>
+	  <tr class="clickableRow" href="./?p=minfo&amp;map='.$myurl.'">
+		<td align="center"><a href="./?p=minfo&amp;map='.$myurl.'">'.$r_mapfile.'</a></td>
+		<td align="center">'.$r_maps[matchcount].'</td>
+		<td align="center">'.get_dp($r_maps[frags]).'</td>
+		<td align="center">'.get_dp($r_maps[matchscore]).'</td>
+		<td align="center">'.$r_gametime.'</td>
 	  </tr>';
 }
 
 echo'
 </tbody></table>
-<div class="pages"><b>Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</b></div>
+<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>
 </form>';
 ?>

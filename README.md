@@ -89,14 +89,17 @@ There's also a tool that extracts screenshots [here](http://www.unrealadmin.org/
 
 The current install is compatible with the database of version 4.2 and later.
 However bunny track stats are only available from version 4.2.5.
+Additionally, graph imports are only available from version 4.3.
 
 Just remove all the files/folders (apart from the logs folder, if you wish to
 keep your backup logs), and upload all the files in the html folder to your
 webserver.
 
 Then visit the admin area and click "Check Server Settings" near the bottom of
-the list. This will install databases if they're missing and fix the Bunny
-Track captimes to the new format if needed.
+the list. This will:
+ - Install missing database tables if they're missing.
+ - Insert all the required charttype data into the database.
+ - Fix the BunnyTrack captimes to the new format if needed.
 
 If you use your old config.php make sure the following section is included:
 

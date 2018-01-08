@@ -7,7 +7,7 @@
 			<!-- Please leave this bit in, its the least you can do with all the work we have done :) -->
 			<p>
 				<a href="https://github.com/sn3p/utstats" target="_blank">
-			  UTStats Beta 4.2.8</a> &copy; 2005 azazel, AnthraX and toa
+			  UTStats Beta 4.3.0</a> &copy; 2005 azazel, AnthraX and toa
 			</p>
 
 		</td>

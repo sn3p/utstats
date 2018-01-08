@@ -19,6 +19,10 @@ All original pages are W3C <a href="http://validator.w3.org/check?uri=referer" t
 <p><a name="changelog"></a><b>Change Log</b></p>
 <blockquote><p>
 <dl>
+	<dt>4.3.0 (4/1/2018 by killerEye, imported by Monk)</dt>
+	<dd>Added:<br>
+	Graphs of specific stats for CTF, DOM and DM game types.<br><br></dd>
+	
 	<dt>beta 4.2.8 (23/7/2011 by Rork)</dt>
 	<dd>Bug Fixes:<br>
 	Fixed explain rankings (reported by Letylove49)<br>

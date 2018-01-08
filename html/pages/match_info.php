@@ -3,39 +3,46 @@ $r_info = small_query("SELECT teamgame, t0, t1, t2, t3, t0score, t1score, t2scor
 if (!$r_info) die("Match not found");
 $teamgame = ($r_info['teamgame'] == 'True') ? true : false;
 
-echo '
-<table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
-  <tbody><tr>
-    <td class="heading" align="center">Unreal Tournament Match</td>
-  </tr>
-</tbody></table>
-<br>';
 include("pages/match_info_server.php");
-include("pages/match_info_charts.php");
 
 $GLOBALS['gid'] = $gid;
 $_GLOBALS['gid'] = $gid;
 $GLOBALS['gamename'] = $gamename;
 $_GLOBALS['gamename'] = $gamename;
 
-include('includes/teamstats.php');
+include("includes/teamstats.php");
+include("pages/match_info_charts.php");
+echo "<h1>WOOOt<h1>";
+
 switch($real_gamename) {
+
 	case "Assault":
 	case "Assault (insta)":
 		include("pages/match_info_ass.php");
 		break;
-		
+
 	case "Capture the Flag":
 	case "Capture the Flag (insta)":
+	case "5v5 iCTF":
+	case "1v1 iCTF":
+	case "2v2 iCTF":
+	case "3v3 iCTF":
+	case "5v5 teleCTF":
+	case "5v5 saCTF":
+	case "5v5 nwCTF":
+	case "3v3 nwCTF":
 		include("pages/match_info_ctf.php");
 		teamstats($mid, 'Match Summary');
-  		break;
-		
+		break;
+
 	case "Domination":
 	case "Domination (insta)":
+	case "4v4 iDOM":
+	case "4v4 sDOM":
+	case "4v4 nwDOM":
 		teamstats($mid, 'Match Summary', 'dom_cp', 'Dom Pts');
 		break;
-	
+
 	case "JailBreak":
 	case "JailBreak (insta)":
 		teamstats($mid, 'Match Summary', 'ass_obj', 'Team Releases');
@@ -44,11 +51,13 @@ switch($real_gamename) {
 	case "Bunny Track":
 		include("pages/match_info_bt.php");
 		break;
-		
+
 	case "Tournament DeathMatch":
 	case "Tournament Team Game":
 	case "Tournament DeathMatch (insta)":
 	case "Tournament Team Game (insta)":
+	case "FFA iDM":
+	case "2v2v2v2 iTDM":
 		teamstats($mid, 'Match Summary');
 		break;
 
@@ -66,21 +75,20 @@ switch($real_gamename) {
 	default:
 		if ($teamgame) {
 			teamstats($mid, 'Match Summary');
-   		} else {
+ 		} else {
 			teamstats($mid, 'Player Summary');
 		}
 }
-	
 
-if ($real_gamename == "Assault" or $real_gamename== "Assault (insta)") {
+if ($real_gamename == "Assault" or $real_gamename == "Assault (insta)") {
 	include("pages/match_info_other2.php");
 }
 else if ($real_gamename != "Bunny Track") {
 	include("pages/match_info_other.php");
 }
 
-if ($real_gamename == "Capture the Flag" or $real_gamename== "Capture the Flag (insta)") {
-   include("pages/match_report.php");
+if ($real_gamename == "Capture the Flag" or $real_gamename == "Capture the Flag (insta)") {
+  include("pages/match_report.php");
 }
 
 ?>

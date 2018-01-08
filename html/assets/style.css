@@ -140,7 +140,6 @@ li {
   width: 95%;
   height: 50px;
   padding-top: 10px;
-  background: url("./images/dark_grey.jpg");
 }
 .darksearch input[type="text"] {
   font-family: GothamLight, sans-serif;
@@ -160,7 +159,7 @@ input[type="text"] {
 .search {
   padding: 6px 15px 6px 30px;
   margin: 3px;
-  background: url("./images/search.png") no-repeat 8px 6px;
+  background: url("../images/search.png") no-repeat 8px 6px;
   font-family: GothamLight, sans-serif;
   height: 28px;
 }
@@ -168,7 +167,7 @@ input[type="text"] {
 .owshare {
   padding: 6px 15px 6px 30px;
   margin: 3px;
-  background: url("./images/owshare.png") no-repeat 8px 6px;
+  background: url("../images/owshare.png") no-repeat 8px 6px;
   font-family: GothamLight, sans-serif;
   height: 28px;
 }
@@ -180,15 +179,6 @@ input[type="submit"] {
   font-family: GothamLight, sans-serif;
   border: 1px solid #1e1e1e;
   background-color: #2069a1;
-  /** 
-	background: #fdd932; 
-	background: -moz-linear-gradient(top, #fdd932 0%, #ffd305 100%); 
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#515151), color-stop(100%,#2d3035)); 
-	background: -webkit-linear-gradient(top, #515151 0%,#383838 100%); 
-	background: -o-linear-gradient(top, #e4f1f9 0%,#ffd305 100%); 
-	background: -ms-linear-gradient(top, #e4f1f9 0%,#ffd305 100%); 
-	background: linear-gradient(top, #e4f1f9 0%,#ffd305 100%); 
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4f1f9', endColorstr='#ffd305',GradientType=0 ); /* IE6-9 */
   color: #fff;
   cursor: pointer;
   -webkit-transition: background-color 1s;
@@ -1097,10 +1087,8 @@ a.pages:hover {
   /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#2069a1, #194c74);
   /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #2069a1,
-    #194c74
-  ); /* For Firefox 3.6 to 15 */
+  background: -moz-linear-gradient(#2069a1, #194c74);
+  /* For Firefox 3.6 to 15 */
   background: linear-gradient(#2069a1, #194c74); /* Standard syntax */
 }
 .redteam,

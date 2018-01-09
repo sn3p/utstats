@@ -50,7 +50,7 @@ echo'
   <script type="text/javascript" src="assets/lib/highcharts/highcharts.js"></script>
   <script type="text/javascript" src="assets/lib/highcharts/highcharts-more.js"></script>
   <script type="text/javascript" src="assets/lib/highcharts/highcharts-functions.js"></script>
-  <script type="text/javascript" src="assets/lib/highcharts/themes/dark-blue.js"></script>
+  <script type="text/javascript" src="assets/lib/highcharts/themes/utstats.js"></script>
   <script type="text/javascript" src="assets/lib/tooltipster/jquery.tooltipster.min.js"></script>
 	<script type="text/javascript" src="assets/main.js"></script>
 </head>

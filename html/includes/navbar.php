@@ -1,21 +1,21 @@
-<div class="top">
+<div class="navbar">
   <ul>
-    <li>
-      <a href="./" class="topmenulogo">
-        <img src="images/statslogo.gif" height="100%" alt="UTStats Logo">
+    <li class="logo">
+      <a href="./">
+        <img src="images/navbar-logo.png" alt="UTStats Logo">
       </a>
     </li>
     <li>
-      <a href="./?p=recent" class="topmenu">Recent</a>
+      <a href="./?p=recent">Recent</a>
     </li>
     <li>
-      <a href="./?p=rank" class="topmenu">Rankings</a>
+      <a href="./?p=rank">Rankings</a>
     </li>
     <li>
-      <a href="./?p=players" class="topmenu">Players</a>
+      <a href="./?p=players">Players</a>
     </li>
     <li>
-      <a href="./?p=watchlist" class="topmenu">Watchlist</a>
+      <a href="./?p=watchlist">Watchlist</a>
     </li>
   </ul>
 </div>

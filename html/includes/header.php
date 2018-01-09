@@ -28,8 +28,7 @@ if (isset($_COOKIE['uts_lastvisit'])) {
 }
 setcookie('uts_lastvisit', time(), time()+60*60*24*30*365);
 
-echo'
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
   <title>Unreal Tournament Stats - Powered by UTStats</title>
@@ -54,22 +53,8 @@ echo'
   <script type="text/javascript" src="assets/lib/tooltipster/jquery.tooltipster.min.js"></script>
 	<script type="text/javascript" src="assets/main.js"></script>
 </head>
-<body>
-
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-';
+<body>';
 
 include("includes/navbar.php");
 
-echo'
-<table class="spacing" align="center" border="0" cellpadding="0" cellspacing="0">
-  <tbody><tr>
-    <td align="center" width="900">
-    </td>
-  </tr>
-</tbody></table>
-<center>
-<br>
-';
+echo '<center><br>';

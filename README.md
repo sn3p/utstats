@@ -16,6 +16,11 @@ This readme will guide you through the installation process.
 2. Installing the Web stuff (full install and update)
 3. Importing Logs
 
+#### Troubleshooting:
+
+If you're having trouble running UTStats please check the [Troubleshooting](https://github.com/sn3p/utstats/wiki/Troubleshooting) in the Wiki.  
+Found an bug? Please report is by creating an [issue](https://github.com/sn3p/utstats/issues).
+
 ## 1. UTStats Actor Installation
 
 From the System folder in the zip file, copy to your UTServer\System folder the

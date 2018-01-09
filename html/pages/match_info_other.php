@@ -5,7 +5,7 @@ include('includes/weaponstats.php');
 weaponstats($mid, NULL);
 
 echo '<br>
-<table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
+<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
 <tbody>
   <tr>
     <th class="heading" colspan="11" align="center">Special Events</th>
@@ -70,7 +70,7 @@ if ((strpos($gamename, '(insta)') === false) && (strpos($gamename, "Last Man Sta
   $contentTable = "";
 
   $sql_pickups = "SELECT p.pid, pi.name, p.country, SUM(p.pu_pads) AS pu_pads, SUM(p.pu_armour) AS pu_armour, SUM(p.pu_keg) AS pu_keg,
-    SUM(p.pu_invis) AS pu_invis, SUM(p.pu_belt) AS pu_belt, SUM(p.pu_amp) AS pu_amp, SUM(p.pu_boots) AS pu_boots
+    SUM(p.pu_invis) AS pu_invis, SUM(p.pu_belt) AS pu_belt, SUM(p.pu_amp) AS pu_amp
     FROM uts_player as p, uts_pinfo AS pi
     WHERE p.pid = pi.id AND pi.banned <> 'Y' AND matchid = $mid
     GROUP BY pid, p.country
@@ -85,8 +85,9 @@ if ((strpos($gamename, '(insta)') === false) && (strpos($gamename, "Last Man Sta
     $r_pname = $r_pickups[name];
     $myurl = urlencode($r_pname);
 
-    if(!$anyPickups && ($r_pickups[pu_pads] > 0 || $r_pickups[pu_armour] > 0 || $r_pickups[pu_keg] > 0 || $r_pickups[pu_invis] > 0 || $r_pickups[pu_belt] > 0 || $r_pickups[pu_amp] > 0 || $r_pickups[pu_boots] > 0))
+    if (!$anyPickups && ($r_pickups[pu_pads] > 0 || $r_pickups[pu_armour] > 0 || $r_pickups[pu_keg] > 0 || $r_pickups[pu_invis] > 0 || $r_pickups[pu_belt] > 0 || $r_pickups[pu_amp] > 0)) {
       $anyPickups = true;
+    }
 
     $contentTable .= '
     <tr class="clickableRow" href="./?p=matchp&amp;mid='.$mid.'&amp;pid='.$r_pickups['pid'].'">
@@ -97,13 +98,12 @@ if ((strpos($gamename, '(insta)') === false) && (strpos($gamename, "Last Man Sta
       <td align="center">'.$r_pickups[pu_invis].'</td>
       <td align="center">'.$r_pickups[pu_belt].'</td>
       <td align="center">'.$r_pickups[pu_amp].'</td>
-      <td align="center">'.$r_pickups[pu_boots].'</td>
     </tr>';
   }
 
   if ($anyPickups) {
     echo '</tbody></table><br>
-    <table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
+    <table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
     <tbody><tr>
       <th class="heading" colspan="8" align="center">Pickups Summary</th>
     </tr>
@@ -115,14 +115,13 @@ if ((strpos($gamename, '(insta)') === false) && (strpos($gamename, "Last Man Sta
       <th class="smheading" align="center" width="71">Invisibility</th>
       <th class="smheading" align="center" width="71">Shield<br>Belt</th>
       <th class="smheading" align="center" width="71">Damage Amp</th>
-      <th class="smheading" align="center" width="71">Antigrav Boots</th>
     </tr>';
 
     echo $contentTable;
   }
 }
 
-echo'</tbody></table>';
+echo '</tbody></table>';
 
 /*
 // To add when forum widget is available

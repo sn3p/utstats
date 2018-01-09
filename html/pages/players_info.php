@@ -267,10 +267,10 @@ if ($sql_firstblood[fbcount] || $sql_multis[spree_double] || $sql_multis[spree_m
 }
 
 $r_pickups = zero_out(small_query("SELECT SUM(pu_pads) AS pu_pads, SUM(pu_armour) AS pu_armour, SUM(pu_keg) AS pu_keg,
-  SUM(pu_invis) AS pu_invis, SUM(pu_belt) AS pu_belt, SUM(pu_amp) AS pu_amp, SUM(pu_boots) AS pu_boots
+  SUM(pu_invis) AS pu_invis, SUM(pu_belt) AS pu_belt, SUM(pu_amp) AS pu_amp
   FROM uts_player WHERE pid = '$pid'"));
 
-if ($r_pickups[pu_pads] || $r_pickups[pu_armour]  || $r_pickups[pu_keg]  || $r_pickups[pu_invis] || $r_pickups[pu_belt] || $r_pickups[pu_amp] ) {
+if ($r_pickups[pu_pads] || $r_pickups[pu_armour]  || $r_pickups[pu_keg]  || $r_pickups[pu_invis] || $r_pickups[pu_belt]) {
   echo '
   <table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
   <tbody>
@@ -284,7 +284,6 @@ if ($r_pickups[pu_pads] || $r_pickups[pu_armour]  || $r_pickups[pu_keg]  || $r_p
     <th class="smheading" align="center" width="80">Invisibility</th>
     <th class="smheading" align="center" width="80">Shield Belt</th>
     <th class="smheading" align="center" width="80">Damage Amp</th>
-    <th class="smheading" align="center" width="80">Antigrav Boots</th>
   </tr>
   <tr>
     <td align="center">'.$r_pickups[pu_pads].'</td>
@@ -293,7 +292,6 @@ if ($r_pickups[pu_pads] || $r_pickups[pu_armour]  || $r_pickups[pu_keg]  || $r_p
     <td align="center">'.$r_pickups[pu_invis].'</td>
     <td align="center">'.$r_pickups[pu_belt].'</td>
     <td align="center">'.$r_pickups[pu_amp].'</td>
-    <td align="center">'.$r_pickups[pu_boots].'</td>
   </tr>
   </tbody></table>
   <br>';

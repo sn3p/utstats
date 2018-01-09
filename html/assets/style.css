@@ -1,27 +1,63 @@
+@font-face {
+  font-family: "League Gothic";
+  src: url("fonts/leaguegothic-regular-webfont.eot");
+  src: url("fonts/leaguegothic-regular-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("fonts/leaguegothic-regular-webfont.woff2") format("woff2"),
+    url("fonts/leaguegothic-regular-webfont.woff") format("woff"),
+    url("fonts/leaguegothic-regular-webfont.ttf") format("truetype"),
+    url("fonts/leaguegothic-regular-webfont.svg#leaguegothicregular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/montserrat-light-webfont.eot");
+  src: url("fonts/montserrat-light-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("fonts/montserrat-light-webfont.woff2") format("woff2"),
+    url("fonts/montserrat-light-webfont.woff") format("woff"),
+    url("fonts/montserrat-light-webfont.ttf") format("truetype"),
+    url("fonts/montserrat-light-webfont.svg#montserratlight") format("svg");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/montserrat-regular-webfont.eot");
+  src: url("fonts/montserrat-regular-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("fonts/montserrat-regular-webfont.woff2") format("woff2"),
+    url("fonts/montserrat-regular-webfont.woff") format("woff"),
+    url("fonts/montserrat-regular-webfont.ttf") format("truetype"),
+    url("fonts/montserrat-regular-webfont.svg#montserratregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/montserrat-bold-webfont.eot");
+  src: url("fonts/montserrat-bold-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("fonts/montserrat-bold-webfont.woff2") format("woff2"),
+    url("fonts/montserrat-bold-webfont.woff") format("woff"),
+    url("fonts/montserrat-bold-webfont.ttf") format("truetype"),
+    url("fonts/montserrat-bold-webfont.svg#montserratbold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+
 body {
   background-color: #1e1e1e;
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: #ffffff;
+  font-family: Montserrat, Helvetica, Verdana, Arial, sans-serif;
+  font-weight: 200;
   padding: 0px;
   margin: 0px;
-}
-
-@font-face {
-  font-family: Knockout;
-  src: url("fonts/Knockout-HTF48-Featherweight.ttf");
-}
-@font-face {
-  font-family: GothamBook;
-  src: url("fonts/Gotham-Medium.woff");
-}
-@font-face {
-  font-family: GothamLight;
-  src: url("fonts/gotham-light-webfont.woff");
-}
-@font-face {
-  font-family: GothamBold;
-  src: url("fonts/Gotham-Bold.woff");
 }
 
 a {
@@ -33,13 +69,16 @@ a:hover {
   color: #fff;
 }
 
+table {
+  font-weight: 200;
+}
+
 .spacing {
   margin-top: 60px;
 }
 
 .footer {
   background: #2069a1;
-  font-family: GothamLight, Verdana, Geneva, Arial, Helvetica, sans-serif;
   font-size: 10pt;
   color: #ffffff;
   padding: 20px;
@@ -108,7 +147,6 @@ a:hover.topmenulogo {
 }
 
 a.topmenu {
-  font-family: GothamLight, sans-serif;
   font-size: 17px;
   float: left;
   width: auto;
@@ -142,7 +180,6 @@ li {
   padding-top: 10px;
 }
 .darksearch input[type="text"] {
-  font-family: GothamLight, sans-serif;
   border: 1px solid #1e1e1e;
   background-color: #2e2e2e;
   color: #fff;
@@ -153,14 +190,12 @@ li {
 
 input[type="text"] {
   color: #bcbcbc;
-  font-family: GothamLight, sans-serif;
 }
 
 .search {
   padding: 6px 15px 6px 30px;
   margin: 3px;
   background: url("../images/search.png") no-repeat 8px 6px;
-  font-family: GothamLight, sans-serif;
   height: 28px;
 }
 
@@ -168,7 +203,6 @@ input[type="text"] {
   padding: 6px 15px 6px 30px;
   margin: 3px;
   background: url("../images/owshare.png") no-repeat 8px 6px;
-  font-family: GothamLight, sans-serif;
   height: 28px;
 }
 
@@ -176,7 +210,6 @@ input[type="submit"] {
   position: relative;
   left: -4px;
   height: 28px;
-  font-family: GothamLight, sans-serif;
   border: 1px solid #1e1e1e;
   background-color: #2069a1;
   color: #fff;
@@ -212,11 +245,11 @@ a.tooltip {
 }
 
 th {
-  font-family: GothamBook, Verdana, Arial, Helvetica;
-  font-size: 9pt;
   color: #f7fbff;
   background: #3b383b;
   text-decoration: none;
+  font-family: Montserrat, Helvetica, Verdana, Arial, sans-serif;
+  font-size: 9pt;
   font-weight: normal;
   padding: 5px;
   border-top: 1px solid #1e1e1e;
@@ -224,12 +257,12 @@ th {
 }
 
 .noborders {
-  font-family: GothamBook, Verdana, Arial, Helvetica;
-  font-size: 9pt;
   color: #f7fbff;
   background: #3b383b;
-  text-decoration: none;
+  font-family: Montserrat, Helvetica, Verdana, Arial, sans-serif;
+  font-size: 9pt;
   font-weight: normal;
+  text-decoration: none;
   padding: 5px;
   border: 0px !important;
 }
@@ -245,8 +278,9 @@ th {
 .totals {
   background: #252525;
   color: #ffffff;
-  font-family: GothamBook, Verdana, Geneva, Arial, Helvetica, sans-serif !important;
+  font-family: Montserrat, Helvetica, Verdana, Arial, sans-serif !important;
   font-size: 10pt;
+  font-weight: normal;
   padding: 5px;
   height: 35px;
   border-left: 1px solid #1e1e1e;
@@ -254,7 +288,8 @@ th {
 }
 
 .red {
-  font-family: GothamBold, Verdana, Arial, Helvetica;
+  font-family: Montserrat, Verdana, Arial, Helvetica;
+  font-weight: 700;
   font-size: 10pt;
   color: #ffffff;
   background: -webkit-linear-gradient(
@@ -270,7 +305,8 @@ th {
   height: 30px;
 }
 .blue {
-  font-family: GothamBold, Verdana, Arial, Helvetica;
+  font-family: Montserrat, Verdana, Arial, Helvetica;
+  font-weight: 700;
   font-size: 10pt;
   color: #ffffff;
   background: -webkit-linear-gradient(
@@ -286,7 +322,8 @@ th {
   height: 30px;
 }
 .green {
-  font-family: GothamBold, Verdana, Arial, Helvetica;
+  font-family: Montserrat, Verdana, Arial, Helvetica;
+  font-weight: 700;
   font-size: 10pt;
   color: #ffffff;
   background: -webkit-linear-gradient(
@@ -304,7 +341,8 @@ th {
   height: 30px;
 }
 .yellow {
-  font-family: GothamBold, Verdana, Arial, Helvetica;
+  font-family: Montserrat, Verdana, Arial, Helvetica;
+  font-weight: 700;
   font-size: 10pt;
   color: #ffffff;
   background: -webkit-linear-gradient(#efc100, #e0b501);
@@ -319,11 +357,14 @@ th {
   height: 30px;
 }
 .Gold {
-  font-family: GothamBold, Verdana, Arial, Helvetica;
+  font-family: Montserrat, Verdana, Arial, Helvetica;
+  font-weight: 700;
   font-size: 10pt;
   color: #1e1e1e;
-  background: -webkit-linear-gradient(#efc100, #e0b501);
-  /* For Safari 5.1 to 6.0 */
+  background: -webkit-linear-gradient(
+    #efc100,
+    #e0b501
+  ); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#efc100, #e0b501); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(
     #efc100,
@@ -333,7 +374,7 @@ th {
   height: 30px;
 }
 .score {
-  font-family: Knockout;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   font-size: 50px;
   padding: 20px;
 }
@@ -417,13 +458,13 @@ input[type="button"].btn-block {
 }
 /** Fonts etc **/
 .heading {
-  /** The blue H1 headings **/
-  font-family: Knockout, Arial, Helvetica, Sans-serif;
-  font-size: 30pt;
+  /** The big blue H1 headings **/
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
+  font-size: 28pt;
+  letter-spacing: 1px;
   color: #ffffff;
   background: #2069a1;
   text-transform: uppercase;
-  height: 60px;
   padding-left: 20px;
   padding-right: 20px;
   border-left: 1px solid #1e1e1e;
@@ -431,7 +472,7 @@ input[type="button"].btn-block {
 }
 .txttitle {
   color: #fff;
-  font-family: Knockout;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   text-transform: uppercase;
 }
 .recentheader {
@@ -456,12 +497,11 @@ input[type="button"].btn-block {
   z-index: 0;
 }
 .carousel-caption {
-  font-family: GothamLight;
   /** position: absolute;
   right: 15%;
   bottom: 350px;
   left: 15%;
-  z-index: 10; 
+  z-index: 10;
   padding-top: 20px;
   padding-bottom: 20px; **/
   margin-top: -1px;
@@ -473,7 +513,7 @@ input[type="button"].btn-block {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0);
 }
 .carousel-header {
-  font-family: Knockout;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   font-size: 40px;
   text-transform: uppercase;
   text-align: center;
@@ -483,7 +523,7 @@ input[type="button"].btn-block {
 .carousel-red {
   color: #a12020;
   height: 120px;
-  font-family: Knockout;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   font-size: 100px;
   background: rgb(30, 30, 30);
   background: rgba(30, 30, 30, 0.8);
@@ -492,7 +532,7 @@ input[type="button"].btn-block {
 .carousel-red-small {
   color: #a12020;
   height: 60px;
-  font-family: Knockout;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   font-size: 30px;
   background: rgb(30, 30, 30);
   background: rgba(30, 30, 30, 0.8);
@@ -501,7 +541,7 @@ input[type="button"].btn-block {
 .carousel-blue {
   color: #2069a1;
   height: 120px;
-  font-family: Knockout;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   font-size: 100px;
   background: rgb(30, 30, 30);
   background: rgba(30, 30, 30, 0.8);
@@ -510,7 +550,7 @@ input[type="button"].btn-block {
 .carousel-blue-small {
   color: #2069a1;
   height: 60px;
-  font-family: Knockout;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   font-size: 30px;
   background: rgb(30, 30, 30);
   background: rgba(30, 30, 30, 0.8);
@@ -519,7 +559,7 @@ input[type="button"].btn-block {
 .carousel-green-small {
   color: #278040;
   height: 60px;
-  font-family: Knockout, sans-serif;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   font-size: 30px;
   background: rgb(30, 30, 30);
   background: rgba(30, 30, 30, 0.8);
@@ -528,17 +568,14 @@ input[type="button"].btn-block {
 .carousel-gold-small {
   color: #efc100;
   height: 60px;
-  font-family: Knockout, sans-serif;
+  font-family: "League Gothic", Arial, Helvetica, Sans-serif;
   font-size: 30px;
-  background: rgb(30, 30, 30);
   background: rgba(30, 30, 30, 0.8);
   text-align: center;
 }
 .carousel-text {
   color: #fff;
   width: 70px;
-  width: 70px;
-  font-family: GothamLight, sans-serif;
   font-size: 13px;
   background: rgb(30, 30, 30);
   background: rgba(30, 30, 30, 0.8);
@@ -549,7 +586,6 @@ input[type="button"].btn-block {
 }
 .zebra {
   border: 1px solid #1e1e1e;
-  background: rgb(81, 81, 81);
   background: rgba(81, 81, 81, 1);
 }
 .zebra tr:last-child {
@@ -559,7 +595,6 @@ input[type="button"].btn-block {
   cursor: pointer;
 }
 .zebra td {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 10pt;
   color: #ffffff;
   padding: 5px;
@@ -570,7 +605,6 @@ input[type="button"].btn-block {
   border-collapse: separate;
 }
 .zebra tbody tr:nth-child(odd) {
-  background: rgb(103, 103, 103);
   background: rgba(103, 103, 103, 1);
 }
 .zebra tr:hover {
@@ -583,7 +617,6 @@ input[type="button"].btn-block {
 }
 .killsMatrix {
   border: 1px solid #1e1e1e;
-  background: rgb(81, 81, 81);
   background: rgba(81, 81, 81, 1);
   cursor: pointer;
 }
@@ -592,7 +625,6 @@ input[type="button"].btn-block {
   background: rgba(103, 103, 103, 1);
 }
 .killCell {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 10pt;
   color: #ffffff;
   padding: 5px;
@@ -611,7 +643,6 @@ input[type="button"].btn-block {
   cursor: pointer;
 }
 .cell {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 10pt;
   color: #ffffff;
   padding: 5px;
@@ -628,44 +659,41 @@ a.cell {
   margin-top: 5px;
   background: #282628;
   color: #fff;
-  font-family: GothamBook, Verdana, sans-serif !important;
+  font-family: Montserrat, Helvetica, Verdana, Arial, sans-serif !important;
   font-size: 20px !important;
+  font-weight: normal;
 }
 .winner {
   float: left;
   margin-bottom: -3px;
 }
 .watchlist {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 10pt;
 }
 .watchlistbox {
   width: 700px;
-  background: rgb(81, 81, 81);
   background: rgba(81, 81, 81, 1);
   padding: 30px;
 }
 h2 {
+  font-family: Montserrat, Helvetica, Verdana, Arial, sans-serif;
+  font-weight: normal;
   margin-left: 30px;
-  font-family: GothamBook, Verdana, Arial, Helvetica;
 }
 .credits {
   /* This is a different table class for the Credits page */
   padding-left: 30px;
   border-bottom: 1px solid #2e2e2e;
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 10pt;
   color: #ffffff;
   padding: 5px;
   border-top: 1px solid #1e1e1e;
   border-left: 1px solid #1e1e1e;
   empty-cells: show; /* For Firefox to show empty cells properly */
-  background: rgb(81, 81, 81);
   background: rgba(81, 81, 81, 1);
 }
 /** This is from old utstats **/
 .text {
-  font-family: GothamLight, Verdana, Geneva, Arial, Helvetica, sans-serif;
   font-size: 10pt;
   color: #efefef;
 }
@@ -733,7 +761,8 @@ a.heading:hover {
   height: 30px;
 }
 .smheading {
-  font-family: GothamBook, Verdana, Arial, Helvetica;
+  font-family: Montserrat, Helvetica, Verdana, Arial, sans-serif;
+  font-weight: normal;
   font-size: 9pt;
   color: #f7fbff;
   background: #3b383b;
@@ -741,7 +770,8 @@ a.heading:hover {
   padding: 5px;
 }
 a.smheading:hover {
-  font-family: GothamBook, Verdana, Arial, Helvetica;
+  font-family: Montserrat, Helvetica, Verdana, Arial, sans-serif;
+  font-weight: normal;
   font-size: 9pt;
   color: #fdd932;
   text-decoration: none;
@@ -782,7 +812,6 @@ a.lggrey:hover {
   font-weight: bold;
 }
 .dark {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 10pt;
   color: #dfdfdf;
   background: #515151;
@@ -791,22 +820,20 @@ a.lggrey:hover {
   border-left: 1px solid #1e1e1e;
 }
 .dark-mbreakdown {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 8pt;
   color: #dfdfdf;
   background: #515151;
-  font-weight: normal;
+  font-weight: 200;
   padding: 0px;
 }
 tr .dark:hover {
   background: #515151;
 }
 .grey {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #ffffff;
   background: #515151;
-  font-weight: normal;
+  font-weight: 200;
   padding: 5px;
 }
 .grey-mbreakdown {
@@ -818,39 +845,34 @@ tr .dark:hover {
   padding: 0px;
 }
 a.grey {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #f4d01e;
   padding: 0px;
 }
 a.grey:hover {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #ffffff;
   padding: 0px;
 }
 .grey2 {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #ffffff;
   background: #6a6a6a;
-  font-weight: normal;
+  font-weight: 200;
   padding: 5px;
 }
 a.grey2 {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #f4d01e;
   background: #6a6a6a;
-  font-weight: normal;
+  font-weight: 200;
   padding: 0px;
 }
 a.grey2:hover {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #ffffff;
   background: #6a6a6a;
-  font-weight: normal;
+  font-weight: 200;
   padding: 0px;
 }
 .darkgrey2 {
@@ -999,11 +1021,10 @@ a.chatlink:hover {
   text-decoration: none;
 }
 .darkhuman {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #fdd932;
   background: #515151;
-  font-weight: normal;
+  font-weight: 200;
   text-decoration: none;
   padding: 5px;
 }
@@ -1016,27 +1037,24 @@ a.chatlink:hover {
   text-decoration: none;
 }
 .darkid {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9;
   color: #dfdfdf;
   background: #515151;
-  font-weight: normal;
+  font-weight: 200;
   text-decoration: none;
 }
 a.darkid {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #dfdfdf;
   background: #515151;
-  font-weight: normal;
+  font-weight: 200;
   text-decoration: none;
 }
 a.darkid:hover {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #ffffff;
   background: #515151;
-  font-weight: normal;
+  font-weight: 200;
   text-decoration: none;
 }
 .sidebar {
@@ -1061,20 +1079,17 @@ a.sidebar:hover {
   text-decoration: none;
 }
 .pages {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #ffffff;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 a.pages {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #ffc13c;
   text-decoration: none;
 }
 a.pages:hover {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 9pt;
   color: #ffd271;
   text-decoration: none;
@@ -1082,23 +1097,22 @@ a.pages:hover {
 .blueteam,
 .blueteamb,
 .bluebox {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 8pt;
   color: #000000;
-  background: -webkit-linear-gradient(#2069a1, #194c74);
-  /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#2069a1, #194c74);
-  /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
+  background: -webkit-linear-gradient(
     #2069a1,
     #194c74
-  ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#2069a1, #194c74); /* Standard syntax */
+  ); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#2069a1, #194c74);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#2069a1, #194c74);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#2069a1, #194c74);
+  /* Standard syntax */
 }
 .redteam,
 .redteamb,
 .redbox {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 8pt;
   color: #000000;
   background: -webkit-linear-gradient(
@@ -1113,7 +1127,6 @@ a.pages:hover {
 .greenteam,
 .greenteamb,
 .greenbox {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 8pt;
   color: #000000;
   background: -webkit-linear-gradient(
@@ -1125,13 +1138,11 @@ a.pages:hover {
     #278040,
     #216635
   ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#278040, #216635);
-  /* Standard syntax */
+  background: linear-gradient(#278040, #216635); /* Standard syntax */
 }
 .goldteam,
 .goldteamb,
 .goldbox {
-  font-family: GothamLight, Verdana, Arial, Helvetica;
   font-size: 8pt;
   color: #000000;
   background: -webkit-linear-gradient(
@@ -1139,8 +1150,10 @@ a.pages:hover {
     #e0b501
   ); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#efc100, #e0b501); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#efc100, #e0b501);
-  /* For Firefox 3.6 to 15 */
+  background: -moz-linear-gradient(
+    #efc100,
+    #e0b501
+  ); /* For Firefox 3.6 to 15 */
   background: linear-gradient(#efc100, #e0b501); /* Standard syntax */
 }
 .bluebox,

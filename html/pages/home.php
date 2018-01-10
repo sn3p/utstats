@@ -61,8 +61,8 @@ echo '
 			}
 
 		echo '</table>
-    <br><br>
-    <center><a class="navCTA" href="?p=match&mid='.$lastMapId.'" role="button">View stats</a></center>
+    <p></p>
+    <a class="navCTA" href="?p=match&mid='.$lastMapId.'" role="button">View stats</a>
   </div>
 </div>
 <br>

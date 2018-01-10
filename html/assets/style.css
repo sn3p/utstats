@@ -73,6 +73,10 @@ table {
   font-weight: 200;
 }
 
+input[type="text"] {
+  color: #bcbcbc;
+}
+
 .navbar {
   background: rgba(0, 0, 0, 0.7);
   height: 56px;
@@ -121,18 +125,17 @@ table {
   font-size: 10pt;
   color: #ffffff;
   padding: 20px;
+  margin-top: 50px;
 }
-
-a.footer {
+.footer a {
   color: #efc100;
   text-decoration: none;
-  padding: 0px;
+  /* padding: 0px; */
   margin-left: 25px;
 }
-
-a:hover.footer {
+.footer a:hover {
   color: #fff;
-  padding: 0px;
+  /* padding: 0px; */
 }
 
 .darksearch {
@@ -147,10 +150,6 @@ a:hover.footer {
   -webkit-box-shadow: inset 2px 2px 5px -5px rgba(0, 0, 0, 0.04);
   -moz-box-shadow: inset 2px 2px 5px -5px rgba(0, 0, 0, 0.04);
   box-shadow: inset 2px 2px 5px -5px rgba(0, 0, 0, 0.04);
-}
-
-input[type="text"] {
-  color: #bcbcbc;
 }
 
 .search {
@@ -439,8 +438,7 @@ input[type="button"].btn-block {
 .recentheader {
   margin-left: 3px;
   width: 896px;
-  height: 300px;
-  position: center;
+  height: 310px;
 }
 .matchtop {
   margin-bottom: 1px;
@@ -451,20 +449,12 @@ input[type="button"].btn-block {
   margin-left: 1px;
   width: 699px;
   height: 232px;
-  position: center;
   border-left: 1px solid #1e1e1e;
 }
 .imgbg {
   z-index: 0;
 }
 .carousel-caption {
-  /** position: absolute;
-  right: 15%;
-  bottom: 350px;
-  left: 15%;
-  z-index: 10;
-  padding-top: 20px;
-  padding-bottom: 20px; **/
   margin-top: -1px;
   padding-top: 10px;
   padding-left: 5%;
@@ -778,7 +768,6 @@ a.lggrey:hover {
   background: #515151;
   font-weight: normal;
   padding: 5px;
-  border-left: 1px solid #1e1e1e;
 }
 .dark-mbreakdown {
   font-size: 8pt;

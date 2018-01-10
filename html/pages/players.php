@@ -7,7 +7,7 @@ function InvertSort($curr_field, $filter, $sort) {
 
 function SortPic($curr_field, $filter, $sort) {
   if ($curr_field != $filter) return;
-  $fname = 'images/s_'. strtolower($sort) .'.png';
+  $fname = 'assets/images/s_'. strtolower($sort) .'.png';
   if (!file_exists($fname)) return;
   return('&nbsp;<img src="'. $fname .'" border="0" width="11" height="9" alt="" class="tooltip" title="('.strtolower($sort).'ending)">');
 }

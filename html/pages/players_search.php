@@ -8,7 +8,7 @@ function InvertSort($curr_field, $filter, $sort) {
 
 function SortPic($curr_field, $filter, $sort) {
 	if ($curr_field != $filter) return;
-	$fname = 'images/s_'. strtolower($sort) .'.png';
+	$fname = 'assets/images/s_'. strtolower($sort) .'.png';
 	if (!file_exists($fname)) return;
 	return('&nbsp;<img src="'. $fname .'" border="0" width="11" height="9" alt="" class="tooltip" title="('.strtolower($sort).'ending)">');
 }
@@ -38,10 +38,10 @@ echo'
   </th>
   <tr>
     <th class ="smheading" colspan = "12" ALIGN="center">
-      <div class="darksearch">	  
+      <div class="darksearch">
 	  <span><input type="text" class="search square" placeholder="Search player..." name="name" value="'.htmlentities($playername).'"><input class="searchbutton" type="submit" value="Search"></span></div>
 	  </th>
-	  
+
   </tr>
   <tr>
     <td class="smheading" align="center" width="150"><a class="smheading" href="./?p=psearch&amp;name='.urlencode($playername).'&amp;filter=name&amp;sort='.InvertSort('name', $filter, $sort).'">Player Name</a>'.SortPic('name', $filter, $sort).'</td>
@@ -68,7 +68,7 @@ while ($r_plist = mysql_fetch_array($q_plist)) {
 	  $eff = get_dp($r_plist[eff]);
 	  $acc = get_dp($r_plist[accuracy]);
 	  $ttl = GetMinutes($r_plist[ttl]);
-	  
+
 	  echo'
 	  <tr class="clickableRow" href="./?p=pinfo&amp;pid='.$r_plist['pid'].'">
 		<td nowrap   align="left"><a href="./?p=pinfo&amp;pid='.$r_plist['pid'].'">'.FormatPlayerName($r_plist[country], $r_plist['pid'], $r_plist[name]).'</a></td>

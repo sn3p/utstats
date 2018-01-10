@@ -155,11 +155,11 @@ uts_weaponstats AS w
 
 function ws_header(&$wsort, &$weapons, $colspan, $one, $playercol) {
 	echo '<tr>';
-	if ($playercol and $playercol != -1) echo '<td class="smheading" align="center" width="220" '.(($one) ? 'rowspan="2"' : '') .'><img src="images/playersmall.png" style="max-width:50px; max-height:50px;"></td>';
+	if ($playercol and $playercol != -1) echo '<td class="smheading" align="center" width="220" '.(($one) ? 'rowspan="2"' : '') .'><img src="assets/images/playersmall.png" style="max-width:50px; max-height:50px;"></td>';
 	if ($playercol == -1) echo '<td class="smheading" align="center" width="220">&nbsp;</td>';
 	foreach($wsort as $wid => $bar) {
 		if (!empty($weapons[$wid]['image'])) {
-			$content = '<img border="0" class="tooltip" style="min-width: 15px; max-width:40px; max-height:50px;" src="images/weapons/'.$weapons[$wid]['image'].'" alt="'.$weapons[$wid]['name'].'" title="'.$weapons[$wid]['name'].'"></a>';
+			$content = '<img border="0" class="tooltip" style="min-width: 15px; max-width:40px; max-height:50px;" src="assets/images/weapons/'.$weapons[$wid]['image'].'" alt="'.$weapons[$wid]['name'].'" title="'.$weapons[$wid]['name'].'"></a>';
 		} else {
 			$content = '<span style="font-size: 60%;">'.$weapons[$wid]['name'].'</span>';
 		}

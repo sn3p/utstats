@@ -11,7 +11,7 @@ echo '<br>
     <th class="heading" colspan="11" align="center">Special Events</th>
     </tr>
     <tr>
-    <th class="smheading" align="center" rowspan="2" width="220"><img src="images/player.jpg"></th>
+    <th class="smheading" align="center" rowspan="2" width="220"><img src="assets/images/player.jpg"></th>
     <th class="smheading" align="center" rowspan="2" width="60">First Blood</th>
     <th class="smheading tooltip" align="center" colspan="4" width="160" title="If you manage to kill more 2 than people within a short space of time you get a Double Kill, 3 is a Multi Kill etc">Multis</th>
     <th class="smheading tooltip" align="center" colspan="5" width="200" title="Special event: If you manage to kill 5 or more opponents without dying yourself, you will be on a killing spree. If you kill more than 10 opponents, you are on a rampage, etc.">Sprees</th>
@@ -108,7 +108,7 @@ if ((strpos($gamename, '(insta)') === false) && (strpos($gamename, "Last Man Sta
       <th class="heading" colspan="8" align="center">Pickups Summary</th>
     </tr>
     <tr>
-      <th class="smheading" align="center" width="220"><img src="images/player.jpg"></th>
+      <th class="smheading" align="center" width="220"><img src="assets/images/player.jpg"></th>
       <th class="smheading" align="center" width="71">Pads</th>
       <th class="smheading" align="center" width="71">Armour</th>
       <th class="smheading" align="center" width="71">Keg</th>

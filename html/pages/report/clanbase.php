@@ -53,7 +53,7 @@ $teamb = '[cl]'.$teambid.','.$teamb.'[/cl]';
 $sql_s = small_query("SELECT mapfile, gametime FROM uts_match WHERE id = '$id'");
 
 $map = str_replace(".unr", "", "$sql_s[mapfile]");
-$mappic = strtolower("images/maps/".$map.".jpg");
+$mappic = strtolower("assets/images/maps/".$map.".jpg");
 $actgamelength = $sql_s[gametime];
 
 // Lets work out what kind of game this was from the scores

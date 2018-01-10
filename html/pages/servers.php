@@ -64,7 +64,7 @@ while ($r_servers = mysql_fetch_array($q_servers)) {
 			</td>
       <td align="center">
 				<a href="./?p=squery&amp;serverip='.$r_servers[serverip].'">
-					<img border="0" alt="Server Status" src="images/search.png">
+					<img border="0" alt="Server Status" src="assets/images/search.png">
 				</a>
 			</td>
       <td align="center">'.$r_servers[matchcount].'</td>

@@ -61,18 +61,18 @@ fclose ($sock);
 //Split chunks by \
 $chunks = split('[\]', $data);
 
-$mappic = strtolower("images/maps/".$map.".jpg");
+$mappic = strtolower("assets/images/maps/".$map.".jpg");
 
 if (file_exists($mappic)) {
 } else {
-   $mappic = ("images/maps/blank.jpg");
+   $mappic = ("assets/images/maps/blank.jpg");
 }
 
 $mapname = getiteminfo("mapname",$chunks);
-$mappic = strtolower("images/maps/".$mapname.".jpg");
+$mappic = strtolower("assets/images/maps/".$mapname.".jpg");
 if (file_exists($mappic)) {
 	} else {
-	$mappic = "images/maps/blank.jpg";
+	$mappic = "assets/images/maps/blank.jpg";
 }
 
 $r_hostname = getiteminfo("hostname",$chunks);

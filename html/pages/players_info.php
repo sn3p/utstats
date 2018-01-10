@@ -87,9 +87,9 @@ echo '
     <th class="heading" colspan="12" align="center">Career Summary for '.htmlentities($playername).'  ';
 
 if (PlayerOnWatchlist($pid)) {
-  echo '<a href="?p=pinfo&amp;pid='.$pid.'&amp;togglewatch=1&amp;noheader=1"><img src="images/unwatch.png" border="0" class="tooltip" title="You are watching this player. Click to remove from your watchlist."></a>';
+  echo '<a href="?p=pinfo&amp;pid='.$pid.'&amp;togglewatch=1&amp;noheader=1"><img src="assets/images/unwatch.png" border="0" class="tooltip" title="You are watching this player. Click to remove from your watchlist."></a>';
 } else {
-  echo '<a href="?p=pinfo&amp;pid='.$pid.'&amp;togglewatch=1&amp;noheader=1"><img src="images/watch.png"  border="0" class="tooltip" title="Click to add this player to your watchlist."></a>';
+  echo '<a href="?p=pinfo&amp;pid='.$pid.'&amp;togglewatch=1&amp;noheader=1"><img src="assets/images/watch.png"  border="0" class="tooltip" title="Click to add this player to your watchlist."></a>';
 }
 
 echo '</th>

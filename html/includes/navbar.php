@@ -2,7 +2,7 @@
   <ul>
     <li class="logo">
       <a href="./">
-        <img src="images/navbar-logo.png" alt="UTStats Logo">
+        <img src="assets/images/navbar-logo.png" alt="UTStats Logo">
       </a>
     </li>
     <li>

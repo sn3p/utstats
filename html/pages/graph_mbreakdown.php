@@ -104,7 +104,7 @@ echo '
 for ($i = 0; $i <= 23; $i++) {
   if (!isset($gb_hour[$i])) $gb_hour[$i] = 0;
   $title = $gb_hour[$i] .' ('. get_dp($gb_hour[$i] / $hour_sum * 100) .' %)';
-  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="15"><img border="0" src="images/bars/v_bar'. ($i % 16 + 1) .'.png" width="18" height="'.(int)($gb_hour[$i] / $hour_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
+  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="15"><img border="0" src="assets/images/bars/v_bar'. ($i % 16 + 1) .'.png" width="18" height="'.(int)($gb_hour[$i] / $hour_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
 }
 
 echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
@@ -113,7 +113,7 @@ echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
 for ($i = 0; $i <= 6; $i++) {
   if (!isset($gb_day[$i])) $gb_day[$i] = 0;
   $title = $gb_day[$i] .' ('. get_dp($gb_day[$i] / $day_sum * 100) .' %)';
-  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="15"><img border="0" src="images/bars/v_bar'. ($i % 16 + 1) .'.png" width="18" height="'.(int)($gb_day[$i] / $day_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
+  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="15"><img border="0" src="assets/images/bars/v_bar'. ($i % 16 + 1) .'.png" width="18" height="'.(int)($gb_day[$i] / $day_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
 }
 
 echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
@@ -122,7 +122,7 @@ echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
 for ($i = 1; $i <= 12; $i++) {
   if (!isset($gb_month[$i])) $gb_month[$i] = 0;
   $title = $gb_month[$i] .' ('. get_dp($gb_month[$i] / $month_sum * 100) .' %)';
-  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="15"><img border="0" src="images/bars/v_bar'. (($i + 8) % 16 + 1) .'.png" width="18" height="'.(int)($gb_month[$i] / $month_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
+  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="15"><img border="0" src="assets/images/bars/v_bar'. (($i + 8) % 16 + 1) .'.png" width="18" height="'.(int)($gb_month[$i] / $month_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
 }
 
 echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
@@ -216,14 +216,14 @@ for ($i = 0; $i < $max_cntry; $i++) {
   if (!isset($gb_hour[$i])) $gb_hour[$i] = 0;
   $country = explode(";",$gb_country[$i]);
   $title = $a_countries[$country[0]] .': ' . $country[1] . ' ('. get_dp($country[1] / $country_sum * 100) .' %)';
-  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="20"><img border="0" src="images/bars/v_bar'. ($i % 16 + 1) .'.png" width="20" height="'.(int)($country[1] / $country_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
+  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="20"><img border="0" src="assets/images/bars/v_bar'. ($i % 16 + 1) .'.png" width="20" height="'.(int)($country[1] / $country_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
   $x += $country[1];
 }
 
 if($others){
   $countries_left = $country_sum - $x;
   $title = 'Other Countries: ' . $countries_left . ' ('. get_dp($countries_left / $country_sum * 100) .' %)';
-  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="20"><img border="0" src="images/bars/v_bar'. ($max_cntry % 16 + 1) .'.png" width="20" height="'.(int)($countries_left / $country_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
+  echo '<td class="dark-mbreakdown" align="center" valign="bottom" width="20"><img border="0" src="assets/images/bars/v_bar'. ($max_cntry % 16 + 1) .'.png" width="20" height="'.(int)($countries_left / $country_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
 };
 
 echo '<td class="dark" align="center" valign="bottom" width="18"></td>';

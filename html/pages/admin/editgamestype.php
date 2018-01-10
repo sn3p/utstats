@@ -1,6 +1,6 @@
 <?php
 if (empty($import_adminkey) or isset($_REQUEST['import_adminkey']) or $import_adminkey != $adminkey) die('bla');
-	
+
 $sql_server = "SELECT id, servername, serverip FROM uts_match GROUP BY servername, serverip ORDER BY servername ASC";
 $q_server = mysql_query($sql_server) or die(mysql_error());
 $servernames  = array('0' => '');
@@ -27,15 +27,15 @@ if (isset($_REQUEST['submit'])) {
 									mutator = '". my_addslashes($_REQUEST['mutator']) ."',
 									gid = '". my_addslashes($_REQUEST['gid']) ."'
 					") or die(mysql_error());
-	
+
 	if (isset($_REQUEST['update'])) {
 		echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 				<tr>
 					<td class="smheading" align="center" colspan="2">Updating...</td>
 				</tr>
-				
-				
-				
+
+
+
 				<tr>
 					<td class="smheading" align="left" width="200">Updating Player Records</td>';
 		$where = 'WHERE 1';
@@ -49,27 +49,27 @@ if (isset($_REQUEST['submit'])) {
 		if ($_REQUEST['mutator'] != '*') {
 			$where .= " AND m.mutators LIKE '%".my_addslashes($_REQUEST['mutator'])."%'";
 		}
-		
+
 		mysql_query("UPDATE uts_player p, uts_match m SET p.gid = '". my_addslashes($_REQUEST['gid']) ."' $where AND m.id = p.matchid;") or die(mysql_error());
 		echo'<td class="grey" align="left" width="400">Done (updated '.mysql_affected_rows().' records)</td>
 				</tr>
-				
-				
-				
-				
+
+
+
+
 				<tr>
 					<td class="smheading" align="left" width="200">Updating Matches</td>';
 		mysql_query("UPDATE uts_match m SET m.gid = '". my_addslashes($_REQUEST['gid']) ."' $where;") or die(mysql_error());
 		echo'<td class="grey" align="left" width="400">Done (updated '.mysql_affected_rows().' matches)</td>
 				</tr>
-				
-				
-				
-				
-				
+
+
+
+
+
 				<tr>
 					<td class="smheading" align="left" width="200">Re-Calcuating Rankings</td>';
-		
+
 		if ($_REQUEST['gamename'] != '*') {
 			$gids[] = $_REQUEST['gid'];
 			$where = "WHERE gid IN (".implode(',', $gids).")";
@@ -77,7 +77,7 @@ if (isset($_REQUEST['submit'])) {
 			$where = 'WHERE 1';
 		}
 		mysql_query("DELETE FROM uts_rank $where;") or die(mysql_error());
-		
+
 		$sql_nrank = "SELECT SUM(p.gametime) AS time, p.pid, p.gid, SUM(p.rank) AS rank, COUNT(p.matchid) AS matches FROM uts_player p, uts_pinfo pi $where AND pi.id = p.pid AND pi.banned <> 'Y' GROUP BY p.gid, p.pid";
 		$q_nrank = mysql_query($sql_nrank) or die(mysql_error());
 		$num_ranks = 0;
@@ -138,7 +138,7 @@ while ($r_gamestype = mysql_fetch_array($q_gamestype)) {
 	echo '<td class="'.$class.'">&nbsp;'.htmlentities($gamedisplaynames[$r_gamestype['gid']]).'</td>';
 	echo '<td class="'.$class.'" align="center">';
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?action='.$action.'&amp;key='.$adminkey.'&amp;del='.$r_gamestype['id'].'">';
-		echo '<img src="images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" />';
+		echo '<img src="assets/images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" />';
 		echo '</a>';
 	echo '</td>';
 	echo '</tr>';
@@ -168,7 +168,7 @@ echo '<td class="smheading" width="170">If server =</td>';
 echo '<td class="'.$class.'">';
 echo '<select class="searchform" name="serverip">';
 foreach($serverips as $id => $bla) {
-	echo '<option value="'.$serverips[$id].'">'. $serverips[$id]; 
+	echo '<option value="'.$serverips[$id].'">'. $serverips[$id];
 	if (!empty($servernames[$id])) echo ' ('. $servernames[$id] .')';
 	echo '</option>';
 	}
@@ -182,7 +182,7 @@ echo '<td class="'.$class.'">';
 echo '<select class="searchform" name="gamename">';
 foreach($gamenames as $id => $bla) {
 	if ($gamenames[$id] == '(user defined)') continue;
-	echo '<option value="'.$gamenames[$id].'">'. $gamenames[$id]; 
+	echo '<option value="'.$gamenames[$id].'">'. $gamenames[$id];
 	if (!empty($gamedisplaynames[$id])) echo ' ('. $gamedisplaynames[$id] .')';
 	echo '</option>';
 }
@@ -198,11 +198,11 @@ echo '</td></tr>';
 
 echo '<tr><td class="smheading" nowrap>==&gt; assume gametype:</td>';
 echo '<td class="'.$class.'">';
-	
+
 echo '<select class="searchform" name="gid">';
 foreach($gamenames as $id => $bla) {
 	if ($gamenames[$id] == '*') continue;
-	echo '<option value="'.$id.'">'. $gamenames[$id]; 
+	echo '<option value="'.$id.'">'. $gamenames[$id];
 	if (!empty($gamedisplaynames[$id])) echo ' ['. $gamedisplaynames[$id] .']';
 	echo '</option>';
 }
@@ -224,5 +224,5 @@ echo'</form>
 	<td class="smheading" align="center" colspan="2"><a class="grey" href="./admin.php?key='.$_REQUEST[key].'">Go Back To Admin Page</a></td>
 </tr>
 </table>';
-	
+
 ?>

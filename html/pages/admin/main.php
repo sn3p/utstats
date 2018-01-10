@@ -51,14 +51,14 @@ foreach($tables as $table) {
 	echo'<tr>
 		<td class="smheading" align="left" width="200">';
 	if (substr($table['name'], 0, 9) == 'uts_temp_' and strlen($table['name']) == 17) {
-		echo '<a href="admin.php?key='. urlencode($adminkey) .'&amp;action=main&amp;droptable='.htmlentities($table['name']).'"><img src="images/del.png" border="0" width="16" height="16" title="Click to drop this table" alt="Delete" /></a><em>'.$table['name'].'</em>';
+		echo '<a href="admin.php?key='. urlencode($adminkey) .'&amp;action=main&amp;droptable='.htmlentities($table['name']).'"><img src="assets/images/del.png" border="0" width="16" height="16" title="Click to drop this table" alt="Delete" /></a><em>'.$table['name'].'</em>';
 	} else {
 		echo $table['name'];
 	}
 	echo '</td>
 		<td class="'.$class.'" align="right">'.nf($table['rows']).' rows</td>
 		<td class="'.$class.'" align="right">'.$d_size['size'] .' '. $d_size['type'].'</td>
-		<td class="'.$class.'" width="'.($max_width + 5).'"><img border="0" src="images/bars/h_bar'. ($i % 16 + 1) .'.png" height="10" width="'.(int)($table['size'] / $max_size * $max_width).'" alt="'. $title .'" title="'. $title .'"></td>
+		<td class="'.$class.'" width="'.($max_width + 5).'"><img border="0" src="assets/images/bars/h_bar'. ($i % 16 + 1) .'.png" height="10" width="'.(int)($table['size'] / $max_size * $max_width).'" alt="'. $title .'" title="'. $title .'"></td>
 	</tr>';
 }
 

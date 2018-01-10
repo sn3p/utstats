@@ -33,7 +33,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <head>
   <title>Unreal Tournament Stats - Powered by UTStats</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <link rel="icon" href="images/favicon.ico" type="image/ico">
+  <link rel="icon" href="assets/images/favicon.ico" type="image/ico">
 
   <link rel="stylesheet" href="assets/lib/tooltipster/tooltipster.css">
   <link rel="stylesheet" href="assets/style.css">

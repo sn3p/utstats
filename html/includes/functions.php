@@ -271,9 +271,9 @@ function FlagImage($country, $mini = true) {
 	$width = ($mini) ? 20 : 20;
 	$height = ($mini) ? 14 : 14;
 	if (empty($country)) return('');
-	if (!file_exists("images/flags/$country.png")) return(''); //18*12
+	if (!file_exists("assets/images/flags/$country.png")) return(''); //18*12
 	$countryname = (isset($a_countries[$country])) ? $a_countries[$country] : '';
-	return('<img src="images/flags/'. $country .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="'. $country .'" title="'. $countryname .'">');
+	return('<img src="assets/images/flags/'. $country .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="'. $country .'" title="'. $countryname .'">');
 }
 
 function RankMovement($diff) {
@@ -291,11 +291,11 @@ function RankMovement($diff) {
 		$chtext = "lost ". get_dp($diff * -1) ." ranking points";
 	}
 	$moveimg = '';
-	if (file_exists("images/ranks/$chimg.png")) {
-		$infos = getimagesize("images/ranks/$chimg.png");
+	if (file_exists("assets/images/ranks/$chimg.png")) {
+		$infos = getimagesize("assets/images/ranks/$chimg.png");
 		$width = $infos[0];
 		$height = $infos[1];
-		$moveimg = '<img src="images/ranks/'. $chimg .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="" title="'. $chtext .'">';
+		$moveimg = '<img src="assets/images/ranks/'. $chimg .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="" title="'. $chtext .'">';
 	}
 	return($moveimg);
 }
@@ -343,10 +343,10 @@ function RankImageOrText($pid, $name, $rank, $gid, $gamename, $mini = true, $for
 	}
 
 	$ranktext = $rank.ordinal($rank);
-	if (file_exists("images/ranks/$rank.png")) {
+	if (file_exists("assets/images/ranks/$rank.png")) {
 		$width = ($mini) ? 15 : 15;
 		$height = ($mini) ? 12 : 12;
-		$img = '<img class="tooltip" src="images/ranks/'. $rank .'.png" width="17" height="17" style="border:0; margin-bottom: -4px;" alt="'. $rank .'" title="'. $ranktext .' in '. $gamename .'">';
+		$img = '<img class="tooltip" src="assets/images/ranks/'. $rank .'.png" width="17" height="17" style="border:0; margin-bottom: -4px;" alt="'. $rank .'" title="'. $ranktext .' in '. $gamename .'">';
 	} else {
 		$img = '';
 	}
@@ -601,14 +601,14 @@ function getMapImageName($mapname) {
 			$mapname = str_replace($mapVersions, "", $mapname);
 		}
 
-		$mappic = strtolower("images/maps/" . $mapname . "_large.jpg");
+		$mappic = strtolower("assets/images/maps/" . $mapname . "_large.jpg");
 
 		if(file_exists(dirname(dirname(__FILE__)) . "/" . $mappic)) {
 			return $mappic;
 		}
 	}
 
-	return "images/maps/blank_large.jpg";
+	return "assets/images/maps/blank_large.jpg";
 }
 
 ?>

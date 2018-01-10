@@ -63,7 +63,7 @@ echo '
     <th class="heading" colspan="'. (count($players) + $extra) .'" align="center">Kills Match Up</th>
   </tr>
   <tr>
-    <th class="smheading" colspan="'.$extra.'" rowspan="'.$extra.'" align="center"><center><img src="images/arrow.png"></th>
+    <th class="smheading" colspan="'.$extra.'" rowspan="'.$extra.'" align="center"><center><img src="assets/images/arrow.png"></th>
   </tr>
   <tr>';
 
@@ -90,7 +90,7 @@ if ($teamgame) {
       case 3: $teamcolor = 'goldteamb'; break;
     }
     echo '<td class="'. $teamcolor .'" align="center" width="25" height="25">
-      <img src="images/victim.png" height="15"></td>';
+      <img src="assets/images/victim.png" height="15"></td>';
   }
   echo '</tr>';
 }
@@ -102,7 +102,7 @@ foreach($players as $kid => $killer) {
   if ($killer['banned'] == 'Y') continue;
   $i++;
   echo '<tr class="clickableRow" href="?p=matchp&amp;mid='. $mid .'&amp;pid='. urlencode($killer['pid']). '">';
-  if ($first) echo'<td class="smheading" rowspan="'. count($players) .'" align="center" width="20"> <img src="images/xhair.png"> </td>';
+  if ($first) echo'<td class="smheading" rowspan="'. count($players) .'" align="center" width="20"> <img src="assets/images/xhair.png"> </td>';
   echo '<td nowrap align="left" style="width: 220px;">';
   echo '<a href="?p=matchp&amp;mid='. $mid .'&amp;pid='. urlencode($killer['pid']). '">'.
       FormatPlayerName($killer['country'], $killer['pid'], $killer['name'], $gid, $gamename) .'&nbsp;</a></td>';
@@ -113,7 +113,7 @@ foreach($players as $kid => $killer) {
       case 2: $teamcolor = 'greenteamb'; break;
       case 3: $teamcolor = 'goldteamb'; break;
     }
-    echo '<td class="'. $teamcolor .'" align="center" width="30" height="25"><img src="images/xhair.png" height="15"></td>';
+    echo '<td class="'. $teamcolor .'" align="center" width="30" height="25"><img src="assets/images/xhair.png" height="15"></td>';
   }
   foreach($players as $vid => $victim) {
     $class = ($kid == $vid) ? 'suicide' : 'killCell';

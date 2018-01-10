@@ -70,7 +70,7 @@ if (empty($filename)) {
 
 			echo $d_size['size'] .' '. $d_size['type'];
 			echo '</td><td class="'.$class.'" align="center">';
-			echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($log).'&amp;del=1"><img src="images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
+			echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($log).'&amp;del=1"><img src="assets/images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
 			echo '</td></tr>';
 		}
 	}
@@ -83,7 +83,7 @@ if (!empty($filename)) {
 	<tr>
 		<td class="smheading" align="center" width="95%" colspan="3">'.$filename.'</td>
 		<td class="smheading" align="center" width="5%" align="right">';
-		echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($filename).'&amp;del=1"><img src="images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
+		echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($filename).'&amp;del=1"><img src="assets/images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
 		echo '</td>
 	</tr>';
 

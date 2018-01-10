@@ -83,7 +83,7 @@ echo'
 <div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>
 <table class="zebra box" border="0" cellpadding="0" cellspacing="0">
   <tbody><tr>
-    <th class="heading" colspan="5" align="center">Maps List</th>
+    <th class="heading" colspan="5" align="center">Unreal Tournament Maps List</th>
   </tr>
   <tr>
     <th class="smheading" align="center" width="100%" colspan="5">

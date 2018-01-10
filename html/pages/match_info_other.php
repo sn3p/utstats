@@ -123,15 +123,4 @@ if ((strpos($gamename, '(insta)') === false) && (strpos($gamename, "Last Man Sta
 
 echo '</tbody></table>';
 
-/*
-// To add when forum widget is available
-
-echo '
-<br><table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
-    <tbody><tr>
-  <td class="share" colspan="4"><center>Share this match:<br> <div class="darksearch">
-    <span><input type="text" class="owshare square" value="[stats]'.$mid.'[/stats]" name="name" value="'.htmlentities($playername).'"></span></div>
-</td></tr></tbody></table>';
-*/
-
 ?>

@@ -70,7 +70,7 @@ if (file_exists($mappic)) {
 
 $mapname = getiteminfo("mapname",$chunks);
 $mappic = strtolower("images/maps/".$mapname.".jpg");
-IF (file_exists($mappic)) {
+if (file_exists($mappic)) {
 	} else {
 	$mappic = "images/maps/blank.jpg";
 }

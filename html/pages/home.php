@@ -1,7 +1,5 @@
 <?php
 
-include_once("analytics.php");
-
 // Get last map, time, scores
 $qlastMaps = small_query("SELECT id, mapfile, time, t0score, t1score, t2score, t3score FROM uts_match WHERE time = (SELECT MAX(time) FROM uts_match)");
 $lastMapId = $qlastMaps['id'];

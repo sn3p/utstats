@@ -19,19 +19,24 @@ if($map_matches[gametime]<= 0) {
 	// Map pic code
 	$mappic = getMapImageName($map);
 
-	echo'
-	<table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
-	  <tbody><tr>
-		<th class="heading" align="center" colspan="4">Statistics for '.htmlentities($map).'</th>
-	  </tr><tr>
-		<th colspan="4" class="mapheader"><img border="0" alt="'.$mapname.'" class="tooltip" title="'.$mapname.'" src="'.$mappic.'" width=698></th></tr>
+	echo '
+	<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
+  <tbody>
+		<tr>
+			<th class="heading" align="center" colspan="4">Statistics for '.htmlentities($map).'</th>
+	  </tr>
+		<tr>
+			<th colspan="4" class="mapheader">
+				<img border="0" alt="'.$map.'" src="'.$mappic.'" width=698>
+			</th>
+		</tr>
 	  <tr>
-		<th align="center">Matches</th>
-		<td align="center">'.$map_matches[matchcount].'</td>
+			<th align="center">Matches</th>
+			<td align="center">'.$map_matches[matchcount].'</td>
 	  </tr>
 	  <tr>
-		<th align="center">Total Time</th>
-		<td align="center">'.$map_tottime.' minutes</td>
+			<th align="center">Total Time</th>
+			<td align="center">'.$map_tottime.' minutes</td>
 	  </tr>';
 	// Show some gametype specific stuff
 	if ((strtolower(substr($map, 0, 7)) == "ctf-bt-") or (strtolower(substr($map, 0, 3)) == "bt-")) {
@@ -40,25 +45,25 @@ if($map_matches[gametime]<= 0) {
 		if (!empty($record['time'])) {
 			echo '
 			  <tr>
-				<th align="center">Fastest Capture</th>
-				<td align="center"><a href="?p=pinfo&amp;pid='.$record[id].'">'.FormatPlayerName($record['country'], $record['id'], $record['name']).'</a><br>' . btcaptime($record['time']) . ' minutes<BR>'.gmdate('d-m-Y h:i a', $record['date']).'</td>
+					<th align="center">Fastest Capture</th>
+					<td align="center"><a href="?p=pinfo&amp;pid='.$record[id].'">'.FormatPlayerName($record['country'], $record['id'], $record['name']).'</a><br>' . btcaptime($record['time']) . ' minutes<BR>'.gmdate('d-m-Y h:i a', $record['date']).'</td>
 			  </tr>';
 		}
 		else {
 			echo '
 			  <tr>
-				<th align="center">Fastest Capture</th>
-				<td align="center">No record set!</td>
+					<th align="center">Fastest Capture</th>
+					<td align="center">No record set!</td>
 			  </tr>';
 		}
 		echo '
 			  <tr>
-				<th align="center">Total Flags Captured</th>
-				<td align="center">'.$map_matches[gamescore].'</td>
+					<th align="center">Total Flags Captured</th>
+					<td align="center">'.$map_matches[gamescore].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Suicides</th>
-				<td align="center">'.$map_matches[suicides].'</td>
+					<th align="center">Total Suicides</th>
+					<td align="center">'.$map_matches[suicides].'</td>
 			  </tr>';
 	}
 	else if (strtolower(substr($map, 0, 4)) == "ctf-") {
@@ -66,28 +71,28 @@ if($map_matches[gametime]<= 0) {
 		$totals = small_query("SELECT SUM(p.flag_taken) as flag_taken, SUM(p.flag_return) AS flag_return, SUM(p.flag_cover) AS flag_cover FROM uts_player AS p, uts_match AS m WHERE m.id = p.matchid AND (m.mapfile = '$realmap' OR m.mapfile = '$bugmap')");
 		echo '
 			  <tr>
-				<th align="center">Total Flags Captured</th>
-				<td align="center">'.$map_matches[gamescore].'</td>
+					<th align="center">Total Flags Captured</th>
+					<td align="center">'.$map_matches[gamescore].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Flags Taken</th>
-				<td align="center">'.$totals['flag_taken'].'</td>
+					<th align="center">Total Flags Taken</th>
+					<td align="center">'.$totals['flag_taken'].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Covers</th>
-				<td align="center">'.$totals['flag_cover'].'</td>
+					<th align="center">Total Covers</th>
+					<td align="center">'.$totals['flag_cover'].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Flags Returned</th>
-				<td align="center">'.$totals['flag_return'].'</td>
+					<th align="center">Total Flags Returned</th>
+					<td align="center">'.$totals['flag_return'].'</td>
 			  </tr>
 			  <tr>
-				<th  align="center">Total Kills</th>
-				<td align="center">'.$map_matches[kills].'</td>
+					<th align="center">Total Kills</th>
+					<td align="center">'.$map_matches[kills].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Suicides</th>
-				<td align="center">'.$map_matches[suicides].'</td>
+					<th align="center">Total Suicides</th>
+					<td align="center">'.$map_matches[suicides].'</td>
 			  </tr>';
 	}
 	else if (strtolower(substr($map, 0, 3)) == "as-") {
@@ -95,16 +100,16 @@ if($map_matches[gametime]<= 0) {
 		$totals = small_query("SELECT SUM(p.ass_obj) as  ass_obj FROM uts_player AS p, uts_match AS m WHERE m.id = p.matchid AND (m.mapfile = '$realmap' OR m.mapfile = '$bugmap')");
 		echo '
 			  <tr>
-				<th align="center">Total Objectives Achieved</th>
-				<td align="center">'.$totals[ass_obj].'</td>
+					<th align="center">Total Objectives Achieved</th>
+					<td align="center">'.$totals[ass_obj].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Kills</th>
-				<td align="center">'.$map_matches[kills].'</td>
+					<th align="center">Total Kills</th>
+					<td align="center">'.$map_matches[kills].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Suicides</th>
-				<td align="center">'.$map_matches[suicides].'</td>
+					<th align="center">Total Suicides</th>
+					<td align="center">'.$map_matches[suicides].'</td>
 			  </tr>';
 	}
 	else if (strtolower(substr($map, 0, 3)) == "jb-") {
@@ -112,16 +117,16 @@ if($map_matches[gametime]<= 0) {
 		$totals = small_query("SELECT SUM(p.ass_obj) as  ass_obj FROM uts_player AS p, uts_match AS m WHERE m.id = p.matchid AND (m.mapfile = '$realmap' OR m.mapfile = '$bugmap')");
 		echo '
 			  <tr>
-				<th align="center">Team Releases</th>
-				<td align="center">'.$totals[ass_obj].'</td>
+					<th align="center">Team Releases</th>
+					<td align="center">'.$totals[ass_obj].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Kills</th>
-				<td  align="center">'.$map_matches[kills].'</td>
+					<th align="center">Total Kills</th>
+					<td align="center">'.$map_matches[kills].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Suicides</th>
-				<td align="center">'.$map_matches[suicides].'</td>
+					<th align="center">Total Suicides</th>
+					<td align="center">'.$map_matches[suicides].'</td>
 			  </tr>';
 	}
 	else if (strtolower(substr($map, 0, 4)) == "dom-") {
@@ -129,45 +134,44 @@ if($map_matches[gametime]<= 0) {
 		$totals = small_query("SELECT SUM(p.dom_cp) as  dom_cp FROM uts_player AS p, uts_match AS m WHERE m.id = p.matchid AND (m.mapfile = '$realmap' OR m.mapfile = '$bugmap')");
 		echo '
 			  <tr>
-				<th align="center">Total Control Points Captured</th>
-				<td align="center">'.$totals['dom_cp'].'</td>
+					<th align="center">Total Control Points Captured</th>
+					<td align="center">'.$totals['dom_cp'].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Kills</th>
-				<td  align="center">'.$map_matches[kills].'</td>
+					<th align="center">Total Kills</th>
+					<td align="center">'.$map_matches[kills].'</td>
 			  </tr>
 			  <tr>
-				<th align="center">Total Suicides</th>
-				<td  align="center">'.$map_matches[suicides].'</td>
+					<th align="center">Total Suicides</th>
+					<td  align="center">'.$map_matches[suicides].'</td>
 			  </tr>';
 	}
 	else {
 		echo '
 			  <tr>
-				<th  align="center">Total Score</th>
-				<td  align="center">'.$map_matches[gamescore].'</td>
+					<th align="center">Total Score</th>
+					<td align="center">'.$map_matches[gamescore].'</td>
 			  </tr>
 			  <tr>
-				<th  align="center">Total Kills</th>
-				<td  align="center">'.$map_matches[kills].'</td>
+					<th align="center">Total Kills</th>
+					<td align="center">'.$map_matches[kills].'</td>
 			  </tr>
 			  <tr>
-				<th  align="center">Total Teamkills</th>
-				<td  align="center">'.$map_matches[teamkills].'</td>
+					<th align="center">Total Teamkills</th>
+					<td align="center">'.$map_matches[teamkills].'</td>
 			  </tr>
 			  <tr>
-				<th  align="center">Total Suicides</th>
-				<td  align="center">'.$map_matches[suicides].'</td>
+					<th align="center">Total Suicides</th>
+					<td align="center">'.$map_matches[suicides].'</td>
 			  </tr>';
 	}
 	echo '
 	  <tr>
-		<th  align="center">Last Match</th>
-		<td  align="center">'.$map_lastmatch.'</td>
+			<th align="center">Last Match</th>
+			<td align="center">'.$map_lastmatch.'</td>
 	  </tr>
 	</tbody></table>
 	<br>';
-
 
 	// Show a list of recent matches
 	$mcount = small_count("SELECT id FROM uts_match WHERE mapfile = '$realmap' OR mapfile = '$bugmap' GROUP BY id");
@@ -175,72 +179,74 @@ if($map_matches[gametime]<= 0) {
 	$ecount = $mcount/25;
 	$ecount2 = number_format($ecount, 0, '.', '');
 
-	IF($ecount > $ecount2) {
+	if ($ecount > $ecount2) {
 		$ecount2 = $ecount2+1;
 	}
 
 	$fpage = 0;
-	IF($ecount < 1) { $lpage = 0; }
+	if ($ecount < 1) { $lpage = 0; }
 	else { $lpage = $ecount2-1; }
 
 	$cpage = preg_replace('/\D/', '', $_GET["page"]);
 	$qpage = $cpage*25;
 
-	IF ($cpage == "") { $cpage = "0"; }
+	if ($cpage == "") { $cpage = "0"; }
 
 	$tfpage = $cpage+1;
 	$tlpage = $lpage+1;
 
 	$ppage = $cpage-1;
 	$ppageurl = "<a class=\"pages\" href=\"./?p=minfo&amp;map=".htmlentities($map)."&amp;page=$ppage\">[Previous]</a>";
-	IF ($ppage < "0") { $ppageurl = "[Previous]"; }
+	if ($ppage < "0") { $ppageurl = "[Previous]"; }
 
 	$npage = $cpage+1;
 	$npageurl = "<a class=\"pages\" href=\"./?p=minfo&amp;map=".htmlentities($map)."&amp;page=$npage\">[Next]</a>";
-	IF ($npage >= "$ecount") { $npageurl = "[Next]"; }
+	if ($npage >= "$ecount") { $npageurl = "[Next]"; }
 
 	$fpageurl = "<a class=\"pages\" href=\"./?p=minfo&amp;map=".htmlentities($map)."&amp;page=$fpage\">[First]</a>";
-	IF ($cpage == "0") { $fpageurl = "[First]"; }
+	if ($cpage == "0") { $fpageurl = "[First]"; }
 
 	$lpageurl = "<a class=\"pages\" href=\"./?p=minfo&amp;map=".htmlentities($map)."&amp;page=$lpage\">[Last]</a>";
-	IF ($cpage == "$lpage") { $lpageurl = "[Last]"; }
+	if ($cpage == "$lpage") { $lpageurl = "[Last]"; }
 
 	// list recent matches
-	echo'
+	echo '
 	<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>
 	<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width=700>
-	  <tbody><tr>
-		<th class="heading" colspan="5" align="center">Recent Matches</th>
+  <tbody>
+		<tr>
+			<th class="heading" colspan="5" align="center">Recent Matches</th>
 	  </tr>
 	  <tr>
-		<th class="smheading" align="center" width="250">Date</th>
-		<th class="smheading" align="center" width="100">Match Type</th>
-		<th class="smheading" align="center">Player Count</th>
-		<th class="smheading" align="center" width="100">Time</th>
+			<th class="smheading" align="center" width="250">Date</th>
+			<th class="smheading" align="center" width="100">Match Type</th>
+			<th class="smheading" align="center">Player Count</th>
+			<th class="smheading" align="center" width="100">Time</th>
 	  </tr>';
 
 	$sql_maps = "SELECT m.id, m.time, g.name AS gamename, m.gametime
-	FROM uts_match AS m, uts_games AS g WHERE (m.mapfile = '$realmap' OR m.mapfile = '$bugmap') AND m.gid = g.id ORDER BY time DESC LIMIT $qpage,25";
+		FROM uts_match AS m, uts_games AS g WHERE (m.mapfile = '$realmap' OR m.mapfile = '$bugmap') AND m.gid = g.id ORDER BY time DESC LIMIT $qpage,25";
 	$q_maps = mysql_query($sql_maps) or die(mysql_error());
+
 	while ($r_maps = mysql_fetch_array($q_maps)) {
+	  $r_mapfile = un_ut($r_maps[mapfile]);
+	  $r_matchtime = mdate($r_maps[time]);
+	  $r_gametime = GetMinutes($r_maps[gametime]);
 
-		  $r_mapfile = un_ut($r_maps[mapfile]);
-		  $r_matchtime = mdate($r_maps[time]);
-		  $r_gametime = GetMinutes($r_maps[gametime]);
+	  $map_pcount = small_count("SELECT id FROM uts_player WHERE matchid = $r_maps[id]");
 
-		  $map_pcount = small_count("SELECT id FROM uts_player WHERE matchid = $r_maps[id]");
-
-		  echo'
-		  <tr class="clickableRow" href="./?p=match&amp;mid='.$r_maps[id].'">
+	  echo '
+	  <tr class="clickableRow" href="./?p=match&amp;mid='.$r_maps[id].'">
 			<td align="center"><a href="./?p=match&amp;mid='.$r_maps[id].'">'.$r_matchtime.'</a></td>
 			<td align="center">'.$r_maps[gamename].'</td>
 			<td align="center">'.$map_pcount.'</td>
 			<td align="center">'.$r_gametime.'</td>
-		  </tr>';
+	  </tr>';
 	}
 
-	echo'
-	</tbody></table>
+	echo '
+	</tbody>
+	</table>
 	<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>';
 
 	// Do graph stuff
@@ -254,71 +260,73 @@ if($map_matches[gametime]<= 0) {
 		$ecount = $mcount/25;
 		$ecount2 = number_format($ecount, 0, '.', '');
 
-		IF($ecount > $ecount2) {
+		if ($ecount > $ecount2) {
 			$ecount2 = $ecount2+1;
 		}
 
 		$fpage = 0;
-		IF($ecount < 1) { $lpage = 0; }
+		if ($ecount < 1) { $lpage = 0; }
 		else { $lpage = $ecount2-1; }
 
 		$cpage = preg_replace('/\D/', '', $_GET["rpage"]);
 		$qpage = $cpage*25;
 
-		IF ($cpage == "") { $cpage = "0"; }
+		if ($cpage == "") { $cpage = "0"; }
 
 		$tfpage = $cpage+1;
 		$tlpage = $lpage+1;
 
 		$ppage = $cpage-1;
 		$ppageurl = "<a class=\"pages\" href=\"./?p=minfo&amp;map=".htmlentities($map)."&amp;rpage=$ppage\">[Previous]</a>";
-		IF ($ppage < "0") { $ppageurl = "[Previous]"; }
+		if ($ppage < "0") { $ppageurl = "[Previous]"; }
 
 		$npage = $cpage+1;
 		$npageurl = "<a class=\"pages\" href=\"./?p=minfo&amp;map=".htmlentities($map)."&amp;rpage=$npage\">[Next]</a>";
-		IF ($npage >= "$ecount") { $npageurl = "[Next]"; }
+		if ($npage >= "$ecount") { $npageurl = "[Next]"; }
 
 		$fpageurl = "<a class=\"pages\" href=\"./?p=minfo&amp;map=".htmlentities($map)."&amp;rpage=$fpage\">[First]</a>";
-		IF ($cpage == "0") { $fpageurl = "[First]"; }
+		if ($cpage == "0") { $fpageurl = "[First]"; }
 
 		$lpageurl = "<a class=\"pages\" href=\"./?p=minfo&amp;map=".htmlentities($map)."&amp;rpage=$lpage\">[Last]</a>";
-		IF ($cpage == "$lpage") { $lpageurl = "[Last]"; }
+		if ($cpage == "$lpage") { $lpageurl = "[Last]"; }
 
-		$sql_btrecords = "SELECT pi.id, pi.name AS name, pi.country, e.col3 AS time, e.col4 AS date FROM uts_events AS e, uts_pinfo AS pi, uts_player AS p, uts_match AS m WHERE m.id = e.matchid AND m.id = p.matchid AND p.playerid = e.playerid AND pi.id = p.pid AND (m.mapfile = '$realmap' OR m.mapfile = '$bugmap') AND e.col1 = 'btcap' GROUP BY pi.id ORDER BY (0 + e.col3) ASC, e.col4 ASC LIMIT $qpage,25"; 
+		$sql_btrecords = "SELECT pi.id, pi.name AS name, pi.country, e.col3 AS time, e.col4 AS date FROM uts_events AS e, uts_pinfo AS pi, uts_player AS p, uts_match AS m WHERE m.id = e.matchid AND m.id = p.matchid AND p.playerid = e.playerid AND pi.id = p.pid AND (m.mapfile = '$realmap' OR m.mapfile = '$bugmap') AND e.col1 = 'btcap' GROUP BY pi.id ORDER BY (0 + e.col3) ASC, e.col4 ASC LIMIT $qpage,25";
 		$q_btrecords = mysql_query($sql_btrecords) or die (mysql_error());
+
 		if (mysql_num_rows($q_btrecords) > 0) {
 			echo '
 			<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>
-			<table class = "zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
-			  <tbody>
+			<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
+		  <tbody>
 			  <tr>
-				<th class="heading" colspan="4" align="center">Fastest captures</th>
+					<th class="heading" colspan="4" align="center">Fastest captures</th>
 			  </tr>
 			  <tr>
-				<th class="smheading" align="center" width="40">N&deg;</th>
-				<th class="smheading" align="center" width="200">Name</th>
-				<th class="smheading" align="center" width="60">Time</th>
-				<th class="smheading" align="center" width="180">Date</th>
-			</tr>';
+					<th class="smheading" align="center" width="40">N&deg;</th>
+					<th class="smheading" align="center" width="200">Name</th>
+					<th class="smheading" align="center" width="60">Time</th>
+					<th class="smheading" align="center" width="180">Date</th>
+				</tr>';
+
 			$i = $qpage;
 			$lasttime = -1;
+
 			while ($r_btrecords = mysql_fetch_array($q_btrecords)) {
 				$i++;
 				$class = ($i%2) ? 'grey' : 'grey2';
 				echo '
 					<tr><td class = "'.$class.'" align = "right">'.($lasttime == $r_btrecords['time'] ? '' : $i).'&nbsp;</td>
-						<td class = "'.$class.'" align = "center"><a href="?p=pinfo&amp;pid='.$r_btrecords[id].'">', FormatPlayerName($r_btrecords['country'], $r_btrecords['id'], $r_btrecords['name']), '</a></td>
-						<td class = "'.$class.'" align = "center">', btcaptime($r_btrecords['time']), '</td>
-						<td class = "'.$class.'" align = "center">', gmdate('d-m-Y h:i a', $r_btrecords['date']), '</td></tr>';
+						<td class="'.$class.'" align="center"><a href="?p=pinfo&amp;pid='.$r_btrecords[id].'">', FormatPlayerName($r_btrecords['country'], $r_btrecords['id'], $r_btrecords['name']), '</a></td>
+						<td class="'.$class.'" align="center">', btcaptime($r_btrecords['time']), '</td>
+						<td class="'.$class.'" align="center">', gmdate('d-m-Y h:i a', $r_btrecords['date']), '</td></tr>';
 				$lasttime = $r_btrecords['time'];
 			}
-			echo '
-				  </tbody>
+
+			echo '</tbody>
 				</table>
 			<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div><br>';
 		}
 	}
-
 }
 
 ?>

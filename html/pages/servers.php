@@ -39,7 +39,7 @@ echo '
 <table class="zebra box" border="0" cellpadding="0" cellspacing="0">
 <tbody>
   <tr>
-		<th class="heading" colspan="6" align="center">Server List</th>
+		<th class="heading" colspan="6" align="center">Unreal Tournament Server List</th>
   </tr>
   <tr>
     <td class="smheading" align="center" width="250">Server Name</td>

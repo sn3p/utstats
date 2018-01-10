@@ -7,11 +7,17 @@
 	  <td class="credits" align="left">
 			<blockquote>
 				<p>
-					For help and documentation please visit
+					For installation instrcutions and documentation please visit
 					<a href="https://github.com/sn3p/utstats" target="_blank">https://github.com/sn3p/utstats</a>.
-					<br>
-					Please report issues and feature requests in the
-					<a href="https://github.com/sn3p/utstats/issues" target="_blank">issue tracker</a>.
+        </p>
+        <p>
+          Still havind problems? Check out the
+          <a href="https://github.com/sn3p/utstats/wiki/Troubleshooting" target="_blank">Troubleshooting</a>
+          page.
+        </p>
+        <p>
+          UTStats is getting pretty old so errors or warnings you'll encounter are most likely caused by deprecated or functions that are not supported any more.
+					Please report issues and feature requests in the <a href="https://github.com/sn3p/utstats/issues" target="_blank">issue tracker</a>.
 				</p>
 			</blockquote>
 		</td>

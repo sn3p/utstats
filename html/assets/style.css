@@ -76,6 +76,25 @@ table {
 input[type="text"] {
   color: #bcbcbc;
 }
+input[type="submit"] {
+  position: relative;
+  left: -4px;
+  height: 28px;
+  border: 1px solid #1e1e1e;
+  background-color: #2069a1;
+  color: #fff;
+  cursor: pointer;
+  -webkit-transition: background-color 0.4s;
+  -moz-transition: background-color 0.4s;
+  -o-transition: background-color 0.4s;
+  -ms-transition: background-color 0.4s;
+  transition: background-color 0.4s;
+}
+input[type="submit"]:hover {
+  background-color: #efc100;
+  color: #2d3035;
+  cursor: pointer;
+}
 
 .navbar {
   background: rgba(0, 0, 0, 0.7);
@@ -130,12 +149,10 @@ input[type="text"] {
 .footer a {
   color: #efc100;
   text-decoration: none;
-  /* padding: 0px; */
   margin-left: 25px;
 }
 .footer a:hover {
   color: #fff;
-  /* padding: 0px; */
 }
 
 .darksearch {
@@ -157,34 +174,6 @@ input[type="text"] {
   margin: 3px;
   background: url("../images/search.png") no-repeat 8px 6px;
   height: 28px;
-}
-
-.owshare {
-  padding: 6px 15px 6px 30px;
-  margin: 3px;
-  background: url("../images/owshare.png") no-repeat 8px 6px;
-  height: 28px;
-}
-
-input[type="submit"] {
-  position: relative;
-  left: -4px;
-  height: 28px;
-  border: 1px solid #1e1e1e;
-  background-color: #2069a1;
-  color: #fff;
-  cursor: pointer;
-  -webkit-transition: background-color 1s;
-  -moz-transition: background-color 1s;
-  -o-transition: background-color 1s;
-  -ms-transition: background-color 1s;
-  transition: background-color 1s;
-}
-
-input[type="submit"]:hover {
-  background-color: #efc100;
-  color: #2d3035;
-  cursor: pointer;
 }
 .searchform {
   border: 1px solid #1e1e1e;
@@ -348,11 +337,11 @@ th {
   background: rgba(30, 30, 30);
   background: rgba(32, 105, 161, 0.8);
   border: 1px #fff solid;
-  -webkit-transition: background-color 1s;
-  -moz-transition: background-color 1s;
-  -o-transition: background-color 1s;
-  -ms-transition: background-color 1s;
-  transition: background-color 1s;
+  -webkit-transition: background-color 0.4s;
+  -moz-transition: background-color 0.4s;
+  -o-transition: background-color 0.4s;
+  -ms-transition: background-color 0.4s;
+  transition: background-color 0.4s;
 }
 .navCTA:hover {
   margin-top: 15px;
@@ -572,7 +561,6 @@ input[type="button"].btn-block {
   cursor: pointer;
 }
 .killsMatrix tbody tr:nth-child(odd) {
-  background: rgb(103, 103, 103);
   background: rgba(103, 103, 103, 1);
 }
 .killCell {

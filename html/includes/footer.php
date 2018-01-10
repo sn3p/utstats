@@ -9,7 +9,7 @@
       <br>
       <br>
       <a href="https://github.com/sn3p/utstats" target="_blank">UTStats Beta 4.4.0</a>
-      &copy; 2005 azazel, AnthraX toa and sn3p
+      &copy; <?php echo date("Y"); ?> azazel, AnthraX toa and sn3p
     </div>
   </body>
 </html>

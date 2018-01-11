@@ -342,18 +342,15 @@ function RankImageOrText($pid, $name, $rank, $gid, $gamename, $mini = true, $for
 		$rank = $r_no['no'];
 	}
 
+	$img = '';
 	$ranktext = $rank.ordinal($rank);
 	if (file_exists("assets/images/ranks/$rank.png")) {
-		$width = ($mini) ? 15 : 15;
-		$height = ($mini) ? 12 : 12;
-		$img = '<img class="tooltip" src="assets/images/ranks/'. $rank .'.png" width="17" height="17" style="border:0; margin-bottom: -4px;" alt="'. $rank .'" title="'. $ranktext .' in '. $gamename .'">';
-	} else {
-		$img = '';
+		$img = '<img class="rank tooltip" src="assets/images/ranks/'. $rank .'.png" alt="'. $rank .'" title="'. $ranktext .' in '. $gamename .'">';
 	}
 
 	$moveimg = '';
-	if ($rankchange !== NULL) {
-		$moveimg =  ' '. RankMovement($rankchange);
+	if ($rankchange !== null) {
+		$moveimg = ' '. RankMovement($rankchange);
 	}
 
 	if (empty($format)) {

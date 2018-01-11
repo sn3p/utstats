@@ -241,16 +241,10 @@ th {
   font-weight: 700;
   font-size: 10pt;
   color: #ffffff;
-  background: -webkit-linear-gradient(
-    #b40101,
-    #870202
-  ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#b40101, #870202); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #b40101,
-    #870202
-  ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#b40101, #870202); /* Standard syntax */
+  background: -webkit-linear-gradient(#b40101, #870202);
+  background: -o-linear-gradient(#b40101, #870202);
+  background: -moz-linear-gradient(#b40101, #870202);
+  background: linear-gradient(#b40101, #870202);
   height: 30px;
 }
 .blue {
@@ -258,16 +252,10 @@ th {
   font-weight: 700;
   font-size: 10pt;
   color: #ffffff;
-  background: -webkit-linear-gradient(
-    #2069a1,
-    #194c74
-  ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#2069a1, #194c74); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #2069a1,
-    #194c74
-  ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#2069a1, #194c74); /* Standard syntax */
+  background: -webkit-linear-gradient(#2069a1, #194c74);
+  background: -o-linear-gradient(#2069a1, #194c74);
+  background: -moz-linear-gradient(#2069a1, #194c74);
+  background: linear-gradient(#2069a1, #194c74);
   height: 30px;
 }
 .green {
@@ -275,18 +263,10 @@ th {
   font-weight: 700;
   font-size: 10pt;
   color: #ffffff;
-  background: -webkit-linear-gradient(
-    #278040,
-    #216635
-  ); /* For Safari 5.1 to 6.0 */
+  background: -webkit-linear-gradient(#278040, #216635);
   background: -o-linear-gradient(#278040, #216635);
-  /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #278040,
-    #216635
-  ); /* For Firefox 3.6 to 15 */
+  background: -moz-linear-gradient(#278040, #216635);
   background: linear-gradient(#278040, #216635);
-  /* Standard syntax */
   height: 30px;
 }
 .yellow {
@@ -295,14 +275,9 @@ th {
   font-size: 10pt;
   color: #ffffff;
   background: -webkit-linear-gradient(#efc100, #e0b501);
-  /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#efc100, #e0b501); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #efc100,
-    #e0b501
-  ); /* For Firefox 3.6 to 15 */
+  background: -o-linear-gradient(#efc100, #e0b501);
+  background: -moz-linear-gradient(#efc100, #e0b501);
   background: linear-gradient(#efc100, #e0b501);
-  /* Standard syntax */
   height: 30px;
 }
 .Gold {
@@ -310,16 +285,10 @@ th {
   font-weight: 700;
   font-size: 10pt;
   color: #1e1e1e;
-  background: -webkit-linear-gradient(
-    #efc100,
-    #e0b501
-  ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#efc100, #e0b501); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #efc100,
-    #e0b501
-  ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#efc100, #e0b501); /* Standard syntax */
+  background: -webkit-linear-gradient(#efc100, #e0b501);
+  background: -o-linear-gradient(#efc100, #e0b501);
+  background: -moz-linear-gradient(#efc100, #e0b501);
+  background: linear-gradient(#efc100, #e0b501);
   height: 30px;
 }
 .score {
@@ -327,14 +296,22 @@ th {
   font-size: 50px;
   padding: 20px;
 }
-/** Button from Scott CSS **/
+.rank {
+  border: 0;
+  height: 14px;
+  width: 14px;
+  margin-bottom: -2px;
+}
+.player-name {
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
 .navCTA {
   padding: 10px 16px;
   font-size: 14px;
   line-height: 5;
   text-transform: uppercase;
   color: #fff;
-  background: rgba(30, 30, 30);
   background: rgba(32, 105, 161, 0.8);
   border: 1px #fff solid;
   -webkit-transition: background-color 0.4s;
@@ -692,10 +669,8 @@ a.heading:hover {
     #4c84b0
   ); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#2069a1, #4c84b0); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #2069a1,
-    #4c84b0
-  ); /* For Firefox 3.6 to 15 */
+  background: -moz-linear-gradient(#2069a1, #4c84b0);
+  /* For Firefox 3.6 to 15 */
   background: linear-gradient(#2069a1, #4c84b0); /* Standard syntax */
   height: 30px;
 }
@@ -1041,12 +1016,12 @@ a.pages:hover {
     #2069a1,
     #194c74
   ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#2069a1, #194c74);
-  /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#2069a1, #194c74);
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#2069a1, #194c74);
-  /* Standard syntax */
+  background: -o-linear-gradient(#2069a1, #194c74); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(
+    #2069a1,
+    #194c74
+  ); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#2069a1, #194c74); /* Standard syntax */
 }
 .redteam,
 .redteamb,
@@ -1057,9 +1032,12 @@ a.pages:hover {
     #b40101,
     #870202
   ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#b40101, #870202); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#b40101, #870202);
-  /* For Firefox 3.6 to 15 */
+  background: -o-linear-gradient(#b40101, #870202);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(
+    #b40101,
+    #870202
+  ); /* For Firefox 3.6 to 15 */
   background: linear-gradient(#b40101, #870202); /* Standard syntax */
 }
 .greenteam,
@@ -1076,7 +1054,8 @@ a.pages:hover {
     #278040,
     #216635
   ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#278040, #216635); /* Standard syntax */
+  background: linear-gradient(#278040, #216635);
+  /* Standard syntax */
 }
 .goldteam,
 .goldteamb,
@@ -1087,7 +1066,8 @@ a.pages:hover {
     #efc100,
     #e0b501
   ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#efc100, #e0b501); /* For Opera 11.1 to 12.0 */
+  background: -o-linear-gradient(#efc100, #e0b501);
+  /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(
     #efc100,
     #e0b501

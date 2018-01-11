@@ -1,4 +1,5 @@
 <?php
+
 $mid = preg_replace('/\D/', '', $_GET[mid]);
 $pid = preg_replace('/\D/', '', $_GET[pid]);
 
@@ -35,9 +36,13 @@ echo '
     <th class="heading" align="center">Individual Match Stats for</th>
   </tr>
   <tr>
-    <th class="smheading"><a href="./?p=pinfo&amp;pid='.$pid.'">'.FlagImage($country) .' '. htmlentities($playername) .'</a>
-      <span style="font-size: 100%">'. RankImageOrText($pid, $playername, NULL, $gid, $gamename, true, '(%IT% in %GN% with %RP% ranking points)') .'</span>
-      <br>
+    <th class="smheading">
+      <div class="player-name">
+        <a href="./?p=pinfo&amp;pid='.$pid.'">'.FlagImage($country) .' '. htmlentities($playername) .'</a>
+      </div>
+      <div>'.
+        RankImageOrText($pid, $playername, NULL, $gid, $gamename, true, '%IT% in %GN% with %RP% ranking points.')
+      .'</div>
       <a class="navCTA" href="./?p=pinfo&amp;pid='.$pid.'" role="button">Player page</a>
       <a class="navCTA" href="?p=pinfo&amp;pid='.$pid.'&amp;togglewatch=1&amp;noheader=1" role="button">';
 

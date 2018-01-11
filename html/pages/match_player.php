@@ -132,7 +132,7 @@ if ($sql_firstblood[firstblood] == $pid) {
   $firstblood = "No";
 }
 
-echo'
+echo '
   <tr>
     <td align="center">'.$firstblood.'</td>
     <td align="center">'.$r_gsumm[spree_double].'</td>
@@ -156,19 +156,20 @@ $r_pings = small_query("SELECT lowping, avgping, highping FROM uts_player WHERE 
 
 if ($r_pings and $r_pings['lowping']) {
   echo '<br>
-  <table class = "zebra box" border="0" cellpadding="0" cellspacing="0">
-  <tbody><tr>
-          <th class="heading" colspan="6" align="center">Pings</th>
+  <table class="zebra box" border="0" cellpadding="0" cellspacing="0">
+  <tbody>
+  <tr>
+    <th class="heading" colspan="6" align="center">Pings</th>
   </tr>
   <tr>
-          <th class="smheading" align="center" width="80">Min</th>
-          <th class="smheading" align="center" width="80">Avg</th>
-          <th class="smheading" align="center" width="80">Max</th>
+    <th class="smheading" align="center" width="80">Min</th>
+    <th class="smheading" align="center" width="80">Avg</th>
+    <th class="smheading" align="center" width="80">Max</th>
   </tr>
   <tr>
-          <td align="center">'.ceil($r_pings['lowping']).'</td>
-          <td align="center">'.ceil($r_pings['avgping']).'</td>
-          <td align="center">'.ceil($r_pings['highping']).'</td>
+    <td align="center">'.ceil($r_pings['lowping']).'</td>
+    <td align="center">'.ceil($r_pings['avgping']).'</td>
+    <td align="center">'.ceil($r_pings['highping']).'</td>
   </tr>
   </tbody></table>';
 }

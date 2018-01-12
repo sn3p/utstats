@@ -14,7 +14,6 @@ include("includes/teamstats.php");
 include("pages/match_info_charts.php");
 
 switch($real_gamename) {
-
   case "Assault":
   case "Assault (insta)":
     include("pages/match_info_ass.php");
@@ -22,23 +21,12 @@ switch($real_gamename) {
 
   case "Capture the Flag":
   case "Capture the Flag (insta)":
-  case "5v5 iCTF":
-  case "1v1 iCTF":
-  case "2v2 iCTF":
-  case "3v3 iCTF":
-  case "5v5 teleCTF":
-  case "5v5 saCTF":
-  case "5v5 nwCTF":
-  case "3v3 nwCTF":
     include("pages/match_info_ctf.php");
     teamstats($mid, 'Match Summary');
-    break;
+      break;
 
   case "Domination":
   case "Domination (insta)":
-  case "4v4 iDOM":
-  case "4v4 sDOM":
-  case "4v4 nwDOM":
     teamstats($mid, 'Match Summary', 'dom_cp', 'Dom Pts');
     break;
 
@@ -55,8 +43,6 @@ switch($real_gamename) {
   case "Tournament Team Game":
   case "Tournament DeathMatch (insta)":
   case "Tournament Team Game (insta)":
-  case "FFA iDM":
-  case "2v2v2v2 iTDM":
     teamstats($mid, 'Match Summary');
     break;
 

@@ -605,7 +605,7 @@ function getMapImageName($mapname) {
 		}
 	}
 
-	return "assets/images/maps/blank_large.jpg";
+	return "assets/images/maps/blank_large.png";
 }
 
 ?>

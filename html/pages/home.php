@@ -16,7 +16,7 @@ $moreThan2Teams = ($lastMapScore2!=0);
 $mappic = getMapImageName($lastMapFileName);
 
 // quick hack to show empty one at front page if no map
-if (!file_exists($mappic) || $mappic == "assets/images/maps/blank_large.jpg") {
+if (!file_exists($mappic) || $mappic == "assets/images/maps/blank_large.png") {
   $mappic = "assets/images/maps/emptyfront.jpg";
 }
 

@@ -9,11 +9,9 @@ function PrintVertical($text) {
 }
 
 // Retrieve the killmatrix
-$sql_km = "  SELECT  killer,
-              victim,
-              kills
-        FROM     uts_killsmatrix
-        WHERE   matchid = $mid;";
+$sql_km = "SELECT killer, victim, kills
+           FROM uts_killsmatrix
+           WHERE matchid = $mid;";
 
 $q_km = mysql_query($sql_km) or die(mysql_error());
 while ($r_km = mysql_fetch_array($q_km)) {
@@ -52,13 +50,11 @@ while ($r_players = mysql_fetch_array($q_players)) {
                                     'team'     => intval($r_players['team']));
 }
 
-
 // Table header
 $extra = $teamgame ? 3 : 2;
+
 echo '
-
 <table class="zebra" border="0" cellpadding="0" cellspacing="0" width="700">
-
   <tbody><tr>
     <th class="heading" colspan="'. (count($players) + $extra) .'" align="center">Kills Match Up</th>
   </tr>
@@ -70,15 +66,17 @@ echo '
 // Victims
 foreach($players as $player) {
   echo '<th align="center" class="tooltip" title="'.($player['name']).'" href="?p=matchp&amp;mid='. $mid .'&amp;pid='. urlencode($player['pid']). '">
-        <div class="vertical">';
+  <div class="vertical">';
   if (strlen($player['name']) > 10) {
-    echo substr($player['name'],0,10);
+    echo substr($player['name'], 0, 10);
   } else {
-  echo $player['name'] ;
+    echo $player['name'] ;
   };
-	'</div></th>';
+  echo '</div>
+  </th>';
 }
-echo  '</tr><tr>';
+echo '</tr>
+<tr>';
 
 // Team colors victims
 if ($teamgame) {
@@ -90,7 +88,8 @@ if ($teamgame) {
       case 3: $teamcolor = 'goldteamb'; break;
     }
     echo '<td class="'. $teamcolor .'" align="center" width="25" height="25">
-      <img src="assets/images/victim.png" height="15"></td>';
+      <img src="assets/images/victim.png" height="15">
+    </td>';
   }
   echo '</tr>';
 }
@@ -98,6 +97,7 @@ if ($teamgame) {
 // Killer rows
 $first = true;
 $i = 0;
+
 foreach($players as $kid => $killer) {
   if ($killer['banned'] == 'Y') continue;
   $i++;
@@ -131,4 +131,5 @@ foreach($players as $kid => $killer) {
 }
 
 echo '</tbody></table><br>';
+
 ?>

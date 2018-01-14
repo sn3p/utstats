@@ -3,11 +3,11 @@ if (empty($import_adminkey) or isset($_REQUEST['import_adminkey']) or $import_ad
 
 if (isset($_REQUEST['submit'])) {
 	foreach($_REQUEST['image'] as $id => $bla) {
-		mysql_query("	UPDATE	uts_weapons
+		mysqli_query($GLOBALS["___mysqli_link"], "	UPDATE	uts_weapons
 								SET	image = '". my_addslashes($_REQUEST['image'][$id]) ."',
 										sequence = '". my_addslashes($_REQUEST['sequence'][$id]) ."',
 										hide = '". (isset($_REQUEST['hide'][$id]) ? 'Y' : 'N') ."'
-								WHERE	id =  '$id';") or die(mysql_error());
+								WHERE	id =  '$id';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 }
 
@@ -28,9 +28,9 @@ echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 
 
 $sql_weapons = "SELECT id, name, image, sequence, hide FROM uts_weapons ORDER BY sequence ASC;";
-$q_weapons = mysql_query($sql_weapons) or die(mysql_error());
+$q_weapons = mysqli_query($GLOBALS["___mysqli_link"], $sql_weapons) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $i = 0;
-while ($r_weapons = mysql_fetch_array($q_weapons)) {
+while ($r_weapons = mysqli_fetch_array($q_weapons)) {
 	$i++;
 	$class = ($i%2) ? 'grey' : 'grey2';
 	echo '<tr>';

@@ -87,9 +87,9 @@ echo '
 
 if ($real_gamename == "Bunny Track") {
 	$sql_btmaprank = "SELECT e.col2 AS no, COUNT(e.col2) AS count FROM uts_events AS e, uts_player AS p WHERE p.pid = $pid AND p.gid = $gid AND p.playerid = e.playerid AND e.matchid = p.matchid AND e.col2 > 0 AND e.col2 <= 5 GROUP BY e.col2";
-	$q_btmaprank = mysql_query($sql_btmaprank) or die ("Can't retrieve \$q_btmaprank: ". mysql_error());
+	$q_btmaprank = mysqli_query($GLOBALS["___mysqli_link"], $sql_btmaprank) or die ("Can't retrieve \$q_btmaprank: ". mysqli_error($GLOBALS["___mysqli_link"]));
 	$mapranks = array();
-	while($r_btmaprank = mysql_fetch_assoc($q_btmaprank)) {
+	while($r_btmaprank = mysqli_fetch_assoc($q_btmaprank)) {
 		$mapranks[$r_btmaprank[no]] = $r_btmaprank[count];
 	}
 

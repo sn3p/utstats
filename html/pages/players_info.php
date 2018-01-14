@@ -2,7 +2,7 @@
 
 global $pic_enable;
 $pid = isset($pid) ? $pid : $_GET['pid'];
-$pid = mysql_real_escape_string(preg_replace('/\D/', '', $pid));
+$pid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], preg_replace('/\D/', '', $pid));
 
 $r_info = small_query("SELECT name, country, banned FROM uts_pinfo WHERE id = '$pid'");
 
@@ -74,8 +74,8 @@ if (isset($_GET['pics'])) {
     echo '</tr></table><br><br>';
   }
   if (!$disp) {
-		echo "Sorry, no pictures in this category";
-	}
+    echo "Sorry, no pictures in this category";
+  }
   echo '</div>';
   return;
 }
@@ -83,7 +83,7 @@ if (isset($_GET['pics'])) {
 echo '
 <table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
 <tbody>
-	<tr>
+  <tr>
     <th class="heading" colspan="14" align="center">Career Summary for '.htmlentities($playername).'  ';
 
 if (PlayerOnWatchlist($pid)) {
@@ -111,47 +111,48 @@ echo '</th>
   <th class="smheading" align="center">Hours</th>
 </tr>';
 
-$sql_plist = "SELECT 
-    	g.name AS gamename, 
-    	SUM(p.gamescore) AS gamescore, 
-    	COUNT(p.gamescore) as played, 
-    	SUM(p.frags) AS frags, 
-    	SUM(p.kills) AS kills, 
-    	SUM(p.deaths) AS deaths,
-    	SUM(p.suicides) AS suicides, 
-    	SUM(p.teamkills) AS teamkills, 
-    	SUM(p.kills+p.deaths+p.suicides+p.teamkills) AS sumeff, 
-    	AVG(p.accuracy) AS accuracy, 
-    	AVG(p.ttl) AS ttl, 
-    	SUM(IF(
-    	p.team = 0, 
-    	IF((m.t0score > m.t1score AND m.t0score > m.t2score AND m.t0score > m.t3score), 1, 0), 
-    	IF(
-            p.team = 1, 
-            IF((m.t1score > m.t0score AND m.t1score > m.t2score AND m.t1score > m.t3score), 1, 0),
-        	IF(
-            	p.team = 2,
-            	IF((m.t2score > m.t0score AND m.t2score > m.t1score AND m.t2score > m.t3score), 1, 0),
-                IF((m.t3score > m.t0score AND m.t3score > m.t1score AND m.t3score > m.t2score), 1, 0)
-            )
+$sql_plist = "SELECT
+      g.name AS gamename,
+      SUM(p.gamescore) AS gamescore,
+      COUNT(p.gamescore) as played,
+      SUM(p.frags) AS frags,
+      SUM(p.kills) AS kills,
+      SUM(p.deaths) AS deaths,
+      SUM(p.suicides) AS suicides,
+      SUM(p.teamkills) AS teamkills,
+      SUM(p.kills+p.deaths+p.suicides+p.teamkills) AS sumeff,
+      AVG(p.accuracy) AS accuracy,
+      AVG(p.ttl) AS ttl,
+      SUM(IF(
+        p.team = 0,
+        IF((m.t0score > m.t1score AND m.t0score > m.t2score AND m.t0score > m.t3score), 1, 0),
+        IF(
+          p.team = 1,
+          IF((m.t1score > m.t0score AND m.t1score > m.t2score AND m.t1score > m.t3score), 1, 0),
+          IF(
+            p.team = 2,
+            IF((m.t2score > m.t0score AND m.t2score > m.t1score AND m.t2score > m.t3score), 1, 0),
+            IF((m.t3score > m.t0score AND m.t3score > m.t1score AND m.t3score > m.t2score), 1, 0)
+          )
         )
-)) as wins, 
-    	COUNT(p.id) AS games, 
-    	SUM(p.gametime) as gametime
-	FROM 
-    	uts_player AS p, 
-    	uts_games AS g, 
-    	uts_match as m 
-    WHERE 
-    	p.gid = g.id AND m.id = p.matchid
-    AND 
-    	p.pid = '$pid'
-    GROUP BY 
-    	p.gid";
-		
-$q_plist = mysql_query($sql_plist) or die(mysql_error());
+      )
+    ) as wins,
+    COUNT(p.id) AS games,
+    SUM(p.gametime) as gametime
+  FROM
+    uts_player AS p,
+    uts_games AS g,
+    uts_match as m
+  WHERE
+    p.gid = g.id AND m.id = p.matchid
+  AND
+    p.pid = '$pid'
+  GROUP BY
+    p.gid";
 
-while ($r_plist = mysql_fetch_array($q_plist)) {
+$q_plist = mysqli_query($GLOBALS["___mysqli_link"], $sql_plist) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+
+while ($r_plist = mysqli_fetch_array($q_plist)) {
   $gametime = sec2hour($r_plist[gametime]);
   $eff = get_dp($r_plist[kills]/$r_plist[sumeff]*100);
   $acc = get_dp($r_plist[accuracy]);
@@ -170,29 +171,33 @@ while ($r_plist = mysql_fetch_array($q_plist)) {
     <td align="center">'.$eff.'</td>
     <td align="center">'.$acc.'</td>
     <td align="center">'.$ttl.'</td>
-    <td  align="center">'.$r_plist[games].'</td>
-	<td  align="center">'.$r_plist[wins].'</td>
-	<td  align="center">'.$winpercent.'%</td>
+    <td align="center">'.$r_plist[games].'</td>
+    <td align="center">'.$r_plist[wins].'</td>
+    <td align="center">'.$winpercent.'%</td>
     <td align="center">'.$gametime.'</td>
   </tr>';
 }
 
 $r_sumplist = small_query("SELECT SUM(p.gamescore) AS gamescore, SUM(p.frags) AS frags, SUM(p.kills) AS kills, SUM(p.deaths) AS deaths,
-SUM(p.suicides) AS suicides, SUM(p.teamkills) AS teamkills, SUM(p.kills+p.deaths+p.suicides+p.teamkills) AS sumeff,
-AVG(p.accuracy) AS accuracy, AVG(p.ttl) AS ttl, COUNT(p.id) AS games, SUM(IF(
-    	p.team = 0, 
-    	IF((m.t0score > m.t1score AND m.t0score > m.t2score AND m.t0score > m.t3score), 1, 0), 
-    	IF(
-            p.team = 1, 
-            IF((m.t1score > m.t0score AND m.t1score > m.t2score AND m.t1score > m.t3score), 1, 0),
-        	IF(
-            	p.team = 2,
-            	IF((m.t2score > m.t0score AND m.t2score > m.t1score AND m.t2score > m.t3score), 1, 0),
-                IF((m.t3score > m.t0score AND m.t3score > m.t1score AND m.t3score > m.t2score), 1, 0)
-            )
+  SUM(p.suicides) AS suicides, SUM(p.teamkills) AS teamkills, SUM(p.kills+p.deaths+p.suicides+p.teamkills) AS sumeff,
+  AVG(p.accuracy) AS accuracy, AVG(p.ttl) AS ttl, COUNT(p.id) AS games,
+  SUM(IF(
+    p.team = 0,
+    IF((m.t0score > m.t1score AND m.t0score > m.t2score AND m.t0score > m.t3score), 1, 0),
+    IF(
+      p.team = 1,
+      IF((m.t1score > m.t0score AND m.t1score > m.t2score AND m.t1score > m.t3score), 1, 0),
+      IF(
+        p.team = 2,
+          IF((m.t2score > m.t0score AND m.t2score > m.t1score AND m.t2score > m.t3score), 1, 0),
+          IF((m.t3score > m.t0score AND m.t3score > m.t1score AND m.t3score > m.t2score), 1, 0)
         )
-)) as wins,  SUM(p.gametime) as gametime
-FROM uts_player p, uts_match m WHERE p.matchid = m.id AND pid = '$pid'");
+      )
+    )
+  ) as wins,  SUM(p.gametime) as gametime
+  FROM uts_player p, uts_match m
+  WHERE p.matchid = m.id
+  AND pid = '$pid'");
 
 $gametime = sec2hour($r_sumplist[gametime]);
 $eff = get_dp($r_sumplist[kills]/$r_sumplist[sumeff]*100);
@@ -220,10 +225,10 @@ echo'
 </tbody></table>
 <br>';
 
-$q_assgids = mysql_query("SELECT id FROM uts_games WHERE gamename LIKE '%Assault%';") or die(mysql_error());
+$q_assgids = mysqli_query($GLOBALS["___mysqli_link"], "SELECT id FROM uts_games WHERE gamename LIKE '%Assault%';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $assgids = array();
 
-while ($r_assgids = mysql_fetch_array($q_assgids)) {
+while ($r_assgids = mysqli_fetch_array($q_assgids)) {
   $assgids[] = $r_assgids['id'];
 }
 
@@ -377,9 +382,9 @@ ORDER BY
   m.mapfile,
   0 + e.col3 ASC";
 
-$q_btrecords = mysql_query($sql_btrecords) or die (mysql_error());
+$q_btrecords = mysqli_query($GLOBALS["___mysqli_link"], $sql_btrecords) or die (mysqli_error($GLOBALS["___mysqli_link"]));
 
-if (mysql_num_rows($q_btrecords) > 0) {
+if (mysqli_num_rows($q_btrecords) > 0) {
   echo '
   <table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
   <tbody>
@@ -393,7 +398,7 @@ if (mysql_num_rows($q_btrecords) > 0) {
     <th class="smheading" align="center" width="200">Date</th>
   </tr>';
 
-  while ($r_btrecords = mysql_fetch_array($q_btrecords)) {
+  while ($r_btrecords = mysqli_fetch_array($q_btrecords)) {
     $map = un_ut($r_btrecords['map']);
     $myurl = urlencode($map);
     $maprank = 1 + small_count("SELECT DISTINCT p.pid AS rank FROM uts_player as p, uts_events AS e, uts_match as m WHERE (m.mapfile = '" . addslashes($map) . "' OR m.mapfile = '" . addslashes($map) . ".unr') AND m.id = e.matchid AND e.matchid = p.matchid AND e.playerid = p.playerid AND e.col3 < ".$r_btrecords['time'] . " AND e.col1 = 'btcap'");
@@ -423,7 +428,7 @@ echo '<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width=
   <th class="smheading" align="center" width="140">Match Type</th>
   <th class="smheading" align="center" width="80">Rank</th>
   <th class="smheading" align="center" width="50">Matches</th>
-<th class="smheading" align="center" width="50">Explain</th>';
+  <th class="smheading" align="center" width="50">Explain</th>';
 
 if ($pic_enable and basename($_SERVER['PATH_TRANSLATED']) != 'admin.php') {
   echo '<th class="smheading" align="center" width="50">Pics</th>';
@@ -431,9 +436,9 @@ if ($pic_enable and basename($_SERVER['PATH_TRANSLATED']) != 'admin.php') {
 echo '</tr>';
 
 $sql_rank = "SELECT g.name AS gamename, r.rank, r.prevrank, r.matches, r.gid, r.pid FROM uts_rank AS r, uts_games AS g WHERE r.gid = g.id AND r.pid = '$pid';";
-$q_rank = mysql_query($sql_rank) or die(mysql_error());
+$q_rank = mysqli_query($GLOBALS["___mysqli_link"], $sql_rank) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_rank = mysql_fetch_array($q_rank)) {
+while ($r_rank = mysqli_fetch_array($q_rank)) {
   $r_no = small_query("SELECT (COUNT(*) + 1) AS no FROM uts_rank WHERE gid= '${r_rank['gid']}' and rank > ". get_dp($r_rank['rank']) ."9");
 
   echo'<tr>
@@ -466,9 +471,9 @@ if ($r_pings and $r_pings['lowping']) {
       <th class="smheading" align="center" width="80">Max</th>
     </tr>
     <tr>
-      <td  align="center">'.ceil($r_pings['lowping']).'</td>
-      <td  align="center">'.ceil($r_pings['avgping']).'</td>
-      <td  align="center">'.ceil($r_pings['highping']).'</td>
+      <td align="center">'.ceil($r_pings['lowping']).'</td>
+      <td align="center">'.ceil($r_pings['avgping']).'</td>
+      <td align="center">'.ceil($r_pings['highping']).'</td>
     </tr>
   </tbody></table>';
 }
@@ -485,7 +490,7 @@ $fpage = 0;
 if ($ecount < 1) { $lpage = 0; }
 else { $lpage = $ecount2-1; }
 
-$cpage = mysql_real_escape_string(preg_replace('/\D/', '', $_REQUEST["page"]));
+$cpage = mysqli_real_escape_string($GLOBALS["___mysqli_link"], preg_replace('/\D/', '', $_REQUEST["page"]));
 if ($cpage == "") { $cpage = "0"; }
 
 $qpage = $cpage*50;
@@ -508,18 +513,18 @@ echo'</tr>';
 
 $sql_recent = "SELECT m.id, m.time, g.name AS gamename, m.mapfile, INET_NTOA(p.ip) AS ip FROM uts_match m, uts_player p, uts_games g
   WHERE p.pid = '$pid' AND m.id = p.matchid AND m.gid = g.id ORDER BY time DESC LIMIT $qpage,50";
-$q_recent = mysql_query($sql_recent) or die(mysql_error());
+$q_recent = mysqli_query($GLOBALS["___mysqli_link"], $sql_recent) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_recent = mysql_fetch_array($q_recent)) {
+while ($r_recent = mysqli_fetch_array($q_recent)) {
   $r_time = mdate($r_recent[time]);
   $r_mapfile = un_ut($r_recent[mapfile]);
 
   echo'
   <tr class="clickableRow" href="./?p=match&amp;mid='.$r_recent[id].'">
-  <td  align="center">'.$r_recent[id].'</td>
-  <td  align="center"><a href="./?p=match&amp;mid='.$r_recent[id].'">'.$r_time.'</a></td>
-  <td  align="center">'.$r_recent[gamename].'</td>
-  <td  align="center">'.$r_mapfile.'</td>';
+  <td align="center">'.$r_recent[id].'</td>
+  <td align="center"><a href="./?p=match&amp;mid='.$r_recent[id].'">'.$r_time.'</a></td>
+  <td align="center">'.$r_recent[gamename].'</td>
+  <td align="center">'.$r_mapfile.'</td>';
   if (isset($is_admin) and $is_admin) echo '<td  align="center">'. $r_recent[ip].'</td>';
 
   echo '</tr>';

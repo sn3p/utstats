@@ -1,7 +1,7 @@
 <?php
 // Get Player Flag Events Count
 	$sql_playerctf = "SELECT col1, COUNT(col1) AS flag_count FROM uts_temp_$uid WHERE (col1 LIKE 'flag_%' OR col1 = 'cover' OR col1 = 'seal') AND col2 = $playerid GROUP BY col1";
-	$q_playerctf = mysql_query($sql_playerctf);
+	$q_playerctf = mysqli_query($GLOBALS["___mysqli_link"], $sql_playerctf);
 
 	$flag_taken = 0;
 	$flag_dropped = 0;
@@ -13,7 +13,7 @@
 	$flag_kill = 0;
 	$flag_pickedup = 0;
 
-	while ($r_playerctf = mysql_fetch_array($q_playerctf)) {
+	while ($r_playerctf = mysqli_fetch_array($q_playerctf)) {
 
 		// Cycle through events and see what the player got
 
@@ -39,5 +39,5 @@
 											flag_kill = $flag_kill,
 											flag_pickedup = $flag_pickedup
 								WHERE 	id = $playerecordid";
-	mysql_query($sql_playerflags) or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], $sql_playerflags) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 ?>

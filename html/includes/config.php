@@ -182,6 +182,7 @@ $ftp_passive[$i]  = true;      // Use passive transfer mode for this connection?
 $ftp_delete[$i]   = true;      // Delete logs after download?
 */
 
+
 // This section is for stats graphs as of version 4.3
 $renderer_folder = "renderings";
 $renderer_width = 350;
@@ -239,4 +240,5 @@ define("RENDERER_CHART_FRAGS_PLAYERNORMAL5", 97);
 define("RENDERER_CHART_ITEMS_TEAMPICKUPS", 100);
 define("RENDERER_CHART_ITEMS_PLAYERPICKUPS", 101);
 define("RENDERER_CHART_ITEMS_AMPRUNS", 102);
+
 ?>

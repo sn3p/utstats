@@ -13,10 +13,10 @@ function renderScoreGraph($uid) {
 	global $playernumberofteams;
 	global $playerteams;
 	
-	$uid = mysql_real_escape_string($uid);
+	$uid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $uid);
 	
 	// Get all frags related events + start & end
-	$q_frags = mysql_query("SELECT * FROM `uts_temp_$uid` WHERE col0>=".mysql_real_escape_string($time_gamestart)." ORDER BY id ASC") or die(mysql_error());
+	$q_frags = mysqli_query($GLOBALS["___mysqli_link"], "SELECT * FROM `uts_temp_$uid` WHERE col0>=".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $time_gamestart)." ORDER BY id ASC") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 	// init caps/grabs array
 	$caps = array();
@@ -41,7 +41,7 @@ function renderScoreGraph($uid) {
 	}
 	
 	$counter = 1;
-	while($data = mysql_fetch_array($q_frags)) {
+	while($data = mysqli_fetch_array($q_frags)) {
 	
 		// Collect data from utstats own table
 		$r_id = $data[0];
@@ -125,16 +125,16 @@ function renderScoreGraph($uid) {
 	}
 	
 	// Save team score over team for teams
-	mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_CTF_TEAMSCORE.", 
-		'".mysql_real_escape_string(gzencode(serialize(array($grabs,$caps))))."', 
-		'".mysql_real_escape_string(gzencode(serialize($teamLabels)))."')") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_CTF_TEAMSCORE.", 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize(array($grabs,$caps))))."', 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($teamLabels)))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 	$labelsBreakdown = array('caps','close','base','mid','enemy base');
 		
 	// Save team score over team for teams
-	mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_CTF_GRABBREAKDOWN.", 
-		'".mysql_real_escape_string(gzencode(serialize(array($flagcap,$flagclose,$flagbase,$flagmid,$flagnmybase))))."', 
-		'".mysql_real_escape_string(gzencode(serialize($labelsBreakdown)))."')") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_CTF_GRABBREAKDOWN.", 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize(array($flagcap,$flagclose,$flagbase,$flagmid,$flagnmybase))))."', 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($labelsBreakdown)))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 }
 
@@ -163,16 +163,16 @@ function analyseCap($uid, $capTime, $capPlayer,$capTeam, $capId) {
 	$event[1]['flag_captured'] = array('id' => 0, 'time' => 0, 'player' => '');
 			
 	// Get grab time for both teams related to this cap. Query of the month award.
-	$q_grabs = mysql_query("SELECT f.id AS id, f.col0 AS gtime, f.col1 AS event, f.col2 AS player, f.col3 AS team 
+	$q_grabs = mysqli_query($GLOBALS["___mysqli_link"], "SELECT f.id AS id, f.col0 AS gtime, f.col1 AS event, f.col2 AS player, f.col3 AS team 
 	FROM (	
-		SELECT col3, col1, MAX( col0 ) AS xgtime FROM `uts_temp_$uid` WHERE (col1 = 'flag_taken' OR col1 = 'flag_returned' OR col1 = 'flag_captured') AND id<".mysql_real_escape_string($capId)." GROUP BY col3,col1 ORDER BY col3 DESC	 
+		SELECT col3, col1, MAX( col0 ) AS xgtime FROM `uts_temp_$uid` WHERE (col1 = 'flag_taken' OR col1 = 'flag_returned' OR col1 = 'flag_captured') AND id<".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $capId)." GROUP BY col3,col1 ORDER BY col3 DESC	 
 	) AS x INNER JOIN `uts_temp_$uid` AS f 
-	on f.col3 = x.col3 AND f.col1 = x.col1 AND f.col0 = x.xgtime") or die(mysql_error());
+	on f.col3 = x.col3 AND f.col1 = x.col1 AND f.col0 = x.xgtime") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 	// Only continue if you have at least one event (should be at least flag_taken for this cap)
-	if(mysql_num_rows($q_grabs) >0) {
+	if(mysqli_num_rows($q_grabs) >0) {
 	
-		while($r_grabs = mysql_fetch_array($q_grabs)) {		
+		while($r_grabs = mysqli_fetch_array($q_grabs)) {		
 			// Ugly code to fix bug where sometimes 20 or 14 is imported instead of 0 and 1 respectively
 			$fixedteam = ($r_grabs['team']==20)?0:$r_grabs['team'];
 			$fixedteam = ($fixedteam==14)?1:$fixedteam;
@@ -190,7 +190,7 @@ function analyseCap($uid, $capTime, $capPlayer,$capTeam, $capId) {
 		// Only register as cherry pick if previous run was at least 10 sec, otherwise it's not really a hcerry pick but just a subsequent grab
 		if($event[$capTeam]['flag_returned']['time']>0 && ($event[$capTeam]['flag_taken']['time']-$event[$capTeam]['flag_returned']['time'])<4) {
 				
-			$prevRunTime = small_query("SELECT MAX( col0 ) as gtime FROM `uts_temp_$uid` WHERE id<".mysql_real_escape_string($event[$capTeam]['flag_returned']['id'])." AND col1='flag_taken' AND col3='".(1-$capTeam)."'") or die(mysql_error());
+			$prevRunTime = small_query("SELECT MAX( col0 ) as gtime FROM `uts_temp_$uid` WHERE id<".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $event[$capTeam]['flag_returned']['id'])." AND col1='flag_taken' AND col3='".(1-$capTeam)."'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 				
 			if(($event[$capTeam]['flag_returned']['time'] - $prevRunTime[0]) > 10)
 				$cherrypickDone = true;
@@ -207,7 +207,7 @@ function analyseCap($uid, $capTime, $capPlayer,$capTeam, $capId) {
 		if($event[$capTeam]['flag_taken']['player'] == $capPlayer) {
 		
 			// Second check is to see no pickups were done during this run
-			if(small_count("SELECT * FROM `uts_temp_$uid` WHERE col1 = 'flag_pickedup' AND col3 = '".(1-$capTeam)."' AND id<".mysql_real_escape_string($capId)." AND id>".mysql_real_escape_string($event[$capTeam]['flag_taken']['id'])) == 0) {
+			if(small_count("SELECT * FROM `uts_temp_$uid` WHERE col1 = 'flag_pickedup' AND col3 = '".(1-$capTeam)."' AND id<".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $capId)." AND id>".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $event[$capTeam]['flag_taken']['id'])) == 0) {
 			
 				$solocap = "<br>Solo cap";
 								
@@ -236,7 +236,7 @@ Prep temporary database for CTF parsing
 function prepCTFdata($safe_uid) {
 	
 	// Replace time-out return by normal return
-	mysql_query("UPDATE `uts_temp_$safe_uid` SET col1='flag_returned', col2=(@temp:=col2),col2='-1',col3=@temp WHERE col1='flag_returned_timeout'") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "UPDATE `uts_temp_$safe_uid` SET col1='flag_returned', col2=(@temp:=col2),col2='-1',col3=@temp WHERE col1='flag_returned_timeout'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 }
 

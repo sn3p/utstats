@@ -46,8 +46,8 @@
 			// noobs and fewer for the good players. The new ranking would be based on the fastest captime.
 			$rank_bt = 0;
 			$sql_btmaprank = "SELECT e.col2 AS no, COUNT(e.col2) AS count FROM uts_events AS e, uts_player AS p WHERE p.pid = $pid AND p.gid = $gid AND p.playerid = e.playerid AND e.matchid = p.matchid AND e.matchid <= $matchid AND e.col2 > 0 AND e.col2 <= 5 GROUP BY e.col2";
-			$q_btmaprank = mysql_query($sql_btmaprank) or die ("Can't retrieve \$q_btmaprank: ". mysql_error());
-			while($r_btmaprank = mysql_fetch_assoc($q_btmaprank)) {
+			$q_btmaprank = mysqli_query($GLOBALS["___mysqli_link"], $sql_btmaprank) or die ("Can't retrieve \$q_btmaprank: ". mysqli_error($GLOBALS["___mysqli_link"]));
+			while($r_btmaprank = mysqli_fetch_assoc($q_btmaprank)) {
 				IF ($r_btmaprank[no] == 1) {
 				      $rank_bt += $r_btmaprank[count] * 10;
 				} elseIF ($r_btmaprank[no] == 2) {
@@ -104,8 +104,8 @@
 
 		// Add new rank record if one does not exist
 		IF($rank_id == NULL) {
-			mysql_query("INSERT INTO uts_rank SET time = '$r_gametime', pid = '$pid', gid = '$gid', rank = '0', matches = '0';") or die(mysql_error());
-			$rank_id = mysql_insert_id();
+			mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_rank SET time = '$r_gametime', pid = '$pid', gid = '$gid', rank = '0', matches = '0';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+			$rank_id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_link"]))) ? false : $___mysqli_res);
 			$rank_gametime = 0;
  			$rank_crank = 0;
 			$rank_matches = 0;
@@ -120,8 +120,8 @@
 		// if ($dbg) echo "", intval($rank_crank), "-", intval($rank_nrank). "-", $rank_matches, " ";
 
 		// Add effective rank points given to uts_player record
-		mysql_query("UPDATE uts_player SET rank = $eff_rank WHERE id = $playerecordid") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_player SET rank = $eff_rank WHERE id = $playerecordid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 		// Update the rank
-		mysql_query("UPDATE uts_rank SET time = '$rank_gametime', rank = '$rank_nrank', prevrank = '$rank_crank', matches = '$rank_matches' WHERE id = $rank_id;") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_rank SET time = '$rank_gametime', rank = '$rank_nrank', prevrank = '$rank_crank', matches = '$rank_matches' WHERE id = $rank_id;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 ?>

@@ -23,7 +23,7 @@ function createEmptyTempTable($table_name) {
 	 PRIMARY KEY (`id`) 
 	 ) ENGINE=MyISAM 
 	";
-	mysql_query($sqlCreateTable) or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], $sqlCreateTable) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 }
 	
 /*
@@ -37,13 +37,13 @@ function generateTempTable($uid) {
 	global $time_gameend;
 	global $time_ratio_correction;
 
-	$uid = mysql_real_escape_string($uid);
+	$uid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $uid);
 	$tempTableName = "uts_tempidom_".$uid;
 	
 	createEmptyTempTable($tempTableName);
 			
 	// iterate over cp's. also capture game-end event as a quick hack to also do final iteration over final cp
-	$q_logdom = mysql_query("SELECT * FROM uts_temp_$uid WHERE (col1='controlpoint_capture' OR col1='game_end') AND col0>".mysql_real_escape_string($time_gamestart)." ORDER BY col1, col2, id ASC")or die(mysql_error());
+	$q_logdom = mysqli_query($GLOBALS["___mysqli_link"], "SELECT * FROM uts_temp_$uid WHERE (col1='controlpoint_capture' OR col1='game_end') AND col0>".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $time_gamestart)." ORDER BY col1, col2, id ASC")or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		
 	$prev_time = 0;		
 	
@@ -51,7 +51,7 @@ function generateTempTable($uid) {
 	$insertQuery = "INSERT INTO $tempTableName (cp, teamid, playerid, playername, start, end, time,scoret0,scoret1,realTimeEnd) VALUES";
 	
 	// basically loop over all capture events per CP. Each time calculate how long the previous owner had the point and translate this to dom points
-	while($r_logdom = mysql_fetch_array($q_logdom)) {
+	while($r_logdom = mysqli_fetch_array($q_logdom)) {
 		$points[0] = 0;
 		$points[1] = 0;
 		$ticks[0] = 0;
@@ -59,8 +59,8 @@ function generateTempTable($uid) {
 			
 		$start_time = $prev_time;
 		
-		$r_cp = mysql_real_escape_string($r_logdom['col2']);	
-		$r_time = mysql_real_escape_string($r_logdom['col0']);
+		$r_cp = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $r_logdom['col2']);	
+		$r_time = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $r_logdom['col0']);
 		
 		// skip first capture event - no dom points given at start of map since no-one has cp		
 		if($prev_time > 0) {
@@ -114,16 +114,16 @@ function generateTempTable($uid) {
 		$prev_time = $r_time;
 		$prev_cp = $r_cp;
 		
-		$r_event = mysql_real_escape_string($r_logdom['col1']);
-		$r_pid = mysql_real_escape_string($r_logdom['col3']);
-		$r_teamid = mysql_real_escape_string($playerteams[$r_pid]);
-		$r_pname = mysql_real_escape_string($playernames[$r_pid]);
+		$r_event = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $r_logdom['col1']);
+		$r_pid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $r_logdom['col3']);
+		$r_teamid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $playerteams[$r_pid]);
+		$r_pname = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $playernames[$r_pid]);
 		
 	} 
 	
 	// populate table
 	$insertQuery = rtrim($insertQuery,",");
-	mysql_query($insertQuery) or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], $insertQuery) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 	return $tempTableName;
 	
@@ -143,11 +143,11 @@ function generateAmpTimes($uid) {
 	$amps = array();
 	$prev_time = array();
 	
-	$uid = mysql_real_escape_string($uid);
+	$uid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $uid);
 	
 	// Get activate & deactivate times & players
-	$q_amps = mysql_query("SELECT col0,col1,col3 FROM uts_temp_$uid WHERE col2='Damage Amplifier' AND (col1='item_activate' OR col1='item_deactivate') ORDER BY id ASC");
-	while($r_amps = mysql_fetch_array($q_amps)) {
+	$q_amps = mysqli_query($GLOBALS["___mysqli_link"], "SELECT col0,col1,col3 FROM uts_temp_$uid WHERE col2='Damage Amplifier' AND (col1='item_activate' OR col1='item_deactivate') ORDER BY id ASC");
+	while($r_amps = mysqli_fetch_array($q_amps)) {
 		$time = ($r_amps[0]-$time_gamestart)/$time_ratio_correction/60;
 		$event = $r_amps[1];
 		$pid = $r_amps[2];
@@ -175,21 +175,21 @@ function renderAmpBars($uid,$tempTableName) {
 	global $matchid;
 	global $renderer_color;
 	
-	$uid = mysql_real_escape_string($uid);
+	$uid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $uid);
 	
 	// Iterate over amp runs
 	for($i=0;$i<2;$i++) {
 		foreach ($ampTimes[$i] as $ampTaken) {
-			$ampStart = mysql_real_escape_string($ampTaken[0]);
-			$ampEnd = mysql_real_escape_string($ampTaken[1]);
+			$ampStart = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $ampTaken[0]);
+			$ampEnd = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $ampTaken[1]);
 			$pid = $ampTaken[2];
 			
 			// Only save amp runs longer than 20seconds
 			if($ampEnd > ($ampStart+.33)) {
 			
 				// Get scores during amprun
-				$q_scoresDuringAmp = mysql_query("SELECT SUM(scoret0),SUM(scoret1) FROM $tempTableName WHERE realTimeEnd > $ampStart AND realTimeEnd < $ampEnd");
-				$r_scoresDuringAmps = mysql_fetch_array($q_scoresDuringAmp);
+				$q_scoresDuringAmp = mysqli_query($GLOBALS["___mysqli_link"], "SELECT SUM(scoret0),SUM(scoret1) FROM $tempTableName WHERE realTimeEnd > $ampStart AND realTimeEnd < $ampEnd");
+				$r_scoresDuringAmps = mysqli_fetch_array($q_scoresDuringAmp);
 												
 				$netPoints = $r_scoresDuringAmps[$i] - $r_scoresDuringAmps[1-$i];
 				
@@ -230,10 +230,10 @@ function renderAmpBars($uid,$tempTableName) {
 		}
 				
 		// Save team score over team for teams
-		mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels,categories) VALUES (".$matchid.", ".RENDERER_CHART_ITEMS_AMPRUNS.", 
-			'".mysql_real_escape_string(gzencode(serialize(array($data))))."', 
-			'".mysql_real_escape_string(gzencode(serialize($labels)))."', 
-			'".mysql_real_escape_string(gzencode(serialize($categories)))."')") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels,categories) VALUES (".$matchid.", ".RENDERER_CHART_ITEMS_AMPRUNS.", 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize(array($data))))."', 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($labels)))."', 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($categories)))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 				
 	}
 	
@@ -254,11 +254,11 @@ function renderDataTotal($uid,$tempTableName) {
 Render dom points over time & net rate of change per minute per cp
 */
 function renderDataCPs($uid,$tempTableName) {
-	$q_cps = mysql_query("SELECT DISTINCT(cp) FROM $tempTableName");
+	$q_cps = mysqli_query($GLOBALS["___mysqli_link"], "SELECT DISTINCT(cp) FROM $tempTableName");
 	
 	$i=0;
-	while($r_cps = mysql_fetch_array($q_cps)) {
-		$r_cp = mysql_real_escape_string($r_cps[0]);
+	while($r_cps = mysqli_fetch_array($q_cps)) {
+		$r_cp = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $r_cps[0]);
 		$query = "SELECT t.realTimeEnd,@t0sum := @t0sum + t.scoret0 AS cumulScoret0,@t1sum := @t1sum + t.scoret1 AS cumulScoret1 FROM $tempTableName t JOIN (SELECT @t0sum := 0) r JOIN (SELECT @t1sum := 0) s WHERE t.CP = '$r_cp' ORDER BY realTimeEnd ASC";
 		$appex = "cp".$i++;
 		renderData($uid,$tempTableName,$query,$appex,"Score CP ".$r_cps[0],$r_cps[0]);
@@ -289,10 +289,10 @@ function renderData($uid,$tempTableName,$query,$appex,$title,$cp) {
 		}
 				
 		// Deriv Dom points over time per team
-		mysql_query("INSERT INTO uts_chartdata (mid,chartid,title,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_DOM_SCOREDERIV.", 
-			'".mysql_real_escape_string($title)."', 
-			'".mysql_real_escape_string(gzencode(serialize(array($derivdompoints,$dompoints))))."', 
-			'".mysql_real_escape_string(gzencode(serialize($labels)))."')") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,title,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_DOM_SCOREDERIV.", 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $title)."', 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize(array($derivdompoints,$dompoints))))."', 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($labels)))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		
 	}
 }
@@ -301,7 +301,7 @@ function renderData($uid,$tempTableName,$query,$appex,$title,$cp) {
 Helper function to parse the data for the main renderData
 */
 function parseData($query) {
-	$q_result = mysql_query($query) or die(mysql_error()); 
+	$q_result = mysqli_query($GLOBALS["___mysqli_link"], $query) or die(mysqli_error($GLOBALS["___mysqli_link"])); 
 
 	$smallcounter = 1/3;
 	$counter = 1;
@@ -309,9 +309,9 @@ function parseData($query) {
 	$prevtime = 0;
 	
 	$run = 0;
-	$numRows = mysql_num_rows($q_result);
+	$numRows = mysqli_num_rows($q_result);
 	
-	while($data = mysql_fetch_array($q_result)) {	
+	while($data = mysqli_fetch_array($q_result)) {	
 		$r_time = round($data[0],2);
 		if($run==($numRows-1))
 			$r_time = $prevtime;
@@ -364,9 +364,9 @@ Render the names of players that played the cp
 function renderNamesCP($tempTableName,$cp) {
 	$labels = array();
 
-	$q_namesPerCP = mysql_query("SELECT playername, COUNT( playername ) AS cplayer, MAX( teamid ) AS tid, AVG( realTimeEnd ) AS ati FROM  $tempTableName WHERE cp = '".mysql_real_escape_string($cp)."' GROUP BY playername ORDER BY tid,ati") or die(mysql_error());
+	$q_namesPerCP = mysqli_query($GLOBALS["___mysqli_link"], "SELECT playername, COUNT( playername ) AS cplayer, MAX( teamid ) AS tid, AVG( realTimeEnd ) AS ati FROM  $tempTableName WHERE cp = '".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $cp)."' GROUP BY playername ORDER BY tid,ati") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 				
-	while($r_namesPerCP = mysql_fetch_array($q_namesPerCP)) {
+	while($r_namesPerCP = mysqli_fetch_array($q_namesPerCP)) {
 	
 		$playerName = substr($r_namesPerCP[0],0,18);
 		$timesTouched = $r_namesPerCP[1];

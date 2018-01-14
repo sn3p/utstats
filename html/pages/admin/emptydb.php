@@ -30,18 +30,18 @@ IF ($results['sure'] == "Yes" and $results['really'] == "Yes") {
       Emptying All Tables except uts_ip2country, uts_weaponstats and uts_charttypes
     </td>';
 
-    mysql_query("TRUNCATE uts_chartdata;") or die(mysql_error());
-    mysql_query("TRUNCATE uts_events;") or die(mysql_error());
-    mysql_query("TRUNCATE uts_games;") or die(mysql_error());
-    mysql_query("TRUNCATE uts_gamestype;") or die(mysql_error());
-    mysql_query("TRUNCATE uts_killsmatrix;") or die(mysql_error());
-    mysql_query("TRUNCATE uts_match;") or die(mysql_error());
-    mysql_query("TRUNCATE uts_pinfo;") or die(mysql_error());
-    mysql_query("TRUNCATE uts_player;") or die(mysql_error());
-    mysql_query("TRUNCATE uts_rank;") or die(mysql_error());
-    mysql_query("DELETE FROM uts_weapons WHERE id > 19") or die(mysql_error());
-    mysql_query("ALTER TABLE uts_weapons AUTO_INCREMENT=20") or die(mysql_error());
-    mysql_query("TRUNCATE uts_weaponstats;") or die(mysql_error());
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_chartdata;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_events;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_games;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_gamestype;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_killsmatrix;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_match;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_pinfo;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_player;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_rank;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_weapons WHERE id > 19") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "ALTER TABLE uts_weapons AUTO_INCREMENT=20") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+    mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_weaponstats;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
     echo '<td class="grey" align="left" width="300">Done</td>
   </tr>

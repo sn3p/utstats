@@ -28,16 +28,16 @@ echo'<table>
 	<td width="50%" class="grey">';
 
 $sql_rteam = "SELECT p.id, pi.name FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $id AND team = 0 ORDER BY pi.name ASC";
-$q_rteam = mysql_query($sql_rteam);
-while ($r_rteam = mysql_fetch_array($q_rteam)) {
+$q_rteam = mysqli_query($GLOBALS["___mysqli_link"], $sql_rteam);
+while ($r_rteam = mysqli_fetch_array($q_rteam)) {
 	echo''.$r_rteam[name].'<br />';
 	}
 echo'</td>
 <td width="50%" class="grey">';
 
 $sql_bteam = "SELECT p.id, pi.name FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $id AND team = 1 ORDER BY pi.name ASC";
-$q_bteam = mysql_query($sql_bteam);
-while ($r_bteam = mysql_fetch_array($q_bteam)) {
+$q_bteam = mysqli_query($GLOBALS["___mysqli_link"], $sql_bteam);
+while ($r_bteam = mysqli_fetch_array($q_bteam)) {
 	echo''.$r_bteam[name].'<br />';
 	}
 echo'</td></tr></table><br>';
@@ -120,8 +120,8 @@ IF ($stage == "2") {
 
 			$sql_rteam = "SELECT p.id, pi.name FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $id AND team = 0 ORDER BY pi.name ASC";
 
-			$q_rteam = mysql_query($sql_rteam);
-			while($r_rteam = mysql_fetch_array($q_rteam)) {
+			$q_rteam = mysqli_query($GLOBALS["___mysqli_link"], $sql_rteam);
+			while($r_rteam = mysqli_fetch_array($q_rteam)) {
 
 			echo'<tr>
 				<td class="grey">'.$r_rteam[name].'</td>
@@ -142,8 +142,8 @@ IF ($stage == "2") {
 
 			$sql_bteam = "SELECT p.id, pi.name FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $id AND team = 1 ORDER BY pi.name ASC";
 
-			$q_bteam = mysql_query($sql_bteam);
-			while($r_bteam = mysql_fetch_array($q_bteam)) {
+			$q_bteam = mysqli_query($GLOBALS["___mysqli_link"], $sql_bteam);
+			while($r_bteam = mysqli_fetch_array($q_bteam)) {
 
 			echo'<tr>
 				<td class="grey">'.$r_bteam[name].'</td>

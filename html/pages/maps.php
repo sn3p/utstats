@@ -95,8 +95,8 @@ echo'
 				<option value="0">*</option>';
 
 				$sql_game = "SELECT DISTINCT(p.gid), g.name FROM uts_player AS p, uts_games AS g WHERE p.gid = g.id ORDER BY g.name ASC";
-				$q_game = mysql_query($sql_game) or die(mysql_error());
-				while ($r_game = mysql_fetch_array($q_game)) {
+				$q_game = mysqli_query($GLOBALS["___mysqli_link"], $sql_game) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+				while ($r_game = mysqli_fetch_array($q_game)) {
 					$selected = ($r_game['gid'] == $gid) ? 'selected' : '';
 					echo '<option '.$selected.' value="'.$r_game['gid'].'">'. $r_game['name'] .'</option>';
 				}
@@ -120,9 +120,9 @@ echo '</select>
 
 $sql_maps = "SELECT IF(RIGHT(mapfile,4) LIKE '.unr', mapfile, CONCAT(mapfile, '.unr')) as mapfile, COUNT(id) AS matchcount, AVG(frags) AS frags, AVG(t0score+t1score+t2score+t3score) AS matchscore, SUM(gametime) AS gametime
 	FROM uts_match" . $sql_condition . " GROUP BY mapfile ORDER BY $filter $sort LIMIT $qpage,25";
-$q_maps = mysql_query($sql_maps) or die(mysql_error());
+$q_maps = mysqli_query($GLOBALS["___mysqli_link"], $sql_maps) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_maps = mysql_fetch_array($q_maps)) {
+while ($r_maps = mysqli_fetch_array($q_maps)) {
 	  $r_mapfile = un_ut($r_maps[mapfile]);
 	  $myurl = urlencode($r_mapfile);
 	  $r_gametime = GetMinutes($r_maps[gametime]);

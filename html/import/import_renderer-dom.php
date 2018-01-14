@@ -27,6 +27,6 @@
 		}
 		
 		// drop table
-		mysql_query("DROP TABLE $tableTempIdom") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "DROP TABLE $tableTempIdom") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 ?>

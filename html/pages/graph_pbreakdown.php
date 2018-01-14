@@ -4,10 +4,10 @@ $max_height = 80;
 // Hourly Breakdown
 $sql_ghours = "SELECT HOUR(m.time) AS res_hour, COUNT(p.id) AS res_count
 FROM uts_match m, uts_player p WHERE $bgwhere AND m.id = p.matchid GROUP by res_hour";
-$q_ghours = mysql_query($sql_ghours) or die(mysql_error());
+$q_ghours = mysqli_query($GLOBALS["___mysqli_link"], $sql_ghours) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $hour_max = 0;
 $hour_sum = 0;
-while ($r_ghours = mysql_fetch_array($q_ghours)) {
+while ($r_ghours = mysqli_fetch_array($q_ghours)) {
 		$gb_hour[$r_ghours['res_hour']] = $r_ghours['res_count'];
 		if ($r_ghours['res_count'] > $hour_max) $hour_max = $r_ghours['res_count'];
 		$hour_sum += $r_ghours['res_count'];
@@ -18,10 +18,10 @@ if ($hour_max == 0) return;
 // We use WEEKDAY rather then DAYOFWEEK because now the week starts with Monday instead of Sunday
 $sql_gdays = "SELECT WEEKDAY(time) AS res_day, COUNT(*) AS res_count
 FROM uts_match m, uts_player p WHERE $bgwhere AND m.id = p.matchid GROUP by res_day";
-$q_gdays = mysql_query($sql_gdays) or die(mysql_error());
+$q_gdays = mysqli_query($GLOBALS["___mysqli_link"], $sql_gdays) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $day_max = 0;
 $day_sum = 0;
-while ($r_gdays = mysql_fetch_array($q_gdays)) {
+while ($r_gdays = mysqli_fetch_array($q_gdays)) {
 		$gb_day[$r_gdays['res_day']] = $r_gdays['res_count'];
 		if ($r_gdays['res_count'] > $day_max) $day_max = $r_gdays['res_count'];
 		$day_sum += $r_gdays['res_count'];
@@ -30,10 +30,10 @@ while ($r_gdays = mysql_fetch_array($q_gdays)) {
 // Monthly Breakdown
 $sql_gmonths = "SELECT MONTH(m.time) AS res_month, COUNT(p.id) AS res_count
 FROM uts_match m, uts_player p WHERE $bgwhere AND m.id = p.matchid GROUP by res_month";
-$q_gmonths = mysql_query($sql_gmonths) or die(mysql_error());
+$q_gmonths = mysqli_query($GLOBALS["___mysqli_link"], $sql_gmonths) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $month_max = 0;
 $month_sum = 0;
-while ($r_gmonths = mysql_fetch_array($q_gmonths)) {
+while ($r_gmonths = mysqli_fetch_array($q_gmonths)) {
 		$gb_month[$r_gmonths['res_month']] = $r_gmonths['res_count'];
 		if ($r_gmonths['res_count'] > $month_max) $month_max = $r_gmonths['res_count'];
 		$month_sum += $r_gmonths['res_count'];

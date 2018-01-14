@@ -3,8 +3,8 @@
 // Read all available weapons, we'll need them later
 if (!isset($weaponnames)) {
 	$sql_weaponnames = "SELECT id, name FROM uts_weapons";
-	$q_weaponnames = mysql_query($sql_weaponnames);
-	while ($r_weaponnames = mysql_fetch_array($q_weaponnames)) {
+	$q_weaponnames = mysqli_query($GLOBALS["___mysqli_link"], $sql_weaponnames);
+	while ($r_weaponnames = mysqli_fetch_array($q_weaponnames)) {
 		$weaponnames[$r_weaponnames['name']] = $r_weaponnames['id'];
 	}
 }
@@ -19,17 +19,17 @@ $sql_weapons = "	SELECT 	col2 AS player,
 							OR 	col1 = 'teamkill' 
 						GROUP	BY	weaponname, player";
 						
-$q_weapons = mysql_query($sql_weapons) or die(mysql_error());
+$q_weapons = mysqli_query($GLOBALS["___mysqli_link"], $sql_weapons) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $weapons = array();
-while ($r_weapons = mysql_fetch_array($q_weapons)) {
+while ($r_weapons = mysqli_fetch_array($q_weapons)) {
 	
 	// Get the wepon's id or assign a new one
 	if (empty($r_weapons['weaponname'])) continue;
 	if (isset($weaponnames[$r_weapons['weaponname']])) {
 		$weaponid = $weaponnames[$r_weapons['weaponname']];
 	} else {
-		mysql_query("INSERT INTO uts_weapons SET name = '". addslashes($r_weapons['weaponname']) ."'") or die(mysql_error());
-		$weaponid = mysql_insert_id();
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_weapons SET name = '". addslashes($r_weapons['weaponname']) ."'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+		$weaponid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_link"]))) ? false : $___mysqli_res);
 		$weaponnames[$r_weapons['weaponname']] = $weaponid;
 	}
 	
@@ -60,15 +60,15 @@ $sql_weapons = "	SELECT 	col1 AS type,
 						FROM 		uts_temp_$uid 
 						WHERE		col1 LIKE 'weap_%'";
 						
-$q_weapons = mysql_query($sql_weapons) or die(mysql_error());
-while ($r_weapons = mysql_fetch_array($q_weapons)) {
+$q_weapons = mysqli_query($GLOBALS["___mysqli_link"], $sql_weapons) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+while ($r_weapons = mysqli_fetch_array($q_weapons)) {
 	// Get the wepon's id or assign a new one
 	if (empty($r_weapons['weaponname'])) continue;
 	if (isset($weaponnames[$r_weapons['weaponname']])) {
 		$weaponid = $weaponnames[$r_weapons['weaponname']];
 	} else {
-		mysql_query("INSERT INTO uts_weapons SET name = '". addslashes($r_weapons['weaponname']) ."'") or die(mysql_error());
-		$weaponid = mysql_insert_id();
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_weapons SET name = '". addslashes($r_weapons['weaponname']) ."'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+		$weaponid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_link"]))) ? false : $___mysqli_res);
 		$weaponnames[$r_weapons['weaponname']] = $weaponid;
 	}
 	
@@ -99,7 +99,7 @@ $s_weapons = array();
 foreach($weapons as $playerid => $weapon) {
 	foreach($weapon as $weaponid => $infos) {
 		if ($infos['weap_kills'] == 0 and $infos['weap_shotcount'] == 0) continue;
-		mysql_query("	INSERT	
+		mysqli_query($GLOBALS["___mysqli_link"], "	INSERT	
 							INTO		uts_weaponstats
 							SET		matchid = '$matchid',
 										pid = '$playerid',
@@ -108,7 +108,7 @@ foreach($weapons as $playerid => $weapon) {
 										shots = '${infos['weap_shotcount']}',
 										hits= '${infos['weap_hitcount']}',
 										damage = '${infos['weap_damagegiven']}',
-										acc = '". round($infos['weap_accuracy'], 2) ."';") or die(mysql_error());
+										acc = '". round($infos['weap_accuracy'], 2) ."';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 						
 		// Summarize totals for this match
 		if (!isset($s_weapons[$weaponid]['weap_kills'])) {
@@ -141,7 +141,7 @@ foreach($weapons as $playerid => $weapon) {
 												AND	weapon = '$weaponid'");
 		// No -> create
 		if (!$r_pstat) {
-			mysql_query("	INSERT	
+			mysqli_query($GLOBALS["___mysqli_link"], "	INSERT	
 								INTO		uts_weaponstats
 								SET		matchid = '0',
 											pid = '$playerid',
@@ -150,10 +150,10 @@ foreach($weapons as $playerid => $weapon) {
 											shots = '${infos['weap_shotcount']}',
 											hits= '${infos['weap_hitcount']}',
 											damage = '${infos['weap_damagegiven']}',
-											acc = '". round($infos['weap_accuracy'], 2) ."';") or die(mysql_error());
+											acc = '". round($infos['weap_accuracy'], 2) ."';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		// Yes -> update 
 		} else {
-			mysql_query("	UPDATE	uts_weaponstats
+			mysqli_query($GLOBALS["___mysqli_link"], "	UPDATE	uts_weaponstats
 								SET		weapon = '$weaponid',
 											kills = kills + '${infos['weap_kills']}',
 											shots = shots + '${infos['weap_shotcount']}',
@@ -162,7 +162,7 @@ foreach($weapons as $playerid => $weapon) {
 											acc = (acc + '". round($infos['weap_accuracy'], 2) ."') / 2
 								WHERE		matchid = '0'
 									AND	pid = '$playerid'
-									AND	weapon = '$weaponid';") or die(mysql_error());
+									AND	weapon = '$weaponid';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		}
 	}
 }
@@ -178,7 +178,7 @@ foreach($s_weapons as $weaponid => $infos) {
 											AND	weapon = '$weaponid'");
 	// No -> create
 	if (!$r_pstat) {
-		mysql_query("	INSERT	
+		mysqli_query($GLOBALS["___mysqli_link"], "	INSERT	
 							INTO		uts_weaponstats
 							SET		matchid = '0',
 										pid = '0',
@@ -187,10 +187,10 @@ foreach($s_weapons as $weaponid => $infos) {
 										shots = '${infos['weap_shotcount']}',
 										hits= '${infos['weap_hitcount']}',
 										damage = '${infos['weap_damagegiven']}',
-										acc = '". round($infos['weap_accuracy'], 2) ."';") or die(mysql_error());
+										acc = '". round($infos['weap_accuracy'], 2) ."';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	// Yes -> update 
 	} else {
-		mysql_query("	UPDATE	uts_weaponstats
+		mysqli_query($GLOBALS["___mysqli_link"], "	UPDATE	uts_weaponstats
 							SET		weapon = '$weaponid',
 										kills = kills + '${infos['weap_kills']}',
 										shots = shots + '${infos['weap_shotcount']}',
@@ -199,7 +199,7 @@ foreach($s_weapons as $weaponid => $infos) {
 										acc = (acc + '". round($infos['weap_accuracy'], 2) ."') / 2
 							WHERE		matchid = '0'
 								AND	pid = '0'
-								AND	weapon = '$weaponid';") or die(mysql_error());
+								AND	weapon = '$weaponid';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 }
 

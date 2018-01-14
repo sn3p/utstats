@@ -13,19 +13,19 @@
 		$sql_eventslms = "INSERT INTO uts_events 
 			      (matchid, playerid, col0, col1, col2, col3, col4) VALUES
 			      ($matchid, $playerid, '$col0', '$col1', '$col2', '$col3', '$col4')";
-		mysql_query($sql_eventslms) or die (mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], $sql_eventslms) or die (mysqli_error($GLOBALS["___mysqli_link"]));
 
 		// Fix ttl
 		$ttl = ($outtime[col0] - $gamestart) / ($qc_deaths[col4] + $q_suicides[col4]);
 
-		mysql_query("UPDATE uts_player SET ttl = $ttl WHERE id = $playerecordid") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_player SET ttl = $ttl WHERE id = $playerecordid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 	else {
 		$disconnect = small_query("SELECT col0 FROM uts_temp_$uid WHERE col1 = 'player' AND col2 = 'Disconnect' AND col3 = $playerid");
 		if ((!empty($disconnect[col0])) and (intval($disconnect[col0]) < intval($gameend))) {
 			// echo " get out time ";
 			$outtime = $player_left - $gamestart;
-			$q_out = mysql_query($sql_out);
+			$q_out = mysqli_query($GLOBALS["___mysqli_link"], $sql_out);
 			$col0 = $disconnect[col0];
 			$col1 = 'out';
 			$col2 = intval($disconnect[col0] - $gamestart); //time
@@ -35,12 +35,12 @@
 			$sql_eventslms = "INSERT INTO uts_events 
 				      (matchid, playerid, col0, col1, col2, col3, col4) VALUES
 				      ($matchid, $playerid, '$col0', '$col1', '$col2', '$col3', '$col4')";
-			mysql_query($sql_eventslms) or die (mysql_error());
+			mysqli_query($GLOBALS["___mysqli_link"], $sql_eventslms) or die (mysqli_error($GLOBALS["___mysqli_link"]));
 
 			// Update ttl and set score to 0
 			$ttl = ($disconnect[col0] - $gamestart) / ($qc_deaths[col4] + $q_suicides[col4]);
 
-			mysql_query("UPDATE uts_player SET ttl = $ttl, gamescore = 0 WHERE id = $playerecordid") or die(mysql_error());
+			mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_player SET ttl = $ttl, gamescore = 0 WHERE id = $playerecordid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		}
 	}
 ?>

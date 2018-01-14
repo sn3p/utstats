@@ -1,5 +1,5 @@
 <?php
-// 
+//
 // pemftp - Class by Alexey Dotsenko <alex at paneuromedia dot com>
 // http://www.phpclasses.org/browse/package/1743.html
 // License: Free for non-commercial use

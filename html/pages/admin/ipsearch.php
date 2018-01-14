@@ -29,17 +29,17 @@ echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 
 
 $sql_players = "SELECT pi.name, pi.id AS pid FROM uts_player p, uts_pinfo pi WHERE p.pid = pi.id AND p.ip BETWEEN INET_ATON('$ip_from') AND INET_ATON('$ip_to') GROUP BY pid";
-$q_players = mysql_query($sql_players) or die(mysql_error());
+$q_players = mysqli_query($GLOBALS["___mysqli_link"], $sql_players) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $j = 0;
-while ($r_players = mysql_fetch_array($q_players)) {
+while ($r_players = mysqli_fetch_array($q_players)) {
 	echo '<tr>';
 	echo '<td class="dark" align="center" valign="top" width="150">';
 	echo '<a class="darkhuman" href="admin.php?action=pinfo&amp;pid='.$r_players['pid'].'">'.$r_players['name'].'</a></td>';
 	$sql_recent = "SELECT m.time AS time, m.id AS mid, INET_NTOA(p.ip) AS ip FROM uts_player p, uts_match m WHERE m.id = p.matchid AND p.pid = '${r_players['pid']}' AND p.ip BETWEEN INET_ATON('$ip_from') AND INET_ATON('$ip_to') ORDER BY m.time DESC LIMIT 0,5";
 	echo '<td class="grey">';
 	echo '<table width="100%" border="0" cellspacing="0" cellpadding="2">';
-	$q_recent= mysql_query($sql_recent) or die(mysql_error());
-	while ($r_recent = mysql_fetch_array($q_recent)) {
+	$q_recent= mysqli_query($GLOBALS["___mysqli_link"], $sql_recent) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	while ($r_recent = mysqli_fetch_array($q_recent)) {
 		$j++;
 		$class = ($j%2) ? 'grey' : 'grey2';
 		echo '<tr><td class="'.$class.'" align="center" width="60%">';

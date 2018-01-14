@@ -11,13 +11,13 @@ function getPlayerTeam() {
 	$playernames = array();
 	$playerteams = array();
 
-	$uid = mysql_real_escape_string($uid);
+	$uid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $uid);
 
 	// Get List of Player IDs and Process What They Have Done
 	$sql_player = "SELECT p.playerid,p.team,i.name FROM uts_player p JOIN uts_pinfo i ON p.pid = i.id WHERE p.matchid=$matchid";
-	$q_player = mysql_query($sql_player) or die(mysql_error());
+	$q_player = mysqli_query($GLOBALS["___mysqli_link"], $sql_player) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-	while ($r_player = mysql_fetch_array($q_player)) {
+	while ($r_player = mysqli_fetch_array($q_player)) {
 		$playerid = $r_player['playerid'];
 		$playername = $r_player['name'];
 		$playerteam = $r_player['team'];
@@ -38,10 +38,11 @@ Get time game starts, game ends, and ratio compared to real time
 */
 function getGameStartEndRatio($uid) {
 	// gather game start & end time
-	$q_logdom = mysql_query("SELECT col0 FROM uts_temp_$uid WHERE col1='game_start' OR col1='game_end' ORDER BY id ASC")or die(mysql_error());
+	$result = mysqli_query($GLOBALS["___mysqli_link"], "SELECT col0 FROM uts_temp_$uid WHERE col1='game_start' OR col1='game_end' ORDER BY id ASC")or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-	$time_gamestart = mysql_result($q_logdom,0);
-	$time_gameend = mysql_result($q_logdom,1);
+	$time_gamestart = mysqli_fetch_row($result)[0];
+	$time_gameend = mysqli_fetch_row($result)[0];
+
 	//$time_ratio_correction = ($time_gameend-$time_gamestart)/1200;
 	$time_ratio_correction = TIMERATIO; // based on hardcore mode
 
@@ -62,11 +63,11 @@ function renderDataPickups($uid,$team=true,$playerRedWins=true,$topFraggers) {
 	global $renderer_width;
 	global $renderer_heigth;
 
-	$uid = mysql_real_escape_string($uid);
+	$uid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $uid);
 
-	$q_pickups = mysql_query("SELECT SUM(pu_belt), SUM(pu_keg), SUM(pu_pads), SUM(pu_armour), SUM(pu_amp) FROM uts_player as p WHERE matchid = ".mysql_real_escape_string($matchid)." GROUP BY team") or die(mysql_error());
+	$q_pickups = mysqli_query($GLOBALS["___mysqli_link"], "SELECT SUM(pu_belt), SUM(pu_keg), SUM(pu_pads), SUM(pu_armour), SUM(pu_amp) FROM uts_player as p WHERE matchid = ".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $matchid)." GROUP BY team") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-	while($r_pickups = mysql_fetch_row($q_pickups)) {
+	while($r_pickups = mysqli_fetch_row($q_pickups)) {
 		$preData[] = $r_pickups;
 	}
 
@@ -107,10 +108,10 @@ function renderDataPickups($uid,$team=true,$playerRedWins=true,$topFraggers) {
 		$charttype = $team?RENDERER_CHART_ITEMS_TEAMPICKUPS:RENDERER_CHART_ITEMS_PLAYERPICKUPS;
 
 		// Save team score over team for teams
-		mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels,categories) VALUES (".$matchid.", ".$charttype.",
-			'".mysql_real_escape_string(gzencode(serialize($data)))."',
-			'".mysql_real_escape_string(gzencode(serialize($labels)))."',
-			'".mysql_real_escape_string(gzencode(serialize($itemsPickedUp)))."')") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels,categories) VALUES (".$matchid.", ".$charttype.",
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($data)))."',
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($labels)))."',
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($itemsPickedUp)))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 }
 

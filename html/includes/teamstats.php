@@ -27,11 +27,11 @@ function teamstats($mid, $title, $extra = NULL, $extratitle = NULL, $order = 'ga
   $sql_players = "SELECT pi.name, pi.banned, p.pid, p.team, p.country, p.gametime, p.gamescore, p.frags, p.deaths, p.suicides, p.teamkills, p.eff, p.accuracy, p.ttl, p.rank".(($extra) ? ', p.'.$extra.' AS '.$extra  : '')."
 	  FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $mid
 	  ORDER BY".(($teams) ? ' team ASC,' : '')." $order";
-  $q_players = mysql_query($sql_players) or die(mysql_error());
+  $q_players = mysqli_query($GLOBALS["___mysqli_link"], $sql_players) or die(mysqli_error($GLOBALS["___mysqli_link"]));
   $header = true;
   teamstats_init_totals($totals, $num);
 
-  while ($r_players = zero_out(mysql_fetch_array($q_players))) {
+  while ($r_players = zero_out(mysqli_fetch_array($q_players))) {
     $r_players['dom_cp'] = $r_players['gamescore'] - $r_players['frags'];
     $r_players['team'] = intval($r_players['team']);
 

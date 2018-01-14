@@ -55,8 +55,8 @@ uts_weaponstats AS w
                     w.weapon";
   }
 
-  $q_weapons = mysql_query($sql_weapons) or die(mysql_error());
-  while ($r_weapons = zero_out(mysql_fetch_array($q_weapons))) {
+  $q_weapons = mysqli_query($GLOBALS["___mysqli_link"], $sql_weapons) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+  while ($r_weapons = zero_out(mysqli_fetch_array($q_weapons))) {
     $weaponid = intval($r_weapons['weaponid']);
     $playerid = intval($r_weapons['playerid']);
 

@@ -10,8 +10,8 @@
 		$pid_country = $r_pid['country'];
 		$playerbanned = ($r_pid['banned'] == 'Y') ? true : false;
 	} else {
-		mysql_query("INSERT INTO uts_pinfo SET name = '$playername'") or die(mysql_error());
-		$pid = mysql_insert_id();
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_pinfo SET name = '$playername'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+		$pid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_link"]))) ? false : $___mysqli_res);
 		$pid_country = false;
 		$playerbanned = false;
 	}
@@ -24,7 +24,7 @@
 	// Did the player do first blood?
 	IF($playerid == $firstblood) {
 		$upd_firstblood = "UPDATE uts_match SET firstblood = '$pid' WHERE id = $matchid";
-		mysql_query($upd_firstblood) or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], $upd_firstblood) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 
 	// Get player's IP
@@ -37,7 +37,7 @@
 
 	if ($playercountry != $pid_country)
 	{
-		mysql_query("UPDATE uts_pinfo SET country = '$playercountry' WHERE id = '$pid'") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_pinfo SET country = '$playercountry' WHERE id = '$pid'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 
 
@@ -56,7 +56,7 @@
 
 	// Get Count of Pickups
 	$sql_player7 = "SELECT col2, COUNT(col2) AS pu_count FROM uts_temp_$uid WHERE col1 = 'item_get' AND col3 = $playerid GROUP BY col2";
-	$q_player7 = mysql_query($sql_player7);
+	$q_player7 = mysqli_query($GLOBALS["___mysqli_link"], $sql_player7);
 
 	$pu_pads = 0;
 	$pu_armour = 0;
@@ -65,7 +65,7 @@
 	$pu_amp = 0;
 	$pu_invis = 0;
 
-	while ($r_player7 = mysql_fetch_array($q_player7)) {
+	while ($r_player7 = mysqli_fetch_array($q_player7)) {
 		// Cycle through pickups and see what the player got
 		IF ($r_player7[col2] == "Thigh Pads") { $pu_pads = $r_player7[pu_count]; }
 		IF ($r_player7[col2] == "Body Armor") { $pu_armour = $r_player7[pu_count]; }
@@ -179,8 +179,8 @@
 										ttl = '$r_ttl',
 										gamescore= '$r_score'";
 
-	$q_playerid = mysql_query($sql_playerid) or die(mysql_error());
-	$playerecordid = mysql_insert_id();
+	$q_playerid = mysqli_query($GLOBALS["___mysqli_link"], $sql_playerid) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	$playerecordid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_link"]))) ? false : $___mysqli_res);
 
 
 ?>

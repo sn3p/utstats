@@ -261,8 +261,8 @@ echo'_______________________________________________________________________<br 
 ';
 
 $sql_rplayer = "SELECT p.id, pi.name FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $id AND team = 0 ORDER BY pi.name ASC";
-$q_rplayer = mysql_query($sql_rplayer);
-while ($r_rplayer = mysql_fetch_array($q_rplayer)) {
+$q_rplayer = mysqli_query($GLOBALS["___mysqli_link"], $sql_rplayer);
+while ($r_rplayer = mysqli_fetch_array($q_rplayer)) {
 
 	echo'[pl]'.$cbid($r_rplayer[id]).','.$cbnick($r_rplayer[name]).'[/pl] ';
 }
@@ -274,8 +274,8 @@ echo'<br />_____________________________________________________________________
 ';
 
 $sql_bplayer = "SELECT p.id, pi.name FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $id AND team = 1 ORDER BY pi.name ASC";
-$q_bplayer = mysql_query($sql_bplayer);
-while ($r_bplayer = mysql_fetch_array($q_bplayer)) {
+$q_bplayer = mysqli_query($GLOBALS["___mysqli_link"], $sql_bplayer);
+while ($r_bplayer = mysqli_fetch_array($q_bplayer)) {
 
 	echo'[pl]'.$cbid($r_bplayer[id]).','.$cbnick($r_bplayer[name]).'[/pl] ';
 }

@@ -52,9 +52,9 @@ echo '
 
 $sql_servers = "SELECT servername, serverip, COUNT(*) AS matchcount, SUM(frags) AS frags, SUM(t0score+t1score+t2score+t3score) AS matchscore, SUM(gametime) AS gametime
   FROM uts_match GROUP BY servername, serverip ORDER BY servername ASC LIMIT $qpage,25";
-$q_servers = mysql_query($sql_servers) or die(mysql_error());
+$q_servers = mysqli_query($GLOBALS["___mysqli_link"], $sql_servers) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_servers = mysql_fetch_array($q_servers)) {
+while ($r_servers = mysqli_fetch_array($q_servers)) {
     $r_gametime = sec2hour($r_servers[gametime]);
 
     echo '

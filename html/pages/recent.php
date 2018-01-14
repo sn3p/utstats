@@ -25,7 +25,7 @@ $fpage = 0;
 if ($ecount < 1) { $lpage = 0; }
 else { $lpage = $ecount2-1; }
 
-$cpage = mysql_real_escape_string(preg_replace('/\D/', '', $_REQUEST["page"]));
+$cpage = mysqli_real_escape_string($GLOBALS["___mysqli_link"], preg_replace('/\D/', '', $_REQUEST["page"]));
 if ($cpage == "") { $cpage = "0"; }
 $qpage = $cpage*25;
 
@@ -95,9 +95,9 @@ echo '<th class="noborders"><select class="searchform" name="gid">';
 echo '<option value="0">*</option>';
 
 $sql_game = "SELECT DISTINCT(p.gid), g.name FROM uts_player AS p, uts_games AS g WHERE p.gid = g.id ORDER BY g.name ASC";
-$q_game = mysql_query($sql_game) or die(mysql_error());
+$q_game = mysqli_query($GLOBALS["___mysqli_link"], $sql_game) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_game = mysql_fetch_array($q_game)) {
+while ($r_game = mysqli_fetch_array($q_game)) {
   $selected = ($r_game['gid'] == $gid) ? 'selected' : '';
   echo '<option '.$selected.' value="'.$r_game['gid'].'">'. $r_game['name'] .'</option>';
 }
@@ -115,10 +115,10 @@ echo '
 	  <th class="smheading" align="center" width="200">Scores</th>
   </tr>';
 
-$sql_recent = "SELECT m.id, m.time, g.name AS gamename, m.mapfile, m.gametime, t0score, t1score, t2score, t3score, (SELECT count(p.id) FROM uts_player AS p WHERE m.id = p.matchid) as players FROM uts_match AS m, uts_games AS g WHERE g.id = m.gid $where ORDER BY m.time DESC LIMIT ".mysql_real_escape_string($qpage).",50";
-$q_recent = mysql_query($sql_recent) or die(mysql_error());
+$sql_recent = "SELECT m.id, m.time, g.name AS gamename, m.mapfile, m.gametime, t0score, t1score, t2score, t3score, (SELECT count(p.id) FROM uts_player AS p WHERE m.id = p.matchid) as players FROM uts_match AS m, uts_games AS g WHERE g.id = m.gid $where ORDER BY m.time DESC LIMIT ".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $qpage).",50";
+$q_recent = mysqli_query($GLOBALS["___mysqli_link"], $sql_recent) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_recent = mysql_fetch_array($q_recent)) {
+while ($r_recent = mysqli_fetch_array($q_recent)) {
   $r_time = mdate($r_recent[time]);
   $r_mapfile = un_ut($r_recent[mapfile]);
   $r_gametime = GetMinutes($r_recent[gametime]);

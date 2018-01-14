@@ -2,27 +2,27 @@
 $sql_tgame = small_query("SELECT teamgame FROM uts_match WHERE id = $matchid");
 IF($sql_tgame == "True") {
 	$rem_srecord = "DELETE FROM uts_player WHERE matchid = $matchid AND team > 3";
-	mysql_query($rem_srecord);
+	mysqli_query($GLOBALS["___mysqli_link"], $rem_srecord);
 }
 
 $cleaned = false;
 // Get list of players
 $sql_pname = "SELECT pid, name FROM uts_player, uts_pinfo AS pi WHERE matchid = $matchid AND pid = pi.id";
-$q_pname = mysql_query($sql_pname);
-while ($r_pname = mysql_fetch_array($q_pname)) {
+$q_pname = mysqli_query($GLOBALS["___mysqli_link"], $sql_pname);
+while ($r_pname = mysqli_fetch_array($q_pname)) {
 	$playername = addslashes($r_pname[name]);
 	$pid = $r_pname['pid'];
 
 
 	// Check if player has more than 1 record
-	$q_ids = mysql_query("SELECT playerid FROM uts_player WHERE pid = '$pid' AND matchid = $matchid");
+	$q_ids = mysqli_query($GLOBALS["___mysqli_link"], "SELECT playerid FROM uts_player WHERE pid = '$pid' AND matchid = $matchid");
 	
-	IF (mysql_num_rows($q_ids) > 1) {
-		$numrecords = mysql_num_rows($q_ids);
+	IF (mysqli_num_rows($q_ids) > 1) {
+		$numrecords = mysqli_num_rows($q_ids);
 		echo $r_pname[name] .' ';
 		// get all the ids this player had
 		$playerids	= array();
-		while ($r_ids = mysql_fetch_array($q_ids)) {
+		while ($r_ids = mysqli_fetch_array($q_ids)) {
 			$playerids[] = $r_ids['playerid'];
 		}
 		
@@ -31,7 +31,7 @@ while ($r_pname = mysql_fetch_array($q_pname)) {
 			
 		// Fix the events table
 		foreach ($playerids as $i => $oldplayerid) {
-			mysql_query("UPDATE uts_events SET playerid = $newplayerid WHERE playerid = $oldplayerid AND matchid = $matchid");
+			mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_events SET playerid = $newplayerid WHERE playerid = $oldplayerid AND matchid = $matchid");
 		}
 
 		// Fix matchcount in ranking table
@@ -46,9 +46,9 @@ while ($r_pname = mysql_fetch_array($q_pname)) {
 									AND 	killer IN (". implode(",", $playerids) .") 
 								GROUP BY	victim;";
 								
-		$q_kmupdate = mysql_query($sql_kmupdate);
-		while ($r_kmupdate = mysql_fetch_array($q_kmupdate)) {
-			mysql_query("	INSERT 	
+		$q_kmupdate = mysqli_query($GLOBALS["___mysqli_link"], $sql_kmupdate);
+		while ($r_kmupdate = mysqli_fetch_array($q_kmupdate)) {
+			mysqli_query($GLOBALS["___mysqli_link"], "	INSERT 	
 								INTO 		uts_killsmatrix 
 								SET 		matchid = $matchid, 
 											killer = $newplayerid, 
@@ -63,9 +63,9 @@ while ($r_pname = mysql_fetch_array($q_pname)) {
 									AND 	victim IN (". implode(",", $playerids) .") 
 								GROUP BY	killer;";
 								
-		$q_kmupdate = mysql_query($sql_kmupdate);
-		while ($r_kmupdate = mysql_fetch_array($q_kmupdate)) {
-			mysql_query("	INSERT 	
+		$q_kmupdate = mysqli_query($GLOBALS["___mysqli_link"], $sql_kmupdate);
+		while ($r_kmupdate = mysqli_fetch_array($q_kmupdate)) {
+			mysqli_query($GLOBALS["___mysqli_link"], "	INSERT 	
 								INTO 		uts_killsmatrix 
 								SET 		matchid = $matchid, 
 											killer = ${r_kmupdate['killer']}, 
@@ -73,7 +73,7 @@ while ($r_pname = mysql_fetch_array($q_pname)) {
 											kills	= ${r_kmupdate['kills']};");
 		}
 		
-		mysql_query("	DELETE
+		mysqli_query($GLOBALS["___mysqli_link"], "	DELETE
 							FROM		uts_killsmatrix
 							WHERE 	matchid = $matchid 
 								AND 	(killer IN (". implode(",", $playerids) .")
@@ -192,7 +192,7 @@ while ($r_pname = mysql_fetch_array($q_pname)) {
 
 		// Remove all of this player's records
 		$rem_precord = "DELETE FROM uts_player WHERE matchid = $matchid AND pid = '$pid'";
-		mysql_query($rem_precord);
+		mysqli_query($GLOBALS["___mysqli_link"], $rem_precord);
 		
 		// Add this new record to match
 		$upd_precord = "	INSERT 
@@ -248,7 +248,7 @@ while ($r_pname = mysql_fetch_array($q_pname)) {
 											pu_belt = '$r_truepinfo2[pu_belt]',
 											pu_amp = '$r_truepinfo2[pu_amp]',
 											rank = '$r_truepinfo2[rank]';";
-		mysql_query($upd_precord) or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], $upd_precord) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		$cleaned = true;
 	}
 }

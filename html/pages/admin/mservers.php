@@ -31,7 +31,7 @@ echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 </tr>
 <tr>
 	<td class="smheading" align="left" width="200">Merging Records</td>';
-mysql_query("UPDATE uts_match SET serverip = '". addslashes($q_myserver1[serverip]) ."', servername = '". addslashes($q_myserver1[servername]) ."' WHERE serverip = '". addslashes($q_myserver2[serverip]) ."' and servername = '". addslashes($q_myserver2[servername]) ."'") or die(mysql_error());
+mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_match SET serverip = '". addslashes($q_myserver1[serverip]) ."', servername = '". addslashes($q_myserver1[servername]) ."' WHERE serverip = '". addslashes($q_myserver2[serverip]) ."' and servername = '". addslashes($q_myserver2[servername]) ."'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	echo'<td class="grey" align="left" width="400">Done</td>
 </tr>
 <tr>

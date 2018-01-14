@@ -28,10 +28,10 @@ echo'
 $sql_msred = "SELECT p.playerid, pi.name, pi.banned, p.country, p.pid, p.gamescore, p.flag_taken, p.flag_pickedup, p.flag_dropped, p.flag_assist, p.flag_cover, p.flag_seal, p.flag_capture, p.flag_kill, p.flag_return, p.rank
   FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $mid AND team = 0 ORDER BY gamescore DESC";
 
-$q_msred = mysql_query($sql_msred) or die(mysql_error());
+$q_msred = mysqli_query($GLOBALS["___mysqli_link"], $sql_msred) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $i = 0;
 
-while ($r_msred = zero_out(mysql_fetch_array($q_msred))) {
+while ($r_msred = zero_out(mysqli_fetch_array($q_msred))) {
   $i++;
   $class = ($i % 2) ? 'grey' : 'grey2';
 
@@ -114,10 +114,10 @@ echo'
 $sql_msblue = "SELECT p.playerid, pi.name, pi.banned, p.country, p.pid, p.gamescore, p.flag_taken, p.flag_pickedup, p.flag_dropped, p.flag_assist, p.flag_cover, p.flag_seal, p.flag_capture, p.flag_kill, p.flag_return, p.rank
   FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $mid AND team = 1 ORDER BY gamescore DESC";
 
-$q_msblue = mysql_query($sql_msblue) or die(mysql_error());
+$q_msblue = mysqli_query($GLOBALS["___mysqli_link"], $sql_msblue) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $i = 0;
 
-while ($r_msblue = zero_out(mysql_fetch_array($q_msblue))) {
+while ($r_msblue = zero_out(mysqli_fetch_array($q_msblue))) {
   $i++;
   $class = ($i % 2) ? 'grey' : 'grey2';
 
@@ -203,10 +203,10 @@ if ($greencheck > 0) {
   $sql_msgreen = "SELECT p.playerid, pi.name, pi.banned, p.country, p.pid, p.gamescore, p.flag_taken, p.flag_pickedup, p.flag_dropped, p.flag_assist, p.flag_cover, p.flag_seal, p.flag_capture, p.flag_kill, p.flag_return, p.rank
     FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $mid AND team = 2 ORDER BY gamescore DESC";
 
-  $q_msgreen = mysql_query($sql_msgreen) or die(mysql_error());
+  $q_msgreen = mysqli_query($GLOBALS["___mysqli_link"], $sql_msgreen) or die(mysqli_error($GLOBALS["___mysqli_link"]));
   $i = 0;
 
-  while ($r_msgreen = zero_out(mysql_fetch_array($q_msgreen))) {
+  while ($r_msgreen = zero_out(mysqli_fetch_array($q_msgreen))) {
     $i++;
     $class = ($i % 2) ? 'grey' : 'grey2';
 
@@ -293,10 +293,10 @@ if ($goldcheck > 0) {
 
   $sql_msgold = "SELECT p.playerid, pi.name, pi.banned, p.country, p.pid, p.gamescore, p.flag_taken, p.flag_pickedup, p.flag_dropped, p.flag_assist, p.flag_cover, p.flag_seal, p.flag_capture, p.flag_kill, p.flag_return, p.rank
     FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND matchid = $mid AND team = 3 ORDER BY gamescore DESC";
-  $q_msgold = mysql_query($sql_msgold) or die(mysql_error());
+  $q_msgold = mysqli_query($GLOBALS["___mysqli_link"], $sql_msgold) or die(mysqli_error($GLOBALS["___mysqli_link"]));
   $i = 0;
 
-  while ($r_msgold = zero_out(mysql_fetch_array($q_msgold))) {
+  while ($r_msgold = zero_out(mysqli_fetch_array($q_msgold))) {
     $i++;
     $class = ($i % 2) ? 'grey' : 'grey2';
 

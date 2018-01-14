@@ -30,7 +30,7 @@ echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 echo'<tr>
 	<td class="smheading" align="left" width="200">Deleting rankings</td>';
 
-	mysql_query("TRUNCATE uts_rank") or die(mysql_error());	
+	mysqli_query($GLOBALS["___mysqli_link"], "TRUNCATE uts_rank") or die(mysqli_error($GLOBALS["___mysqli_link"]));	
 
 	echo'<td class="grey" align="left" width="400">Done</td>';
 
@@ -39,7 +39,7 @@ echo'</tr>
 	<td class="smheading" align="left">Recalculating Rankings:</td>';
 	echo'<td class="grey" align="left">';
 	$playerbanned = false;
-	$q_pm = mysql_query(	"	SELECT 	p.id, 
+	$q_pm = mysqli_query($GLOBALS["___mysqli_link"], 	"	SELECT 	p.id, 
 												p.matchid, 
 												p.pid, 
 												p.gid,
@@ -53,7 +53,7 @@ echo'</tr>
 									ORDER BY p.matchid ASC, 
 												p.playerid ASC");
 	$i = 0;
-	while ($r_pm = mysql_fetch_array($q_pm)) {
+	while ($r_pm = mysqli_fetch_array($q_pm)) {
 		$i++;
 		if ($i%50 == 0) {
 			echo '. ';

@@ -56,8 +56,8 @@ echo'
 	$ranking = $qpage;
 
 	$sql_rplayer = "SELECT pi.name, pi.country, r.rank, r.prevrank, r.matches, r.pid FROM uts_rank AS r, uts_pinfo AS pi WHERE r.pid = pi.id AND r.gid = '$gid' AND pi.banned <> 'Y' ORDER BY rank DESC LIMIT $qpage,25";
-	$q_rplayer = mysql_query($sql_rplayer) or die(mysql_error());
-	while ($r_rplayer = mysql_fetch_array($q_rplayer)) {
+	$q_rplayer = mysqli_query($GLOBALS["___mysqli_link"], $sql_rplayer) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	while ($r_rplayer = mysqli_fetch_array($q_rplayer)) {
 
 		$ranking++;
 	  echo'

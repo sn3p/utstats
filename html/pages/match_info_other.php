@@ -38,10 +38,10 @@ $sql_multis = "SELECT p.pid, pi.name, p.country, SUM(spree_double) AS spree_doub
   GROUP BY pid, p.country
   ORDER BY name ASC";
 
-$q_multis = mysql_query($sql_multis) or die(mysql_error());
+$q_multis = mysqli_query($GLOBALS["___mysqli_link"], $sql_multis) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $i = 0;
 
-while ($r_multis = zero_out(mysql_fetch_array($q_multis))) {
+while ($r_multis = zero_out(mysqli_fetch_array($q_multis))) {
   $i++;
   $class = ($i % 2) ? 'grey' : 'grey2';
   $r_pname = $r_multis[name];
@@ -76,10 +76,10 @@ if ((strpos($gamename, '(insta)') === false) && (strpos($gamename, "Last Man Sta
     GROUP BY pid, p.country
     ORDER BY name ASC";
 
-  $q_pickups = mysql_query($sql_pickups) or die(mysql_error());
+  $q_pickups = mysqli_query($GLOBALS["___mysqli_link"], $sql_pickups) or die(mysqli_error($GLOBALS["___mysqli_link"]));
   $i = 0;
 
-  while ($r_pickups = zero_out(mysql_fetch_array($q_pickups))) {
+  while ($r_pickups = zero_out(mysqli_fetch_array($q_pickups))) {
     $i++;
     $class = ($i % 2) ? 'grey' : 'grey2';
     $r_pname = $r_pickups[name];

@@ -7,7 +7,7 @@
 	if(($time_gameend-$time_gamestart)>300 && count(array_unique($playernames))>=2) {
 
 		try {
-			$safe_uid = mysql_real_escape_string($uid);
+			$safe_uid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $uid);
 			
 			prepCTFdata($safe_uid);
 			

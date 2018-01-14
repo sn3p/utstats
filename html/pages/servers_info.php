@@ -1,5 +1,5 @@
 <?php
-$serverip = mysql_real_escape_string($_GET[serverip]);
+$serverip = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $_GET[serverip]);
  
 // Firstly we need to work out First Last Next Prev pages
 $scount = small_count("SELECT id FROM uts_match WHERE serverip = '$serverip'");
@@ -15,7 +15,7 @@ $fpage = 0;
 IF($ecount < 1) { $lpage = 0; }
 else { $lpage = $ecount2-1; }
  
-$cpage = mysql_real_escape_string($_GET["page"]);
+$cpage = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $_GET["page"]);
 IF ($cpage == "") { $cpage = "0"; }
 $qpage = $cpage*25;
  
@@ -83,8 +83,8 @@ echo'<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' 
   </tr>';
  
 $sql_recent = "SELECT m.id, m.time, g.name AS gamename, m.mapfile, m.gametime FROM uts_match AS m, uts_games AS g  WHERE g.id = m.gid AND m.serverip = '$serverip' ORDER BY m.time DESC LIMIT $qpage,25";
-$q_recent = mysql_query($sql_recent) or die(mysql_error());
-while ($r_recent = mysql_fetch_array($q_recent)) {
+$q_recent = mysqli_query($GLOBALS["___mysqli_link"], $sql_recent) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+while ($r_recent = mysqli_fetch_array($q_recent)) {
  
           $r_time = mdate($r_recent[time]);
           $r_mapfile = un_ut($r_recent[mapfile]);

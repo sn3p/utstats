@@ -10,44 +10,37 @@ echo '
 
 // Check access rights
 echo '
-	<table class="box" border="0" cellpadding="1" cellspacing="2">
+<table class="box" border="0" cellpadding="1" cellspacing="2">
 	<tr>
 		<td class="smheading" align="center" height="25" width="550" colspan="2">Checking access rights</td>
 	</tr>';
 
 // directories
-foreach (array("logs", "logs/ac", "logs/backup", "logs/utdc", "logs/ace") as $dir)
-{
+foreach (array("logs", "logs/ac", "logs/backup", "logs/utdc", "logs/ace") as $dir) {
 	echo '
 	<tr>
 		<td class="smheading" align="left" width="350">', $dir, '</td>';
 	if (!file_exists($dir)) {
 		if (mkdir($dir, 0777)) {
-		      echo '
-			    <td class="warn" align="left" width="200">Created</td></tr>';
+      echo '<td class="warn" align="left" width="200">Created</td></tr>';
 		}
 		else {
-		      echo '
-			    <td class="warn" align="left" width="200">Not found!</td></tr>';
+      echo '<td class="warn" align="left" width="200">Not found!</td></tr>';
 		}
 	}
 	else if (!is_dir($dir)) {
-		echo '
-		      <td class="warn" align="left" width="200">Not a directory!</td></tr>';
+		echo '<td class="warn" align="left" width="200">Not a directory!</td></tr>';
 	}
 	else if (!is_writable($dir)) {
 		if (@chmod($dir, 0777)) {
-			echo '
-			      <td class="grey" align="left" width="200">SET</td></tr>';
+			echo '<td class="grey" align="left" width="200">SET</td></tr>';
 		}
 		else {
-			echo '
-			      <td class="warn" align="left" width="200">Incorrect access rights: ' , substr(sprintf('%o', fileperms($dir)), -4) , '</td></tr>';
+			echo '<td class="warn" align="left" width="200">Incorrect access rights: ' , substr(sprintf('%o', fileperms($dir)), -4) , '</td></tr>';
 		}
 	}
 	else {
-		echo '
-		      <td class="grey" align="left" width="200">OK</td></tr>';
+		echo '<td class="grey" align="left" width="200">OK</td></tr>';
 	}
 }
 
@@ -58,39 +51,33 @@ foreach (array("includes/ftptimestamp.php") as $file)
 	<tr>
 		<td class="smheading" align="left" width="350">', $file, '</td>';
 	if (!file_exists($file)) {
-		echo '
-		      <td class="warn" align="left" width="200">Not found!</td></tr>';
+		echo '<td class="warn" align="left" width="200">Not found!</td></tr>';
 	}
 	else if (!is_file($file)) {
-		echo '
-		      <td class="warn" align="left" width="200">Not a file!</td></tr>';
+		echo '<td class="warn" align="left" width="200">Not a file!</td></tr>';
 	}
 	else if (!is_writable($file)) {
 		if (@chmod($file, 0777)) {
-			echo '
-			      <td class="grey" align="left" width="200">SET</td></tr>';
+			echo '<td class="grey" align="left" width="200">SET</td></tr>';
 		}
 		else {
-			echo '
-			      <td class="warn" align="left" width="200">Incorrect access rights: ' , substr(sprintf('%o', fileperms($file)), -4) , '</td></tr>';
+			echo '<td class="warn" align="left" width="200">Incorrect access rights: ' , substr(sprintf('%o', fileperms($file)), -4) , '</td></tr>';
 		}
 	}
 	else {
-		echo '
-		      <td class="grey" align="left" width="200">OK</td></tr>';
+		echo '<td class="grey" align="left" width="200">OK</td></tr>';
 	}
 }
 
-echo '
-	</tbody></table>
+echo '</tbody></table>
 <div class="opnote">* Might not work correctly on Windows systems *</div><br>';
 
 
 // connect to the database and check structure
 echo '
-	<table class="box" border="0" cellpadding="1" cellspacing="2">
+<table class="box" border="0" cellpadding="1" cellspacing="2">
 	<tr>
-		<td class="smheading" align="center" height="25" width="550" colspan="2">Checking mysql tables</td>
+		<td class="smheading" align="center" height="25" width="550" colspan="2">Checking MySQL tables</td>
 	</tr>';
 
 // database creation array
@@ -337,7 +324,7 @@ foreach ($create_table as $table => $query) {
 		      <td class="grey" align="left" width="200">OK</td></tr>';
 	}
 	else {
-		if (mysql_query($query)) {
+		if (mysqli_query($GLOBALS["___mysqli_link"], $query)) {
 			echo '
 		      <td class="grey" align="left" width="200">Created</td></tr>';
 		}
@@ -349,7 +336,7 @@ foreach ($create_table as $table => $query) {
 }
 echo '
 	</tbody></table><br>';
-	
+
 // check graph types - have to use id since no other unique key except composite ones.
 $create_charttype['90'] = "INSERT INTO `uts_charttypes` VALUES (90, 'Frags Team', 'teamScore', 'team', 'title: {\ntext: ''Battle for #1''\n},\ncredits: {\nenabled: false\n},			\nlegend: {\nenabled: false\n},			\nxAxis: {\ntitle: '''',\nmin: 0\n},		   \nyAxis: {\ntitle: '''',\nmin: 0\n},\nplotOptions : {\n	line : {\n		stickyTracking : false\n	}\n}', 'line', 1);";
 $create_charttype['20'] = "INSERT INTO `uts_charttypes` VALUES (20, 'Domination', 'teamScore', 'team', 'title: {\ntext: ''Score''\n},\ncredits: {\nenabled: false\n},			\nlegend: {\nenabled: false\n},			\nxAxis: {\ntitle: '''',\nmin: 0\n},		   \nyAxis: {\ntitle: '''',\nmin: 0\n},\nplotOptions : {\n	line : {\n		stickyTracking : false\n	}\n}', 'line', 1);";
@@ -389,7 +376,7 @@ else {
 			      <td class="grey" align="left" width="200">OK</td></tr>';
 		}
 		else {
-			if (mysql_query($query)) {
+			if (mysqli_query($GLOBALS["___mysqli_link"], $query)) {
 				echo '
 			      <td class="grey" align="left" width="200">Added</td></tr>';
 			}
@@ -442,7 +429,7 @@ else {
 			      <td class="grey" align="left" width="200">OK</td></tr>';
 		}
 		else {
-			if (mysql_query($query)) {
+			if (mysqli_query($GLOBALS["___mysqli_link"], $query)) {
 				echo '
 			      <td class="grey" align="left" width="200">Added</td></tr>';
 			}
@@ -466,8 +453,8 @@ echo '
 	<tr>
 		<td class="smheading" align="left" width="350">Fix BT cap times</td>';
 
-	$q = mysql_query("UPDATE uts_events SET col3 = ROUND(CEILING((col3-1)*100/1.1) / 100, 2), col1 = 'btcap' WHERE col1 = 'cap'");
-	$affected = mysql_affected_rows();
+	$q = mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_events SET col3 = ROUND(CEILING((col3-1)*100/1.1) / 100, 2), col1 = 'btcap' WHERE col1 = 'cap'");
+	$affected = mysqli_affected_rows($GLOBALS["___mysqli_link"]);
 
 	if ($affected == -1) {
 	echo '

@@ -13,8 +13,8 @@ $sql_km = "SELECT killer, victim, kills
            FROM uts_killsmatrix
            WHERE matchid = $mid;";
 
-$q_km = mysql_query($sql_km) or die(mysql_error());
-while ($r_km = mysql_fetch_array($q_km)) {
+$q_km = mysqli_query($GLOBALS["___mysqli_link"], $sql_km) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+while ($r_km = mysqli_fetch_array($q_km)) {
   $km[intval($r_km['killer'])][intval($r_km['victim'])] = $r_km['kills'];
 }
 
@@ -40,8 +40,8 @@ $sql_players = "  SELECT  p.pid,
               AND  matchid = '$mid'
             ORDER  BY  team ASC,
                   gamescore DESC;";
-$q_players = mysql_query($sql_players) or die(mysql_error());
-while ($r_players = mysql_fetch_array($q_players)) {
+$q_players = mysqli_query($GLOBALS["___mysqli_link"], $sql_players) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+while ($r_players = mysqli_fetch_array($q_players)) {
   $players[intval($r_players['playerid'])] = array(  'pid'     => $r_players['pid'],
                                     'name'     => $r_players['name'],
                                     'country'  => $r_players['country'],

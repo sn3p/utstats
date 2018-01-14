@@ -24,7 +24,7 @@ $mserver2 = $results[mserver2];
 $q_myserver1 = small_query("SELECT servername, serverip FROM uts_match WHERE id = $mserver1");
 $q_myserver2 = small_query("SELECT servername, serverip FROM uts_match WHERE id = $mserver2");
 
-echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 <tr>
 	<td class="smheading" align="center" colspan="2">Merging '.$q_myserver2[servername].' ('.$q_myserver2[serverip].')<br>
 	Into '.$q_myserver1[servername].' ('.$q_myserver1[serverip].')</td>

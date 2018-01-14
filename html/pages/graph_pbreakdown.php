@@ -41,7 +41,7 @@ while ($r_gmonths = mysql_fetch_array($q_gmonths)) {
 
 
 echo'
-<table class = "box" border="0" cellpadding="0" cellspacing="2">
+<table class = "box" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr><td>
 <table border="0" cellpadding="0" cellspacing="0">
@@ -59,7 +59,7 @@ echo'
 for ($i = 0; $i <= 23; $i++) {
 	if (!isset($gb_hour[$i])) $gb_hour[$i] = 0;
 	$title = $gb_hour[$i] .' ('. get_dp($gb_hour[$i] / $hour_sum * 100) .' %)';
-	echo '<td class="dark" align="center" valign="bottom" width="15"><img border="0" src="images/bars/v_bar'. ($i % 16 + 1) .'.png" width="18" height="'.(int)($gb_hour[$i] / $hour_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
+	echo '<td class="dark" align="center" valign="bottom" width="15"><img border="0" src="assets/images/bars/v_bar'. ($i % 16 + 1) .'.png" width="18" height="'.(int)($gb_hour[$i] / $hour_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
 }
 
 echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
@@ -68,7 +68,7 @@ echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
 for ($i = 0; $i <= 6; $i++) {
 	if (!isset($gb_day[$i])) $gb_day[$i] = 0;
 	$title = $gb_day[$i] .' ('. get_dp($gb_day[$i] / $day_sum * 100) .' %)';
-	echo '<td class="dark" align="center" valign="bottom" width="15"><img border="0" src="images/bars/v_bar'. ($i % 16 + 1) .'.png" width="18" height="'.(int)($gb_day[$i] / $day_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
+	echo '<td class="dark" align="center" valign="bottom" width="15"><img border="0" src="assets/images/bars/v_bar'. ($i % 16 + 1) .'.png" width="18" height="'.(int)($gb_day[$i] / $day_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
 }
 
 echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
@@ -77,7 +77,7 @@ echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
 for ($i = 1; $i <= 12; $i++) {
 	if (!isset($gb_month[$i])) $gb_month[$i] = 0;
 	$title = $gb_month[$i] .' ('. get_dp($gb_month[$i] / $month_sum * 100) .' %)';
-	echo '<td class="dark" align="center" valign="bottom" width="15"><img border="0" src="images/bars/v_bar'. (($i + 8) % 16 + 1) .'.png" width="18" height="'.(int)($gb_month[$i] / $month_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
+	echo '<td class="dark" align="center" valign="bottom" width="15"><img border="0" src="assets/images/bars/v_bar'. (($i + 8) % 16 + 1) .'.png" width="18" height="'.(int)($gb_month[$i] / $month_max * $max_height).'" alt="'. $title .'" title="'. $title .'"></td>';
 }
 echo '<td class="dark" align="center" valign="bottom" width="15"></td>';
 echo'</tr><tr>

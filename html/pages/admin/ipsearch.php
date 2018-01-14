@@ -22,7 +22,7 @@ $results = adminselect($options);
 $ip_from = $results['ip_from'];
 $ip_to = $results['ip_to'];
 
-echo'<br><table border="0" cellpadding="1" cellspacing="2" width="600">
+echo'<br><table border="0" cellpadding="0" cellspacing="0" width="600">
 <tr>
 	<td class="smheading" align="center" colspan="2">Players using IPs '.$ip_from.' - '.$ip_to.' and their last 5 matches using these IPs</td>
 </tr>';

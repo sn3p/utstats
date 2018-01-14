@@ -24,10 +24,8 @@ $hint['Multis'] =
 								"text" 		=>	"Special event: If you manage to kill more 2 than people within a short space of time you get a Double Kill, 3 is a Multi Kill etc"
 							);
 
-$hint['Sprees'] =
-					array	(	"caption"	=>	"Killing Sprees",
-								"text" 		=>	"Special event: If you manage to kill 5 or more opponents without dying yourself, you will be on a killing spree. If you kill more than 10 opponents, you are on a rampage, etc."
-							);
+$hint['Sprees'] = "Special event: If you manage to kill 5 or more opponents without dying yourself, you will be on a killing spree. If you kill more than 10 opponents, you are on a rampage, etc."
+							;
 
 $hint['EFF'] =	array	(	"caption"	=>	"Efficiency",
 								"text" 		=>	"A ratio that denotes the player's kill skill by comparing it with his overall performance.  A perfect efficiency is equal to 1 (100%), anything less than 0.5 (50%) is below average.<br>Formula: Kills / (Kills + Deaths + Suicides [+Team Kills])"

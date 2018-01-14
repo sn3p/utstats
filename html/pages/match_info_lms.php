@@ -16,7 +16,7 @@
 
 
 	echo'
-	<table class = "box" border="0" cellpadding="0" cellspacing="2" width="600">
+	<table class = "box" border="0" cellpadding="0" cellspacing="0" width="700">
 	<tbody><tr>
 		<td class="heading" colspan="'.$cols.'" align="center">Player Summary</td>
 	</tr>';
@@ -50,19 +50,20 @@
 			$header = false;
 			echo '
 			<tr>
-				<td class="smheading" align="center">Player</td>
-				<td class="smheading" align="center" width="50">Time</td>
-				<td class="smheading" align="center" width="50">Score</td>
-				<td class="smheading" align="center" width="50">Out</td>
-				<td class="smheading" align="center" width="40" '.OverlibPrintHint('F').'>F</td>
-				<td class="smheading" align="center" width="40" '.OverlibPrintHint('K').'>K</td>
-				<td class="smheading" align="center" width="40" '.OverlibPrintHint('D').'>D</td>
-				<td class="smheading" align="center" width="40" '.OverlibPrintHint('S').'>S</td>';
-			if ($teams) echo '<td class="smheading" align="center" width="40" '.OverlibPrintHint('TK').'>TK</td>';
+				<th class="smheading " align="center">Player</th>
+				<th class="smheading " align="center" width="50">Time</th>
+				<th class="smheading " align="center" width="50">Score</th>';
+			if ($extra) echo'    <th class="smheading " align="center" width="50">'.htmlentities($extratitle).'</th>';
+			echo'
+				<th class="smheading tooltip" align="center" width="40" title="Frags: A player\'s frag count is equal to their kills minus suicides.  In team games team kills (not team suicides) are also subtracted from the player\'s kills.">F</th>
+				<th class="smheading tooltip" align="center" width="40" title="Number of times a player kills another player.">K</th>
+				<th class="smheading tooltip" align="center" width="40" title="Kills: Number of times a player gets killed by another player.">D</th>
+				<th class="smheading tooltip" align="center" width="40" title="Suicides: Number of times a player dies due to action of their own cause. Suicides can be environment induced (drowning, getting crushed, falling) or weapon related (fatal splash damage from their own weapon).">S</th>';
+			if ($teams) echo '<th class="smheading tooltip" align="center" width="40" title="Team Kills: Number of times a player in a team based game kills someone on their own team.">TK</th>';
 			echo '
-				<td class="smheading" align="center" width="55" '.OverlibPrintHint('EFF').'>Eff.</td>
-				<td class="smheading" align="center" width="55" '.OverlibPrintHint('ACC').'>Acc.</td>
-				<td class="smheading" align="center" width="50" '.OverlibPrintHint('TTL').'>Avg TTL</td>
+				<th class="smheading tooltip" align="center" width="55" title="Efficiency: A ratio that denotes the player\'s kill skill by comparing it with his overall performance.  A perfect efficiency is equal to 1 (100%), anything less than 0.5 (50%) is below average. Formula: Kills / (Kills + Deaths + Suicides [+Team Kills])">Eff.</th>
+				<th class="smheading tooltip" align="center" width="55" title="Accuracy: Overall accuracy when using all weapons.  Most accurate in insta but also very accurate in normal weapons.">Acc.</th>
+				<th class="smheading tooltip" align="center" width="50" title="Average Time to Live: The length of time a player is in a game in seconds divided by how many times he/she dies, thus giving an average time of how long he/she will live.">Avg TTL</th>
 			</tr>';
 		}
 

@@ -17,7 +17,7 @@ function nf($number) {
 }
 
 
-echo'<table class = "box" border="0" cellpadding="1" cellspacing="2" width="600">
+echo'<table class = "box" border="0" cellpadding="0" cellspacing="0" width="600">
 <tr>
 	<td class="smheading" align="center" height="25" colspan="4">Database Statistics</td>
 </tr>';
@@ -51,14 +51,14 @@ foreach($tables as $table) {
 	echo'<tr>
 		<td class="smheading" align="left" width="200">';
 	if (substr($table['name'], 0, 9) == 'uts_temp_' and strlen($table['name']) == 17) {
-		echo '<a href="admin.php?key='. urlencode($adminkey) .'&amp;action=main&amp;droptable='.htmlentities($table['name']).'"><img src="images/del.png" border="0" width="16" height="16" title="Click to drop this table" alt="Delete" /></a><em>'.$table['name'].'</em>';
+		echo '<a href="admin.php?key='. urlencode($adminkey) .'&amp;action=main&amp;droptable='.htmlentities($table['name']).'"><img src="assets/images/del.png" border="0" width="16" height="16" title="Click to drop this table" alt="Delete" /></a><em>'.$table['name'].'</em>';
 	} else {
 		echo $table['name'];
 	}
 	echo '</td>
 		<td class="'.$class.'" align="right">'.nf($table['rows']).' rows</td>
 		<td class="'.$class.'" align="right">'.$d_size['size'] .' '. $d_size['type'].'</td>
-		<td class="'.$class.'" width="'.($max_width + 5).'"><img border="0" src="images/bars/h_bar'. ($i % 16 + 1) .'.png" height="10" width="'.(int)($table['size'] / $max_size * $max_width).'" alt="'. $title .'" title="'. $title .'"></td>
+		<td class="'.$class.'" width="'.($max_width + 5).'"><img border="0" src="assets/images/bars/h_bar'. ($i % 16 + 1) .'.png" height="10" width="'.(int)($table['size'] / $max_size * $max_width).'" alt="'. $title .'" title="'. $title .'"></td>
 	</tr>';
 }
 
@@ -71,47 +71,46 @@ echo'<tr>
 </tr>
 </table><br>';
 
-echo'<table border="0" cellpadding="1" cellspacing="2" width="600">
-	<tr><td width="100%">';
+echo'<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
+	<tbody>
+	<tr><td class="dark" align="left">';
 
-echo '
-	<ul>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=mplayers">Merge Players</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=mservers">Merge Servers</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=plm">Merge IPs with more than 1 Player</a></li>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=mplayers">Merge Players</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=mservers">Merge Servers</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=plm">Merge IPs with more than 1 Player</a></p>';
 		echo '<br>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=dmatch">Delete Match</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=dpmatch">Delete Player From Match</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=dplayer">Delete Player</a></li>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=dmatch">Delete Match</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=dpmatch">Delete Player From Match</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=dplayer">Delete Player</a></p>';
 		echo '<br>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=pban&amp;saction=ban">Ban Player</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=pban&amp;saction=unban">Unban Player</a></li>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=pban&amp;saction=ban">Ban Player</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=pban&amp;saction=unban">Unban Player</a></p>';
 		echo '<br>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=pinfo">Extended Player Info</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=ipsearch">Search IP</a></li>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=pinfo">Extended Player Info</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=ipsearch">Search IP</a></p>';
 		if ($import_utdc_download_enable) {
-			echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=utdclog">View UTDC logs</a></li>';
+			echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=utdclog">View UTDC logs</a></p>';
 		}
 		if ($import_ac_download_enable) {
-			echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=aclog">View AnthChecker logs</a></li>';
+			echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=aclog">View AnthChecker logs</a></p>';
 		}
 		if ($import_ace_download_enable) {
-			echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=acelog">View ACE logs</a></li>';
+			echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=acelog">View ACE logs</a></p>';
 		}
 		echo '<br>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=editweapons">Edit Weapons</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=editgames">Add/Edit Game Names</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=editgamestype">Add/Edit Game Types</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=recalcranking">Recalculate Rankings</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=recalcflags">Recalculate Countryflags</a></li>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=editweapons">Edit Weapons</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=editgames">Add/Edit Game Names</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=editgamestype">Add/Edit Game Types</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=recalcranking">Recalculate Rankings</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=recalcflags">Recalculate Countryflags</a></p>';
 		echo '<br>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=check">Check server settings</a></li>';
-		echo '<li><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=emptydb">Empty the database</a></li>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=check">Check server settings</a></p>';
+		echo '<p><a href="admin.php?key='. urlencode($adminkey) .'&amp;action=emptydb">Empty the database</a></p>';
 echo '
 </ul>
 ';
 
 
 
-echo'</td></tr></table>';
+echo'</td></tr></tbody></table>';
 ?>

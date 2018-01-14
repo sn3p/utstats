@@ -34,16 +34,16 @@ require_once(dirname(__FILE__) .'/countries.php');
 // Addslashes if magic_quotes are off
 function my_addslashes($data) {
 	if (!get_magic_quotes_gpc()) {
-	   $data = addslashes($data);
+	  $data = addslashes($data);
 	}
 	return $data;
 }
 
 function my_stripslashes($data) {
 	if (!get_magic_quotes_gpc()) {
-	   $data = $data;
+	  $data = $data;
 	} else {
-	   $data = stripslashes($data);
+	  $data = stripslashes($data);
 	}
 	return $data;
 }
@@ -84,14 +84,14 @@ function my_fopen($filename, $mode, &$compression) {
 		if (substr($filename, -4) == '.bz2') {
 			if (check_extension('bz2')) {
 			 	$compression = 'bz2';
-			 } else {
+			} else {
 			 	return(false);
 			}
 		}
 		if (substr($filename, -3) == '.gz') {
 			if (check_extension('zlib')) {
 			 	$compression = 'zlib';
-			 } else {
+			} else {
 			 	return(false);
 			}
 		}
@@ -162,14 +162,12 @@ function get_dp($number) {
 
 function sec2min($number) {
 	$dp = $number/60;
-
 	$dp = number_format($dp, 2, '.', '');
 	return ($dp);
 }
 
 function sec2hour($number) {
 	$dp = $number/3600;
-
 	$dp = number_format($dp, 2, '.', '');
 	return ($dp);
 }
@@ -250,13 +248,12 @@ function btcaptime($time) {
 function GetItemInfo ($itemname, $itemchunks) {
   $retval = "N/A";
   for ($i = 0; $i < count($itemchunks); $i++) {
-     //Found this item
-     if (strcasecmp($itemchunks[$i], $itemname) == 0) {
-        $retval = $itemchunks[$i+1];
-     }
+    //Found this item
+    if (strcasecmp($itemchunks[$i], $itemname) == 0) {
+      $retval = $itemchunks[$i+1];
+    }
   }
-
-  return $retval;
+  return  $retval;
 }
 
 function GetMinutes($seconds) {
@@ -271,12 +268,12 @@ function GetMinutes($seconds) {
 
 function FlagImage($country, $mini = true) {
 	global $a_countries;
-	$width = ($mini) ? 15 : 18;
-	$height = ($mini) ? 10 : 12;
+	$width = ($mini) ? 20 : 20;
+	$height = ($mini) ? 14 : 14;
 	if (empty($country)) return('');
-	if (!file_exists("images/flags/$country.png")) return(''); //18*12
+	if (!file_exists("assets/images/flags/$country.png")) return(''); //18*12
 	$countryname = (isset($a_countries[$country])) ? $a_countries[$country] : '';
-	return('<img src="images/flags/'. $country .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="'. $country .'" title="'. $countryname .'">');
+	return('<img src="assets/images/flags/'. $country .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="'. $country .'" title="'. $countryname .'">');
 }
 
 function RankMovement($diff) {
@@ -294,53 +291,49 @@ function RankMovement($diff) {
 		$chtext = "lost ". get_dp($diff * -1) ." ranking points";
 	}
 	$moveimg = '';
-	if (file_exists("images/ranks/$chimg.png")) {
-		$infos = getimagesize("images/ranks/$chimg.png");
+	if (file_exists("assets/images/ranks/$chimg.png")) {
+		$infos = getimagesize("assets/images/ranks/$chimg.png");
 		$width = $infos[0];
 		$height = $infos[1];
-		$moveimg = '<img src="images/ranks/'. $chimg .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="" title="'. $chtext .'">';
+		$moveimg = '<img src="assets/images/ranks/'. $chimg .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="" title="'. $chtext .'">';
 	}
 	return($moveimg);
 }
 
 function ordinal($number) {
-    // when fed a number, adds the English ordinal suffix. Works for any
-    // number, even negatives
-
-    if ($number % 100 > 10 && $number %100 < 14):
+  // when fed a number, adds the English ordinal suffix. Works for any number, even negatives
+  if ($number % 100 > 10 && $number %100 < 14) {
+    $suffix = "th";
+	} else {
+    switch($number % 10) {
+      case 0:
         $suffix = "th";
-    else:
-        switch($number % 10) {
+        break;
 
-            case 0:
-                $suffix = "th";
-                break;
+      case 1:
+        $suffix = "st";
+        break;
 
-            case 1:
-                $suffix = "st";
-                break;
+      case 2:
+        $suffix = "nd";
+        break;
 
-            case 2:
-                $suffix = "nd";
-                break;
+      case 3:
+        $suffix = "rd";
+        break;
 
-            case 3:
-                $suffix = "rd";
-                break;
+      default:
+        $suffix = "th";
+        break;
+    }
+  }
 
-            default:
-                $suffix = "th";
-                break;
-        }
-
-    endif;
-
-    return $suffix;
+  return $suffix;
 }
 
 function RankImageOrText($pid, $name, $rank, $gid, $gamename, $mini = true, $format = NULL, $rankchange = NULL) {
-
 	$points = 0;
+
 	if (empty($rank)) {
 		$r_rank = small_query("SELECT rank FROM uts_rank WHERE pid = '$pid' AND gid= '$gid';");
 		if (!$r_rank) return('');
@@ -349,17 +342,15 @@ function RankImageOrText($pid, $name, $rank, $gid, $gamename, $mini = true, $for
 		$rank = $r_no['no'];
 	}
 
+	$img = '';
 	$ranktext = $rank.ordinal($rank);
-	if (file_exists("images/ranks/$rank.png")) {
-		$width = ($mini) ? 14 : 16;
-		$height = ($mini) ? 10 : 13;
-		$img = '<img src="images/ranks/'. $rank .'.png" width="'.$width.'" height="'.$height.'" style="border:0;" alt="'. $rank .'" title="'. $ranktext .' in '. $gamename .'">';
-	} else {
-		$img = '';
+	if (file_exists("assets/images/ranks/$rank.png")) {
+		$img = '<img class="rank tooltip" src="assets/images/ranks/'. $rank .'.png" alt="'. $rank .'" title="'. $ranktext .' in '. $gamename .'">';
 	}
+
 	$moveimg = '';
-	if ($rankchange !== NULL) {
-		$moveimg =  ' '. RankMovement($rankchange);
+	if ($rankchange !== null) {
+		$moveimg = ' '. RankMovement($rankchange);
 	}
 
 	if (empty($format)) {
@@ -369,6 +360,7 @@ function RankImageOrText($pid, $name, $rank, $gid, $gamename, $mini = true, $for
 			return('<span class="rangtext">('.$ranktext.$moveimg.')</span>');
 		}
 	}
+
 	$imageortext = ($img) ? $img : $ranktext;
 	$search  = array('%RT%', 		'%RN%',	'%RP%',	'%RI%',	'%GN%',		'%PN%',	'%IT%');
 	$replace = array($ranktext,	$rank,	$points,	$img,		$gamename,	$name,	$imageortext);
@@ -418,8 +410,10 @@ function debug_output($desc, $data) {
 	for ($i = 0; $i < $len; $i++) {
 		echo substr($data, $i, 1) .'  ';
 	}
+
 	echo "\n";
 	echo str_repeat(' ', (strlen($desc) + 2));
+
 	for ($i = 0; $i < $len; $i++) {
 		echo ord(substr($data, $i, 1)) .' ';
 	}
@@ -432,7 +426,6 @@ function check_extension($name) {
 	$prefix = (PHP_SHLIB_SUFFIX == 'dll') ? 'php_' : '';
 	return(@dl($prefix . $name . PHP_SHLIB_SUFFIX));
 }
-
 
 function compress_file($method, $in, $out, $stripx00) {
 	if ((!file_exists($out) and !is_writeable(dirname($out))) or (file_exists($out) and !is_writable($out))) return(false);
@@ -469,16 +462,18 @@ function compress_file($method, $in, $out, $stripx00) {
 	}
 
 	@fclose($fp_in);
+
 	switch($method) {
 		case 'bz2':		@bzclose($fp_out); break;
 		case 'zlib': 	@gzclose($fp_out); break;
-		case 'none':	@fclose($fp_out); break;
+		case 'none':	@fclose($fp_out);  break;
 	}
+
 	return(true);
 }
 
 function backup_logfile($method, $filename, $backupfilename, $stripx00) {
-	switch($method) {
+	switch ($method) {
 		case 'compress':
 			if (!check_extension('bz2') or !compress_file('bz2', $filename, $backupfilename, $stripx00)) {
 				return(backup_logfile('gzip', $filename, $backupfilename, $stripx00));
@@ -528,11 +523,10 @@ function purge_backups($dir, $maxage) {
 			unlink($cna);
 			$deleted++;
 		}
-
 	}
 	closedir($dh);
 
-	return($deleted);
+	return $deleted;
 }
 
 function file_size_info($filesize) {
@@ -551,12 +545,12 @@ function GetCurrentWatchlist() {
 	foreach($watchlist as $key => $value) {
 		$watchlist[$key] = addslashes($value);
 	}
-	return($watchlist);
+	return $watchlist;
 }
 
 function PlayerOnWatchlist($pid) {
 	$watchlist = GetCurrentWatchlist();
-	return(in_array($pid, $watchlist));
+	return in_array($pid, $watchlist);
 }
 
 function ToggleWatchStatus($pid) {
@@ -570,21 +564,48 @@ function ToggleWatchStatus($pid) {
 		$watchlist[] = $pid;
 		$status = 1;
 	}
-	setcookie('uts_watchlist', implode(',',$watchlist), time()+60*60*24*30*365*5);
-	return($status);
+
+	setcookie('uts_watchlist', implode(',', $watchlist), time() + 60*60*24*30*365*5);
+	return $status;
 }
 
 function DeBugMessage($message) {
 	global $debug, $html;
-	if(!$debug) {
+
+	if (!$debug) {
 		return;
 	}
 
-	if ($html) echo '<table class="box" border="0"><tr><td class="smheading" width="550">';
+	if ($html) echo '<table class="zebra box" border="0"><tr><th class="smheading" width="550">';
 	echo "Debugging Output:\n";
-	if ($html) echo '</td></tr><tr><td width="550" align="left"><pre>';
+	if ($html) echo '</th></tr><tr><td width="550" align="left"><pre>';
 	echo $message . "\n";
 	if ($html) echo '</pre></td></tr></table><br><br>';
+}
+
+function getMapImageName($mapname) {
+	for ($i=0; $i<3; $i++) {
+		// try substracting modname from map
+		if ($i == 1) {
+			if(($x_pos = strpos($mapname, '-')) !== false) {
+				$mapname = substr($mapname, $x_pos + 1);
+			}
+		}
+
+		// try also substracting league names from map
+		if ($i==2) {
+			$mapVersions = array('CB1','CB2','CB3','CB4','CB5','CB6','CB7','CB','LE13','LE14','LE15','LE16','LE17','LE18','LE19','LE','-DE13','-DE14','-DE15','-DE16','-DE17','-DE18','-DE19','v2','v3','v4','v5','-MLIG','-GU','-SDOM','-][ugn','-ugn','ALT2lightedit','-LE102','-','LE100','LE101','LE102','LE103','LE104','LE105','-v17','test3C','Fixed','XL','DM','MLTDM');
+			$mapname = str_replace($mapVersions, "", $mapname);
+		}
+
+		$mappic = strtolower("assets/images/maps/" . $mapname . "_large.jpg");
+
+		if(file_exists(dirname(dirname(__FILE__)) . "/" . $mappic)) {
+			return $mappic;
+		}
+	}
+
+	return "assets/images/maps/blank_large.png";
 }
 
 ?>

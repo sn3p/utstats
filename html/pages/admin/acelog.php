@@ -12,7 +12,7 @@ function InvertSort($curr_field, $order, $sort) {
 
 function SortPic($curr_field, $order, $sort) {
 	if ($curr_field != $order) return;
-	$fname = 'images/s_'. strtolower($sort) .'.png';
+	$fname = 'assets/images/s_'. strtolower($sort) .'.png';
 	if (!file_exists($fname)) return;
 	return('&nbsp;<img src="'. $fname .'" border="0" width="11" height="9" alt="" title="('.strtolower($sort).'ending)">');
 }
@@ -90,7 +90,7 @@ if (empty($filename)) {
 	}
 	</script>
 	<form name = "filter">
-	<table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
+	<table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
 	<tr>
 		<td class="heading" align="center" width="100%" colspan="5">Available ACE Logs:</td>
 	</tr>
@@ -147,7 +147,7 @@ if (empty($filename)) {
 
 			$fp = my_fopen('logs/ace/'.$filename, 'rb', $compression = NULL);
 			if (!$fp) die("Error opening file");
-			
+
 			while (($line = my_fgets($fp, 5000, $compression)) !== FALSE) {
 				$info = preg_split('/\s/', $line, 3);
 				$info[2] = preg_replace('/[\r\n]+/', '', $info[2]);
@@ -242,7 +242,7 @@ if (empty($filename)) {
 			$d_size = file_size_info(filesize('logs/ace/'. $log));
 			echo $d_size['size'] .' '. $d_size['type'];
 			echo '</td><td class="'.$class.'" align="center">';
-			echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($log).'&amp;del=1"><img src="images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
+			echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($log).'&amp;del=1"><img src="assets/images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
 			echo '</td></tr>';
 		}
 	}
@@ -252,11 +252,11 @@ if (empty($filename)) {
 
 if (!empty($filename)) {
 	if (!file_exists('logs/ace/'. $filename) or !is_file('logs/ace/'. $filename)) die('File not found (2)');
-	echo'<br><table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
+	echo'<br><table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
 	<tr>
 		<td class="smheading" align="center" width="95%" colspan="4">'.$filename.'</td>
 		<td class="smheading" align="center" width="5%" align="right">';
-		echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($filename).'&amp;del=1"><img src="images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
+		echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($filename).'&amp;del=1"><img src="assets/images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
 		echo '</td>
 	</tr>';
 	if (substr($filename, strlen($filename) - strlen($import_ace_screenshot_extension)) == $import_ace_screenshot_extension
@@ -269,10 +269,10 @@ if (!empty($filename)) {
 	else {
 		$fp = my_fopen('logs/ace/'.$filename, 'rb', $compression = NULL);
 		if (!$fp) die("Error opening file");
-		
+
 		$i = 0;
 		echo '<tr><td class="grey" colspan="5"><span style="font-family: monospace;">';
-		
+
 		while (($line = my_fgets($fp, 5000, $compression)) !== FALSE) {
 			/*
 			$i++;
@@ -299,7 +299,7 @@ if (!empty($filename)) {
 			echo 	'<tr>
 				  <td class="smheading" align="center" width="95%" colspan="4">'.$Screenshot.'</td>
 				  <td class="smheading" align="center" width="5%" align="right">';
-			echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.preg_replace('/\+/', '%20', urlencode($Screenshot)).'&amp;del=1"><img src="images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
+			echo '<a href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.preg_replace('/\+/', '%20', urlencode($Screenshot)).'&amp;del=1"><img src="assets/images/del.png" border="0" width="16" height="16" title="Delete" alt="Delete" /></a>';
 			echo '</td>
 			  </tr>';
 

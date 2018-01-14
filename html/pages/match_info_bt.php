@@ -8,7 +8,7 @@ while ($r_caprecords = mysql_fetch_array($q_caprecords)) {
 } */
 
 echo'
-<table class = "box" border="0" cellpadding="0" cellspacing="2" width="720">
+<table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
   <tbody><tr>
     <td class="heading" colspan="12" align="center">Game Summary</td>
   </tr>

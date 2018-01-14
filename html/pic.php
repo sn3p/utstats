@@ -5,10 +5,9 @@ require ("includes/functions.php");
 
 if (!isset($pic_enable) or !$pic_enable) pic_error('err_disabled');
 
-
 function pic_error($name) {
 	header("Content-type: image/png");
-	readfile("images/templates/${name}.png");
+	readfile("assets/images/templates/${name}.png");
 	exit;
 }
 
@@ -22,7 +21,7 @@ function place_text(&$im, $size, $angle, $x, $to_x, $y, $to_y, $color, $font, $a
 			$p_x = ($to_x - $x) / 2 - ceil($twidth/2); break;
 		case 'right':
 			$p_x = $to_x - $twidth; break;
-		default: 
+		default:
 			$p_x = $x;
 	}
 	imagettftext($im, $size, $angle, $p_x, $y, $cp, $font, $text);
@@ -36,7 +35,7 @@ function image_create($filename, &$load) {
 		case 1:
 			$im = @imagecreatefromgif($filename);
 			break;
-		case 2: 
+		case 2:
 			$im = @imagecreatefromjpeg($filename);
 			break;
 		case 3:
@@ -47,37 +46,36 @@ function image_create($filename, &$load) {
 	}
 	if (!$im) die("Unable to load image template");
 	if (!$load['recreate']) return($im);
-	
+
 	$in = imagecreatetruecolor(imagesx($im), imagesy($im));
 	if (!empty($load['bgcolor'])) {
 		$bg = allocate_color($in, $load['bgcolor']);
 		imagefill($in, 0, 0, $bg);
 	}
 	if ($load['bgtransparent']) imagecolortransparent($in, $bg);
-	imagecopy($in, $im, 0, 0, 0, 0, imagesx($im), imagesy($im)) or die("Unable to copy image");	
+	imagecopy($in, $im, 0, 0, 0, 0, imagesx($im), imagesy($im)) or die("Unable to copy image");
 	imagedestroy($im);
-	
+
 	return($in);
 }
 
-
 function allocate_color(&$im, $colstring) {
 	static $cache = array();
-	
+
 	if (isset($cache[$colstring])) return($cache[$colstring]);
-	
+
 	$col = explode(':', substr(chunk_split($colstring, 2, ':'), 0, -1));
 	$r = hexdec($col[0]);
 	$g = hexdec($col[1]);
 	$b = hexdec($col[2]);
 	if (isset($col[3])) {
 		$alpha = hexdec($col[3]);
-		$cp = imagecolorallocatealpha($im, $r, $g, $b, $alpha);	
+		$cp = imagecolorallocatealpha($im, $r, $g, $b, $alpha);
 	} else {
-		$cp = imagecolorallocate($im, $r, $g, $b);	
+		$cp = imagecolorallocate($im, $r, $g, $b);
 	}
 	$cache[$colstring] = $cp;
-	return($cp);	
+	return($cp);
 }
 
 function output_image(&$im, &$options) {
@@ -86,23 +84,22 @@ function output_image(&$im, &$options) {
 			header("Content-type: image/jpeg");
 			imagejpeg($im);
 			break;
-		
+
 		case 'gif':
 			header("Content-type: image/gif");
 			imagegif($im);
 			break;
-			
+
 		default:
 			header("Content-type: image/png");
 			imagepng($im);
 	}
 }
 
-
 function replace_vars($text, &$searchrepl) {
 	static $search = NULL;
 	static $replace = NULL;
-	
+
 	if ($search === NULL) {
 		$search = array();
 		$replace = array();
@@ -121,23 +118,21 @@ function replace_vars($text, &$searchrepl) {
 	return($text);
 }
 
-
-
 function get_values($date_from, $date_to, $pid, $gid, $prefix, &$searchrepl) {
 	$sql_time = (empty($date_from)) ? '' : "AND	m.time >= '".date("YmdHis", $week_start)."' and m.time <= '".date("YmdHis", $week_end);
 	$sql_gid = (empty($gid)) ? '' : "AND m.gid = '$gid'";
 	$sql_order = ($prefix != 'LM') ? '' : 'ORDER BY m.time DESC LIMIT 0,1';
 	$sql_groupby = ($prefix != 'LM') ? 'p.pid' : '1';
 	$sql = "	SELECT	m.time AS gamedate,
-							COUNT(*) AS games, 
-							SUM(p.gamescore) as gamescore, 
-							SUM(p.frags) AS frags, 
+							COUNT(*) AS games,
+							SUM(p.gamescore) as gamescore,
+							SUM(p.frags) AS frags,
 							SUM(p.kills) AS kills,
-							SUM(p.deaths) AS deaths, 
-							SUM(p.suicides) as suicides, 
-							AVG(p.eff) AS eff, 
-							AVG(p.accuracy) AS acc, 
-							AVG(p.ttl) AS ttl, 
+							SUM(p.deaths) AS deaths,
+							SUM(p.suicides) as suicides,
+							AVG(p.eff) AS eff,
+							AVG(p.accuracy) AS acc,
+							AVG(p.ttl) AS ttl,
 							SUM(p.gametime) as gametime,
 							SUM(p.flag_capture) as flag_capture,
 							SUM(p.flag_cover) as flag_cover,
@@ -173,7 +168,7 @@ function get_values($date_from, $date_to, $pid, $gid, $prefix, &$searchrepl) {
 					AND   p.pid = '$pid'
 				GROUP BY $sql_groupby
 							$sql_order";
-	$result = small_query($sql);	
+	$result = small_query($sql);
 	if (!$result) return;
 	foreach($result as $name => $value) {
 		$name = strtoupper($name);
@@ -189,14 +184,6 @@ function get_values($date_from, $date_to, $pid, $gid, $prefix, &$searchrepl) {
 	}
 }
 
-
-
-
-?>
-<?php
-
-
-
 if (!function_exists("gd_info")) {
 	if (!check_extension('gd2')) pic_error('err_no_gd');
 }
@@ -204,11 +191,9 @@ if (!function_exists("gd_info")) {
 $gd_info = gd_info();
 if (!$gd_info['FreeType Support']) pic_error('err_no_ft');
 
-
 $num = isset($_GET['num']) ? $_GET['num'] : 0;
 $pid = isset($_GET['pid']) ? my_addslashes($_GET['pid']) : 0;
 $gid = isset($_GET['gid']) ? my_addslashes($_GET['gid']) : 0;
-
 
 if ($num == 0 and $pid == 0 and $gid == 0 and !empty($_SERVER['PATH_INFO'])) {
 	$pi = explode('/', $_SERVER['PATH_INFO']);
@@ -219,9 +204,6 @@ if (!isset($pic[$num]) or !$pic[$num]['enabled']) pic_error('err_na');
 $load = &$pic[$num]['load'];
 $std = &$pic[$num]['default'];
 $output = &$pic[$num]['output'];
-
-
-
 
 if (empty($pid)) die("No pid supplied");
 $r_pinfo = small_query("SELECT name, country, banned FROM uts_pinfo WHERE id = '$pid'");
@@ -238,7 +220,6 @@ if (!empty($gid)) {
 	$gamename = $r_gameinfo['name'];
 }
 
-
 $searchrepl = array(	'%GID%'				=>	$gid,
 							'%PID%'				=> $pid,
 							'%GAMENAME%'		=> $gamename,
@@ -248,7 +229,6 @@ $searchrepl = array(	'%GID%'				=>	$gid,
 //$search  = array('%RT%', 		'%RN%',	'%RP%',	'%RI%',	'%GN%',		'%PN%',	'%IT%');
 //$replace = array($ranktext,	$rank,	$points,	$img,		$gamename,	$name,	$imageortext);
 
-
 // Add all texts that are used in this pic to one big string
 // We'll use this string to determine which values the user wants
 // and hence which we'll have to provide
@@ -257,7 +237,6 @@ foreach ($pic[$num]['process'] as $process) {
 	if ($process['type'] != 'text') continue;
 	$textstrings .= $process['value'];
 }
-
 
 $ts = time();
 if (strpos($textstrings, '%WEEK_') !== false) {
@@ -310,8 +289,7 @@ if (strpos($textstrings, '%LM_') !== false) {
 
 //echo "<pre>"; var_dump($searchrepl); echo "</pre>"; exit;
 
-
-$im = image_create('images/templates/'. $load['template'], $load);
+$im = image_create('assets/images/templates/'. $load['template'], $load);
 
 $img_width = imagesx($im);
 $img_height = imagesy($im);
@@ -332,15 +310,14 @@ foreach ($pic[$num]['process'] as $process) {
 			if (empty($process['angle'])) $process['angle'] = $std['angle'];
 			if (empty($process['x_to'])) $process['x_to'] = $img_width;
 			if (empty($process['y_to'])) $process['y_to'] = $process['y_from'];
-			
+
 			$text = replace_vars($process['value'], $searchrepl);
-			place_text($im, $process['fontsize'], $process['angle'], $process['x_from'], $process['x_to'], $process['y_from'], $process['y_to'], $process['fontcolor'], 'images/fonts/'.$process['font'], $process['align'], $text);
+			place_text($im, $process['fontsize'], $process['angle'], $process['x_from'], $process['x_to'], $process['y_from'], $process['y_to'], $process['fontcolor'], 'assets/images/fonts/'.$process['font'], $process['align'], $text);
 			break;
-			
+
 		default:
 			die("Don't know how to process: ". $process['type']);
 	}
-
 }
 
 output_image($im, $output);

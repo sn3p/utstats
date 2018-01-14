@@ -19,7 +19,7 @@ echo'<form NAME="report" METHOD="get" ACTION="./?p=report">
 echo'<table>
 <tr>
 	<td width="480" align="center" class="heading" colspan="2">
-	<b>Team BreakDown of Match</b></td>
+	Team BreakDown of Match</td>
 </tr>
 <tr>
 <td width="240" align="center" class="smheading">Red Team</td>
@@ -64,7 +64,7 @@ IF ($stage == "1") {
 
 	<tr>
 		<td width="480" align="center" class="heading" colspan="2">
-		<b>Who Played As Red Team?</b></td>
+		Who Played As Red Team?</td>
 	</tr>
 	<tr>
 		<td width="100%" class="grey" colspan="2">
@@ -108,7 +108,7 @@ IF ($stage == "2") {
 			<table class="searchformb">
 			<tr>
 				<td width="480" colspan="2" align="center" class="heading">
-				<b>Clan and Player Info for Clanbase War ID '.$wid.'</b></td>
+				Clan and Player Info for Clanbase War ID '.$wid.'</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center" class="smheading">

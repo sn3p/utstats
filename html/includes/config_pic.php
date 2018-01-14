@@ -1,7 +1,6 @@
 <?php
 // Picture configuration file
 
-
 // General note about colors:
 // When specifying a color, you specify it's RGB values in hex (like you do in HTML).
 // Example: 00FF00 = green (0 red, 255 green, 0 blue)
@@ -11,9 +10,6 @@
 // It determines the transparency of your color.
 // Acceptable values are 00 (completely opaque) to 7F (completely transparent)
 // FFFF003F will become half transparent yellow
-
-
-
 
 $i=0;
 // Enable users to use this picutre or (temporary) disable it?
@@ -25,7 +21,7 @@ $pic[$i]['enabled'] = true;
 $pic[$i]['gidrequired'] = true;
 
 // The template picture where we're going to write stuff at
-// We're searching for it in images/templates.
+// We're searching for it in assets/images/templates.
 $pic[$i]['load']['template'] = 'basic.png';
 // Create a copy of the picture and work with that copy?
 // That's needed f.e. if you're using a picture with a palette of colors and want
@@ -47,11 +43,9 @@ $pic[$i]['output']['type'] = 'png';
 // override the standard ;)
 $pic[$i]['default']['align'] = 'left';
 $pic[$i]['default']['angle'] = 0;
-$pic[$i]['default']['font'] = 'arbocrest.ttf';
+$pic[$i]['default']['font'] = 'arbocrest.ttf'; // Loaded from assets/fonts.
 $pic[$i]['default']['fontcolor'] = 'FFFFFF';
 $pic[$i]['default']['fontsize'] = 12;
-
-
 
 // Now we've loaded the picture and know how to output it.
 // Let's place some fancy stuff on it:
@@ -67,7 +61,7 @@ $pic[$i]['default']['fontsize'] = 12;
 //             inline variables are available (see below)
 // align     - The alignment of the text (left, center, right)
 //             (optional, default: left)
-// fontname  - The name of the TTF file (must be in images/fonts)
+// fontname  - The name of the TTF file (must be in assets/fonts)
 //             (optional if you specified a default value)
 // fontsize  - The font size. Depending on your version of GD, this should be specified
 //             as the pixel size (GD1) or point size (GD2).
@@ -157,7 +151,6 @@ $pic[$i]['default']['fontsize'] = 12;
 //           '%PLAYERNAME%'s overall accuracy this month was %MONTH_ACC% % while it was %LMONTH_ACC% last month!'
 //       ==> 'Player's overall accuracy this month was 42.22 % while it was 27.52 % last month!'
 
-
 $j=0;
 $pic[$i]['process'][$j]['type'] = 'text';
 $pic[$i]['process'][$j]['value'] = '%PLAYERNAME%';
@@ -197,13 +190,6 @@ $pic[$i]['process'][$j]['x_from'] = 75;
 $pic[$i]['process'][$j]['y_from'] = 91;
 $j++;
 
-
-
-
-
-
-
-
 // The next picture
 
 $i++;
@@ -233,7 +219,5 @@ $pic[$i]['process'][$j]['value'] = 'in %GAMENAME% games that is...';
 $pic[$i]['process'][$j]['x_from'] = 9;
 $pic[$i]['process'][$j]['y_from'] = 43;
 $j++;
-
-
 
 ?>

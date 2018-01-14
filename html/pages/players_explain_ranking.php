@@ -14,10 +14,10 @@ function row($name = NULL, $amount = 0, $multiplier = 0, $extra_multiplier = tru
 	$d_points = get_dp($points);
 	if ($points % 1 == 0) $d_points = ceil($points); 
 	echo '<tr>';
-	echo '<td class="dark">'. htmlentities($name) .'</td>';
-	echo '<td class="'.$class.'" align="center">'. $amount .'</td>';
-	echo '<td class="'.$class.'" align="center">'. $multiplier .'</td>';
-	echo '<td class="'.$class.'" align="right">'. $d_points .'</td>';
+	echo '<td>'. htmlentities($name) .'</td>';
+	echo '<td align="center">'. $amount .'</td>';
+	echo '<td align="center">'. $multiplier .'</td>';
+	echo '<td align="right">'. $d_points .'</td>';
 	echo '</tr>';
 	return($points);
 }
@@ -69,22 +69,16 @@ $r_cnt = small_query("SELECT
 
 
 
-echo'
-<table class = "box" border="0" cellpadding="1" cellspacing="2" width="720">
-  <tbody><tr>
-    <td class="heading" align="center"><a href="?p=pinfo&amp;pid='.$pid.'">'.FlagImage($r_info['country'], false).' '.htmlentities($playername).'</a>\'s '. htmlentities($r_game['name']) .' ranking explained </td>
-  </tr>
-</tbody></table>';
-echo '<br /><br />';
-
-
-
 
 
 echo '
-<table class="box" border="0" cellpadding="1" cellspacing="1">
+<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
 <tbody>
 	<tr>
+	    <th colspan=4 class="heading" align="center"><a href="?p=pinfo&amp;pid='.$pid.'">'.FlagImage($r_info['country'], false).' '.htmlentities($playername).'</a>\'s '. htmlentities($r_game['name']) .' ranking explained </th>
+		</tr>
+		<tr>
+	
 		<td class="smheading" width="250"></td>
 		<td class="smheading" width="80" align="center">Amount</td>
 		<td class="smheading" width="80" align="center">Multiplier</td>
@@ -111,7 +105,7 @@ else {
 	$t_points += row('Deaths', $r_cnt['deaths'], -0.25);
 	$t_points += row('Suicides', $r_cnt['suicides'], -0.25 );
 	$t_points += row('Teamkills', $r_cnt['teamkills'], -2);
-	row();
+echo '<tr><td colspan=4 class="weapspacer"></td></tr>';
 	$t_points += row('Flag Takes', $r_cnt['flag_taken'], 1);
 	$t_points += row('Flag Pickups', $r_cnt['flag_pickedup'], 1);
 	$t_points += row('Flag Returns', $r_cnt['flag_return'], 1);
@@ -120,7 +114,7 @@ else {
 	$t_points += row('Flag Seals', $r_cnt['flag_seal'], 2);
 	$t_points += row('Flag Assists', $r_cnt['flag_assist'], 5);
 	$t_points += row('Flag Kills', $r_cnt['flag_kill'], 2);
-	row();
+echo '<tr><td colspan=4 class="weapspacer"></td></tr>';
 	$t_points += row('Controlpoint Captures', $r_cnt['dom_cp'], 10);
 	if (strpos($real_gamename, 'Assault') !== false) {
 		$t_points += row('Assault Objectives', $r_cnt['ass_obj'], 10);
@@ -132,33 +126,33 @@ else {
 	} else {
 		$t_points += row('Team Releases', 0, 1.5);
 	} 
-	row();
+echo '<tr><td colspan=4 class="weapspacer"></td></tr>';
 	$t_points += row('Double Kills', $r_cnt['spree_double'], 1);
 	$t_points += row('Multi Kills', $r_cnt['spree_multi'], 1);
 	$t_points += row('Ultra Kills', $r_cnt['spree_ultra'], 1);
 	$t_points += row('Monster Kills', $r_cnt['spree_monster'], 2);
-	row();
+echo '<tr><td colspan=4 class="weapspacer"></td></tr>';
 	$t_points += row('Killing Sprees', $r_cnt['spree_kill'], 1);
 	$t_points += row('Rampages', $r_cnt['spree_rampage'], 1);
 	$t_points += row('Dominatings', $r_cnt['spree_dom'], 1.5);
 	$t_points += row('Unstoppables', $r_cnt['spree_uns'], 2);
 	$t_points += row('Godlikes', $r_cnt['spree_god'], 3);
-}
-
-row();	
-row();	
-echo '<tr>	<td class="dark">Total</td>
-				<td class="grey" align="center"></td>
-				<td class="grey" align="center"></td>
-				<td class="grey" align="right">'. ceil($t_points) .'</td>
+};
+	
+echo '<tr><td colspan=4 class="weapspacer"></td></tr>';
+	
+echo '<tr>	<td class="smheading">Total</td>
+				<td  class="smheading" align="center"></td>
+				<td  class="smheading" align="center"></td>
+				<td  class="smheading" align="right">'. ceil($t_points) .'</td>
 		</tr>';
 
 $gametime = ceil($r_cnt['gametime'] / 60);
 $t_points = $t_points / $gametime;
-echo '<tr>	<td class="dark">Divided by game minutes</td>
-				<td class="grey2" align="center">'.$gametime.'</td>
-				<td class="grey2" align="center"></td>
-				<td class="grey2" align="right">'. get_dp($t_points) .'</td>
+echo '<tr>	<td>Divided by game minutes</td>
+				<td  align="center">'.$gametime.'</td>
+				<td  align="center"></td>
+				<td  align="right">'. get_dp($t_points) .'</td>
 		</tr>';
 		
 IF ($gametime < 10) {
@@ -180,11 +174,11 @@ IF ($gametime >= 100 && $gametime < 200) {
 IF ($gametime >= 200 && $gametime < 300) {
 	$t_points += row('Penalty for playing < 300 minutes', get_dp($t_points), -0.15, false);
 }
-row();	
-echo '<tr>	<td class="darkgrey"><strong>Total</strong></td>
-				<td class="darkgrey" align="center"></td>
-				<td class="darkgrey" align="center"></td>
-				<td class="darkgrey" align="right"><strong>'. get_dp($t_points) .'</strong></td>
+echo '<tr><td colspan=4 class="weapspacer"></td></tr>';
+echo '<tr>	<td class="totals"><strong>Ranking points</strong></td>
+				<td class="totals" align="center"></td>
+				<td class="totals" align="center"></td>
+				<td class="totals" align="right"><strong>'. get_dp($t_points) .'</strong></td>
 		</tr>';
 echo '</tbody></table>';
 ?>

@@ -1,6 +1,6 @@
 <?php
 // Connect to database
-$GLOBALS["___mysqli_link"] = mysqli_connect($hostname,  $uname,  $upass, $dbname);
+$GLOBALS["___mysqli_link"] = mysqli_connect($hostname, $uname,  $upass, $dbname);
 
 // Error reporting
 // error_reporting(E_ALL & ~E_NOTICE);

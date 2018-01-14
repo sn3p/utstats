@@ -56,7 +56,7 @@ function generateTeamLabels() {
 /*
 Generate the chart with pickups
 */
-function renderDataPickups($uid,$team=true,$playerRedWins=true,$topFraggers) {
+function renderDataPickups($uid, $team=true, $playerRedWins=true, $topFraggers=null) {
 	global $matchid;
 	global $renderer_color;
 	global $renderer_folder;
@@ -67,14 +67,14 @@ function renderDataPickups($uid,$team=true,$playerRedWins=true,$topFraggers) {
 
 	$q_pickups = mysqli_query($GLOBALS["___mysqli_link"], "SELECT SUM(pu_belt), SUM(pu_keg), SUM(pu_pads), SUM(pu_armour), SUM(pu_amp) FROM uts_player as p WHERE matchid = ".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $matchid)." GROUP BY team") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-	while($r_pickups = mysqli_fetch_row($q_pickups)) {
+	while ($r_pickups = mysqli_fetch_row($q_pickups)) {
 		$preData[] = $r_pickups;
 	}
 
 	$pickupitems = array('belt','keg','pads','armour','amp');
 	$itemsPickedUp = array();
 
-	if($team || $playerRedWins) {
+	if ($team || $playerRedWins) {
 		$teamOneId = 0;
 		$teamTwoId = 1;
 	} else {
@@ -84,23 +84,23 @@ function renderDataPickups($uid,$team=true,$playerRedWins=true,$topFraggers) {
 
 	// Process data to convert these to percentages
 	// Normal numbers don't plot nicely (fe. pads getting much higher pickups due to lower spawn time
-	for($i=0;$i<count($pickupitems);$i++) {
-		if($preData[0][$i]>0) {
+	for ($i=0;$i<count($pickupitems);$i++) {
+		if ($preData[0][$i]>0) {
 			$percValue = round($preData[0][$i]/($preData[0][$i]+$preData[1][$i])*100,0);
 
 			$data[$teamOneId][] = $percValue;
 			$data[$teamTwoId][] = 100-$percValue;
 			$itemsPickedUp[] = $pickupitems[$i];
 
-		} else if($preData[1][$i]>0) {
+		} else if ($preData[1][$i]>0) {
 			$data[$teamOneId][] = 0;
 			$data[$teamTwoId][] = 100;
 			$itemsPickedUp[] = $pickupitems[$i];
 		}
 	}
 
-	if(count($itemsPickedUp)>2) {
-		if($team)
+	if (count($itemsPickedUp)>2) {
+		if ($team)
 			$labels = generateTeamLabels();
 		else
 			$labels = generateLabelsFraggers($topFraggers);

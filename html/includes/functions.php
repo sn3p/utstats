@@ -28,7 +28,7 @@ srand(microtime() * 1000);
 $charimg = $charimages[rand(0, count($charimages)-1)];
 
 // Two letter codes and their corresponding country names
-require_once(dirname(__FILE__) .'/countries.php');
+require_once(dirname(__FILE__) . '/countries.php');
 
 // Addslashes if magic_quotes are off
 function my_addslashes($data) {

@@ -72,7 +72,6 @@ if (!empty($filename)) {
 
 if (empty($filename)) {
 	echo '
-
 	<script language = "javascript">
 
 	function timefilter() {
@@ -89,13 +88,13 @@ if (empty($filename)) {
 		}
 	}
 	</script>
-	<form name = "filter">
-	<table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
+	<form name="filter">
+	<table class="box" border="0" cellpadding="0" cellspacing="0" width="720">
 	<tr>
 		<td class="heading" align="center" width="100%" colspan="5">Available ACE Logs:</td>
 	</tr>
 	<tr>
-		<td class="smheading" align="center" width="100%" colspan = "5">Filter:
+		<td class="smheading" align="center" width="100%" colspan="5">Filter:
 		<select onchange = "javascript:timefilter()" name = "show">
 			<option value = "all"'.($show == "all" ? ' selected=selected' : '').'>All</option>
 			<option value = "day"'.($show == "day" ? ' selected=selected' : '').'>Last day</option>
@@ -118,8 +117,11 @@ if (empty($filename)) {
 		if (!is_file('logs/ace/'. $filename)) continue;
 		if ($filename == '.htaccess' or $filename == 'index.htm') continue;
 
-		preg_match('/\d{4}\.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}/', $filename, &$date);
-		$adate = preg_split('/\./', $date[0]);
+		// ereg_match('/\d{4}\.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}/', $filename, &$date);
+		// $adate = preg_split('/\./', $date[0]);
+		preg_match('/\d{4}\.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}/', $filename, $date);
+		$adate = explode(".", $date[0]);
+
 		// filter on days
 		if ($show != "all") {
 			// calculate days
@@ -135,6 +137,7 @@ if (empty($filename)) {
 		$TimeStamp = "unknown";
 		$PlayerName = "unknown";
 		$KickReason = "unknown";
+
 		if (substr($filename, strlen($filename) - strlen($import_ace_screenshot_extension)) == $import_ace_screenshot_extension
 		and substr($filename, 0, strlen($import_ace_screenshot_start)) == $import_ace_screenshot_start) {
 			// Screenshot
@@ -144,8 +147,9 @@ if (empty($filename)) {
 		}
 		else {
 			// logfile
+			$compression = null;
+			$fp = my_fopen("logs/ace/" . $filename, "rb", $compression);
 
-			$fp = my_fopen('logs/ace/'.$filename, 'rb', $compression = NULL);
 			if (!$fp) die("Error opening file");
 
 			while (($line = my_fgets($fp, 5000, $compression)) !== FALSE) {
@@ -233,7 +237,7 @@ if (empty($filename)) {
 			$tmp = substr($log, strlen($log) - (23 + $extra), 19);
 			$tmp = str_replace('.', '', $tmp);
 			// $ts = mtimestamp($tmp);
-			echo '  <a class="'.$class.'" href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($log).'">'.$TimeStamp.'</a>';
+			echo '<a class="'.$class.'" href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($log).'">'.$TimeStamp.'</a>';
 			echo '</td><td class="'.$class.'">';
 			echo '<a class="'.$class.'" href="admin.php?key='.$adminkey.'&amp;action='.$action.'&amp;filename='.urlencode($log).'">'.$PlayerName.'</a>';
 			echo '</td><td class="'.$class.'">';
@@ -252,7 +256,7 @@ if (empty($filename)) {
 
 if (!empty($filename)) {
 	if (!file_exists('logs/ace/'. $filename) or !is_file('logs/ace/'. $filename)) die('File not found (2)');
-	echo'<br><table class = "box" border="0" cellpadding="0" cellspacing="0" width="720">
+	echo'<br><table class="box" border="0" cellpadding="0" cellspacing="0" width="720">
 	<tr>
 		<td class="smheading" align="center" width="95%" colspan="4">'.$filename.'</td>
 		<td class="smheading" align="center" width="5%" align="right">';
@@ -304,7 +308,7 @@ if (!empty($filename)) {
 			  </tr>';
 
 			echo '<tr><td class="grey" colspan="5"><span style="font-family: monospace;">';
-			echo '<a href = "logs/ace/'.preg_replace('/\+/', '%20', urlencode($Screenshot)).'" target = "_blank"><img src = "logs/ace/'.preg_replace('/\+/', '%20', urlencode($Screenshot)).'" width = 100% border = 0></a>';
+			echo '<a href="logs/ace/'.preg_replace('/\+/', '%20', urlencode($Screenshot)).'" target="_blank"><img src="logs/ace/'.preg_replace('/\+/', '%20', urlencode($Screenshot)).'" width=100% border=0></a>';
 			echo '</span></td></tr>';
 		}
 	}

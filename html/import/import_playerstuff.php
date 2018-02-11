@@ -130,6 +130,10 @@
 	$r_ttl = get_dp($q_ttl[col4]);
 	$r_score = $q_score[col4];
 
+	if (!$playerteam) {
+		$playerteam = 0;
+	}
+
 	// Generate player record
 	$sql_playerid = "	INSERT
 							INTO		uts_player

@@ -32,6 +32,12 @@
 				<div id="contentChangeLog" style="display: none;">
 					<blockquote><p>
 					<dl>
+
+						<dt>4.4.1 (6/2/2018 by Monk)</dt>
+						<dd>
+						Added win percentage to career summary.<br>
+						<br></dd>
+
 						<dt><strong>4.4.0 (8/1/2018 by HULKSMASH and sn3p)</dt>
 						<dd>
 						Amazing new theme & sexy styling (by HULKSMASH).<br>
@@ -289,7 +295,6 @@
 					Multi language support<br>
 					Add sftp support<br>
 					Add siege support<br>
-					Wins/Losses to the Career summary<br>
 					Killgraph as in utstatsdb<br>
 					<br></dd></dl>
 				</blockquote>

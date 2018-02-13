@@ -84,7 +84,7 @@ echo '
 <table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
 <tbody>
 	<tr>
-    <th class="heading" colspan="12" align="center">Career Summary for '.htmlentities($playername).'  ';
+    <th class="heading" colspan="14" align="center">Career Summary for '.htmlentities($playername).'  ';
 
 if (PlayerOnWatchlist($pid)) {
   echo '<a href="?p=pinfo&amp;pid='.$pid.'&amp;togglewatch=1&amp;noheader=1"><img src="assets/images/unwatch.png" border="0" class="tooltip" title="You are watching this player. Click to remove from your watchlist."></a>';
@@ -106,14 +106,49 @@ echo '</th>
   <th class="smheading tooltip" align="center" width="55" title="Accuracy: Overall accuracy when using all weapons.  Most accurate in insta but also very accurate in normal weapons.">Acc.</th>
   <th class="smheading tooltip" align="center" width="50" title="Average Time to Live: The length of time a player is in a game in seconds divided by how many times he/she dies, thus giving an average time of how long he/she will live.">Avg TTL</th>
   <th class="smheading" align="center">Matches</th>
+  <th class="smheading" align="center">Wins</th>
+  <th class="smheading" align="center">Win Percentage</th>
   <th class="smheading" align="center">Hours</th>
 </tr>';
 
-$sql_plist = "SELECT g.name AS gamename, SUM(p.gamescore) AS gamescore, SUM(p.frags) AS frags, SUM(p.kills) AS kills, SUM(p.deaths) AS deaths,
-  SUM(p.suicides) AS suicides, SUM(p.teamkills) AS teamkills, SUM(kills+deaths+suicides+teamkills) AS sumeff, AVG(p.accuracy) AS accuracy, AVG(p.ttl) AS ttl,
-  COUNT(p.id) AS games, SUM(p.gametime) as gametime
-  FROM uts_player AS p, uts_games AS g WHERE p.gid = g.id AND p.pid = '$pid' GROUP BY p.gid";
-
+$sql_plist = "SELECT 
+    	g.name AS gamename, 
+    	SUM(p.gamescore) AS gamescore, 
+    	COUNT(p.gamescore) as played, 
+    	SUM(p.frags) AS frags, 
+    	SUM(p.kills) AS kills, 
+    	SUM(p.deaths) AS deaths,
+    	SUM(p.suicides) AS suicides, 
+    	SUM(p.teamkills) AS teamkills, 
+    	SUM(p.kills+p.deaths+p.suicides+p.teamkills) AS sumeff, 
+    	AVG(p.accuracy) AS accuracy, 
+    	AVG(p.ttl) AS ttl, 
+    	SUM(IF(
+    	p.team = 0, 
+    	IF((m.t0score > m.t1score AND m.t0score > m.t2score AND m.t0score > m.t3score), 1, 0), 
+    	IF(
+            p.team = 1, 
+            IF((m.t1score > m.t0score AND m.t1score > m.t2score AND m.t1score > m.t3score), 1, 0),
+        	IF(
+            	p.team = 2,
+            	IF((m.t2score > m.t0score AND m.t2score > m.t1score AND m.t2score > m.t3score), 1, 0),
+                IF((m.t3score > m.t0score AND m.t3score > m.t1score AND m.t3score > m.t2score), 1, 0)
+            )
+        )
+)) as wins, 
+    	COUNT(p.id) AS games, 
+    	SUM(p.gametime) as gametime
+	FROM 
+    	uts_player AS p, 
+    	uts_games AS g, 
+    	uts_match as m 
+    WHERE 
+    	p.gid = g.id AND m.id = p.matchid
+    AND 
+    	p.pid = '$pid'
+    GROUP BY 
+    	p.gid";
+		
 $q_plist = mysql_query($sql_plist) or die(mysql_error());
 
 while ($r_plist = mysql_fetch_array($q_plist)) {
@@ -121,6 +156,7 @@ while ($r_plist = mysql_fetch_array($q_plist)) {
   $eff = get_dp($r_plist[kills]/$r_plist[sumeff]*100);
   $acc = get_dp($r_plist[accuracy]);
   $ttl = GetMinutes($r_plist[ttl]);
+  $winpercent = round($r_plist[wins]/$r_plist[games]*100, 2);
 
   echo'
   <tr>
@@ -134,20 +170,35 @@ while ($r_plist = mysql_fetch_array($q_plist)) {
     <td align="center">'.$eff.'</td>
     <td align="center">'.$acc.'</td>
     <td align="center">'.$ttl.'</td>
-    <td align="center">'.$r_plist[games].'</td>
+    <td  align="center">'.$r_plist[games].'</td>
+	<td  align="center">'.$r_plist[wins].'</td>
+	<td  align="center">'.$winpercent.'%</td>
     <td align="center">'.$gametime.'</td>
   </tr>';
 }
 
-$r_sumplist = small_query("SELECT SUM(gamescore) AS gamescore, SUM(frags) AS frags, SUM(kills) AS kills, SUM(deaths) AS deaths,
-  SUM(suicides) AS suicides, SUM(teamkills) AS teamkills, SUM(kills+deaths+suicides+teamkills) AS sumeff,
-  AVG(accuracy) AS accuracy, AVG(ttl) AS ttl, COUNT(id) AS games, SUM(gametime) as gametime
-  FROM uts_player WHERE pid = '$pid'");
+$r_sumplist = small_query("SELECT SUM(p.gamescore) AS gamescore, SUM(p.frags) AS frags, SUM(p.kills) AS kills, SUM(p.deaths) AS deaths,
+SUM(p.suicides) AS suicides, SUM(p.teamkills) AS teamkills, SUM(p.kills+p.deaths+p.suicides+p.teamkills) AS sumeff,
+AVG(p.accuracy) AS accuracy, AVG(p.ttl) AS ttl, COUNT(p.id) AS games, SUM(IF(
+    	p.team = 0, 
+    	IF((m.t0score > m.t1score AND m.t0score > m.t2score AND m.t0score > m.t3score), 1, 0), 
+    	IF(
+            p.team = 1, 
+            IF((m.t1score > m.t0score AND m.t1score > m.t2score AND m.t1score > m.t3score), 1, 0),
+        	IF(
+            	p.team = 2,
+            	IF((m.t2score > m.t0score AND m.t2score > m.t1score AND m.t2score > m.t3score), 1, 0),
+                IF((m.t3score > m.t0score AND m.t3score > m.t1score AND m.t3score > m.t2score), 1, 0)
+            )
+        )
+)) as wins,  SUM(p.gametime) as gametime
+FROM uts_player p, uts_match m WHERE p.matchid = m.id AND pid = '$pid'");
 
 $gametime = sec2hour($r_sumplist[gametime]);
 $eff = get_dp($r_sumplist[kills]/$r_sumplist[sumeff]*100);
 $acc = get_dp($r_sumplist[accuracy]);
 $ttl = GetMinutes($r_sumplist[ttl]);
+$winpercent = round($r_sumplist[wins]/$r_sumplist[games]*100, 2);
 
 echo'
 <tr>
@@ -162,6 +213,8 @@ echo'
   <td align="center">'.$acc.'</td>
   <td align="center">'.$ttl.'</td>
   <td align="center">'.$r_sumplist[games].'</td>
+  <td align="center">'.$r_sumplist[wins].'</td>
+  <td align="center">'.$winpercent.'%</td>
   <td align="center">'.$gametime.'</td>
 </tr>
 </tbody></table>

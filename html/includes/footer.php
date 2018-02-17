@@ -8,7 +8,7 @@
       <a href="./?p=help">Help</a>
       <br>
       <br>
-      <a href="https://github.com/sn3p/utstats" target="_blank">UTStats Beta 4.4.0</a>
+      <a href="https://github.com/sn3p/utstats" target="_blank">UTStats Beta 4.4.1</a>
       &copy; <?php echo date("Y"); ?> azazel, AnthraX toa and sn3p
     </div>
   </body>

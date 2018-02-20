@@ -304,10 +304,10 @@ CREATE TABLE `uts_chartdata` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `mid` int(11) NOT NULL,
   `chartid` mediumint(9) NOT NULL,
-  `title` varchar(50) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
   `data` blob NOT NULL,
   `labels` blob NOT NULL,
-  `categories` blob NOT NULL,
+  `categories` blob,
   PRIMARY KEY (`id`),
   KEY `mid` (`mid`),
   KEY `mid_2` (`mid`)

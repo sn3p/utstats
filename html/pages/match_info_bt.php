@@ -35,9 +35,9 @@ $sql_msred = "SELECT p.playerid, pi.name, pi.banned, p.country, p.pid, p.gamesco
 	WHERE p.pid = pi.id AND p.matchid = $mid AND team = 0
 	GROUP BY p.playerid
 	ORDER BY e.col1 DESC, (0 + e.col3) ASC, gamescore DESC";
-$q_msred = mysql_query($sql_msred) or die(mysql_error());
+$q_msred = mysqli_query($GLOBALS["___mysqli_link"], $sql_msred) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $i = 0;
-while ($r_msred = zero_out(mysql_fetch_array($q_msred))) {
+while ($r_msred = zero_out(mysqli_fetch_array($q_msred))) {
 	  if (!$r_msred['playerid']) {
 		$r_msred['playerid'] = 0;
 	  }
@@ -108,9 +108,9 @@ $sql_msblue = "SELECT p.playerid, pi.name, pi.banned, p.country, p.pid, p.gamesc
 	WHERE p.pid = pi.id AND p.matchid = $mid AND team = 1
 	GROUP BY p.playerid
 	ORDER BY e.col1 DESC, (0 + e.col3) ASC, gamescore DESC";
-$q_msblue = mysql_query($sql_msblue) or die(mysql_error());
+$q_msblue = mysqli_query($GLOBALS["___mysqli_link"], $sql_msblue) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $i = 0;
-while ($r_msblue = zero_out(mysql_fetch_array($q_msblue))) {
+while ($r_msblue = zero_out(mysqli_fetch_array($q_msblue))) {
 	  if (!$r_msblue['playerid']) {
 		$r_msblue['playerid'] = 0;
 	  }

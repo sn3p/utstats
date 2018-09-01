@@ -7,11 +7,11 @@ $sql_ghours = "SELECT HOUR(time) AS res_hour, COUNT(*) AS res_count
 	WHERE $bgwhere
 	GROUP by res_hour";
 
-$q_ghours = mysql_query($sql_ghours) or die(mysql_error());
+$q_ghours = mysqli_query($GLOBALS["___mysqli_link"], $sql_ghours) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $hour_max = 0;
 $hour_sum = 0;
 
-while ($r_ghours = mysql_fetch_array($q_ghours)) {
+while ($r_ghours = mysqli_fetch_array($q_ghours)) {
   $gb_hour[$r_ghours['res_hour']] = $r_ghours['res_count'];
   if ($r_ghours['res_count'] > $hour_max) $hour_max = $r_ghours['res_count'];
   $hour_sum += $r_ghours['res_count'];
@@ -26,11 +26,11 @@ $sql_gdays = "SELECT WEEKDAY(time) AS res_day, COUNT(*) AS res_count
 	WHERE $bgwhere
 	GROUP by res_day";
 
-$q_gdays = mysql_query($sql_gdays) or die(mysql_error());
+$q_gdays = mysqli_query($GLOBALS["___mysqli_link"], $sql_gdays) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $day_max = 0;
 $day_sum = 0;
 
-while ($r_gdays = mysql_fetch_array($q_gdays)) {
+while ($r_gdays = mysqli_fetch_array($q_gdays)) {
   $gb_day[$r_gdays['res_day']] = $r_gdays['res_count'];
   if ($r_gdays['res_count'] > $day_max) $day_max = $r_gdays['res_count'];
   $day_sum += $r_gdays['res_count'];
@@ -42,11 +42,11 @@ $sql_gmonths = "SELECT MONTH(time) AS res_month, COUNT(*) AS res_count
 	WHERE $bgwhere
 	GROUP by res_month";
 
-$q_gmonths = mysql_query($sql_gmonths) or die(mysql_error());
+$q_gmonths = mysqli_query($GLOBALS["___mysqli_link"], $sql_gmonths) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $month_max = 0;
 $month_sum = 0;
 
-while ($r_gmonths = mysql_fetch_array($q_gmonths)) {
+while ($r_gmonths = mysqli_fetch_array($q_gmonths)) {
   $gb_month[$r_gmonths['res_month']] = $r_gmonths['res_count'];
   if ($r_gmonths['res_count'] > $month_max) $month_max = $r_gmonths['res_count'];
   $month_sum += $r_gmonths['res_count'];
@@ -73,12 +73,12 @@ $sql_gcountries = "SELECT country AS res_country, COUNT(*) AS res_count
 	GROUP BY p.pid) AS res_table
 	GROUP BY res_country ORDER BY res_count DESC";
 
-$q_gcountries = mysql_query($sql_gcountries) or die(mysql_error());
+$q_gcountries = mysqli_query($GLOBALS["___mysqli_link"], $sql_gcountries) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $country_max = 0;
 $country_sum = 0;
 $i = 0;
 
-while ($r_gcountries = mysql_fetch_array($q_gcountries)) {
+while ($r_gcountries = mysqli_fetch_array($q_gcountries)) {
   $gb_country[$i] = $r_gcountries['res_country'] . ";" . $r_gcountries['res_count'];
   if ($r_gcountries['res_count'] > $country_max) $country_max = $r_gcountries['res_count'];
   $country_sum += $r_gcountries['res_count'];

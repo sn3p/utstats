@@ -39,27 +39,27 @@ echo'</tr>
 
 	echo'Recalculating pinfo table...<br>';
 	/* update pinfo table */
-	$sql_pids = mysql_query("SELECT uts_pinfo.id as pid, uts_pinfo.country as country, uts_player.ip as ip FROM uts_pinfo, uts_player WHERE uts_pinfo.id = uts_player.pid GROUP BY uts_player.pid;") or die(mysql_error());
-		while($sql_pid = mysql_fetch_array($sql_pids))
+	$sql_pids = mysqli_query($GLOBALS["___mysqli_link"], "SELECT uts_pinfo.id as pid, uts_pinfo.country as country, uts_player.ip as ip FROM uts_pinfo, uts_player WHERE uts_pinfo.id = uts_player.pid GROUP BY uts_player.pid;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+		while($sql_pid = mysqli_fetch_array($sql_pids))
 		{
 			$playercountry = strtolower(geoip_country_code_by_addr($gi,long2ip($sql_pid['ip'])));
 
 			if ($playercountry != $sql_pid['country'] )
 			{
-				mysql_query("UPDATE uts_pinfo SET country = '$playercountry' WHERE id = '".$sql_pid['pid']."'") or die(mysql_error());
+				mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_pinfo SET country = '$playercountry' WHERE id = '".$sql_pid['pid']."'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 			}
 		}
 
 	echo'Recalculating player table...<br>';
 	/* update player table */
-	$sql_pids = mysql_query("SELECT pid, ip, country FROM uts_player");
-		while ($sql_pid = mysql_fetch_array($sql_pids))
+	$sql_pids = mysqli_query($GLOBALS["___mysqli_link"], "SELECT pid, ip, country FROM uts_player");
+		while ($sql_pid = mysqli_fetch_array($sql_pids))
 		{
 			$playercountry = strtolower(geoip_country_code_by_addr($gi,long2ip($sql_pid['ip'])));
 
 			if ($playercountry != $sql_pid['country'])
 			{
-				mysql_query("UPDATE uts_player SET country = '$playercountry' WHERE pid = '".$sql_pid['pid']."'") or die(mysql_error());
+				mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_player SET country = '$playercountry' WHERE pid = '".$sql_pid['pid']."'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 			}
 		}
 	echo 'Done</td>

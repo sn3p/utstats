@@ -7,8 +7,8 @@
 								OR		col1 = 'teamkill'
 							GROUP BY col2, col4";
 						
-	$q_killmatrix = mysql_query($sql_killmatrix) or die(mysql_error());
-	while ($r_killmatrix = mysql_fetch_array($q_killmatrix)) {
+	$q_killmatrix = mysqli_query($GLOBALS["___mysqli_link"], $sql_killmatrix) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	while ($r_killmatrix = mysqli_fetch_array($q_killmatrix)) {
 		
 		$sql =	"	INSERT
 						INTO		uts_killsmatrix
@@ -16,7 +16,7 @@
 									killer	=	'". $r_killmatrix['killer'] ."',
 									victim	=	'". $r_killmatrix['killed'] ."',
 									kills		=	'". $r_killmatrix['kills'] ."';";
-		mysql_query($sql) or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], $sql) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 	}
 ?>

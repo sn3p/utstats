@@ -47,17 +47,17 @@ if (!$sql_crank) {
 	$oldrank = $sql_crank[rank];
 	$matchcount = $sql_crank[matches]-1;
 	
-	mysql_query("UPDATE uts_rank SET rank = $newrank, prevrank = $oldrank, matches = $matchcount WHERE id = $rid") or die(mysql_error());
-	mysql_query("DELETE FROM uts_rank WHERE matches = 0") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_rank SET rank = $newrank, prevrank = $oldrank, matches = $matchcount WHERE id = $rid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_rank WHERE matches = 0") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 	echo'<td class="grey" align="left" width="400">Done</td>';
 }
 echo'</tr>
 <tr>
 	<td class="smheading" align="left">Removing Kill Matrix Entries:</td>';
-	$q_match = mysql_query("SELECT matchid, playerid FROM uts_player WHERE pid = '$pid' and matchid = '$matchid'") or die(mysql_error());
-	while ($r_match = mysql_fetch_array($q_match)) {
-		mysql_query("DELETE FROM uts_killsmatrix WHERE matchid = '${r_match['matchid']}' AND (killer = '${r_match['playerid']}' OR victim = '${r_match['playerid']}')") or die(mysql_error());
+	$q_match = mysqli_query($GLOBALS["___mysqli_link"], "SELECT matchid, playerid FROM uts_player WHERE pid = '$pid' and matchid = '$matchid'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	while ($r_match = mysqli_fetch_array($q_match)) {
+		mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_killsmatrix WHERE matchid = '${r_match['matchid']}' AND (killer = '${r_match['playerid']}' OR victim = '${r_match['playerid']}')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 	echo'<td class="grey" align="left">Done</td>
 </tr>
@@ -65,31 +65,31 @@ echo'</tr>
 
 <tr>
 	<td class="smheading" align="left" width="200">Removing Player Weapon Stats:</td>';
-mysql_query("DELETE FROM uts_weaponstats WHERE matchid = $matchid AND pid = $pid") or die(mysql_error());
+mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_weaponstats WHERE matchid = $matchid AND pid = $pid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	echo'<td class="grey" align="left" width="400">Done</td>
 </tr>
 <tr>
 	<td class="smheading" align="left" width="200">Removing Player From Match:</td>';
-mysql_query("DELETE FROM uts_player WHERE matchid = $matchid AND pid = $pid") or die(mysql_error());
+mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_player WHERE matchid = $matchid AND pid = $pid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	echo'<td class="grey" align="left" width="400">Done</td>
 </tr>
 <tr>
 	<td class="smheading" align="left" width="200">Amending Player Weapon Stats:</td>';
-mysql_query("DELETE FROM uts_weaponstats WHERE matchid IN ('$matchid','0') AND pid = '$pid'") or die(mysql_error());
+mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_weaponstats WHERE matchid IN ('$matchid','0') AND pid = '$pid'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-$q_weaponstats = mysql_query("SELECT SUM(kills) AS kills, SUM(shots) AS shots, SUM(hits) as hits, SUM(damage) as damage, AVG(acc) AS acc FROM uts_weaponstats WHERE pid = '$pid'  GROUP BY weapon") or die(mysql_error());
-while ($r_weaponstats = mysql_fetch_array($q_weaponstats)) {
-	mysql_query("INSERT INTO uts_weaponstats SET matchid='0', pid='$pid', kills='${r_weaponstats['kills']}', shots='${r_weaponstats['shots']}', hits='${r_weaponstats['hits']}', damage='${r_weaponstats['damage']}', acc='${r_weaponstats['acc']}'") or die(mysql_error());
+$q_weaponstats = mysqli_query($GLOBALS["___mysqli_link"], "SELECT SUM(kills) AS kills, SUM(shots) AS shots, SUM(hits) as hits, SUM(damage) as damage, AVG(acc) AS acc FROM uts_weaponstats WHERE pid = '$pid'  GROUP BY weapon") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+while ($r_weaponstats = mysqli_fetch_array($q_weaponstats)) {
+	mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_weaponstats SET matchid='0', pid='$pid', kills='${r_weaponstats['kills']}', shots='${r_weaponstats['shots']}', hits='${r_weaponstats['hits']}', damage='${r_weaponstats['damage']}', acc='${r_weaponstats['acc']}'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 }
 	echo'<td class="grey" align="left" width="400">Done</td>
 </tr>
 <tr>
 	<td class="smheading" align="left" width="200">Amending Global Weapon Stats:</td>';
-	mysql_query("DELETE FROM uts_weaponstats WHERE matchid='0' AND pid='0'") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_weaponstats WHERE matchid='0' AND pid='0'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-	$q_weaponstats = mysql_query("SELECT weapon, SUM(kills) AS kills, SUM(shots) AS shots, SUM(hits) as hits, SUM(damage) as damage, AVG(acc) AS acc FROM uts_weaponstats WHERE matchid = '0'  GROUP BY weapon") or die(mysql_error());
-	while ($r_weaponstats = mysql_fetch_array($q_weaponstats)) {
-		mysql_query("INSERT INTO uts_weaponstats SET matchid='0', pid='0', weapon='${r_weaponstats['weapon']}', kills='${r_weaponstats['kills']}', shots='${r_weaponstats['shots']}', hits='${r_weaponstats['hits']}', damage='${r_weaponstats['damage']}', acc='${r_weaponstats['acc']}'") or die(mysql_error());
+	$q_weaponstats = mysqli_query($GLOBALS["___mysqli_link"], "SELECT weapon, SUM(kills) AS kills, SUM(shots) AS shots, SUM(hits) as hits, SUM(damage) as damage, AVG(acc) AS acc FROM uts_weaponstats WHERE matchid = '0'  GROUP BY weapon") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	while ($r_weaponstats = mysqli_fetch_array($q_weaponstats)) {
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_weaponstats SET matchid='0', pid='0', weapon='${r_weaponstats['weapon']}', kills='${r_weaponstats['kills']}', shots='${r_weaponstats['shots']}', hits='${r_weaponstats['hits']}', damage='${r_weaponstats['damage']}', acc='${r_weaponstats['acc']}'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 
 	echo'<td class="grey" align="left" width="400">Done</td>

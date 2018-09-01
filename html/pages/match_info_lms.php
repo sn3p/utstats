@@ -30,7 +30,7 @@
 	GROUP BY p.playerid
 	ORDER BY p.gamescore DESC, (0+e.col2) DESC";
 
-	$q_players = mysql_query($sql_players) or die(mysql_error());
+	$q_players = mysqli_query($GLOBALS["___mysqli_link"], $sql_players) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	$header = true;
 
 	$totals['gamescore'] = 0;
@@ -45,7 +45,7 @@
 	$totals['ttl'] = 0;
 	$num = 0;
 
-	while ($r_players = zero_out(mysql_fetch_array($q_players))) {
+	while ($r_players = zero_out(mysqli_fetch_array($q_players))) {
 		if ($header) {
 			$header = false;
 			echo '

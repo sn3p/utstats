@@ -278,16 +278,16 @@ while (false !== ($filename = readdir($logdir))) {
 		KEY `full` (`col0` (20),`col1` (20),`col2` (20),`col3` (20),`col4` (20))
 		) ENGINE=". ($import_use_heap_tables ? 'HEAP' : 'MyISAM') .";";
 
-		$result = mysql_query($sql);
+		$result = mysqli_query($GLOBALS["___mysqli_link"], $sql);
 		if ($result) break;
 
-		if (mysql_errno() == 1044 and $import_use_temporary_tables) {
-			echo "<br><strong>WARNING: Unable to create temporary table (". mysql_error() .")<br>";
+		if (mysqli_errno($GLOBALS["___mysqli_link"]) == 1044 and $import_use_temporary_tables) {
+			echo "<br><strong>WARNING: Unable to create temporary table (". mysqli_error($GLOBALS["___mysqli_link"]) .")<br>";
 			echo "I'll retry without using MySQL's temporary table feature (see \$import_use_temporary_tables in config.php for details).<br><br></strong>";
 			$import_use_temporary_tables = false;
 			continue;
 		}
-		die("<br><strong>Unable to create the temporary table:<br>". mysql_error() ."<br><br></strong>");
+		die("<br><strong>Unable to create the temporary table:<br>". mysqli_error($GLOBALS["___mysqli_link"]) ."<br><br></strong>");
 	}
 	$id = 0;
 
@@ -327,8 +327,8 @@ while (false !== ($filename = readdir($logdir))) {
 
 		$num = count($data);
 		$row++;
-		for ($c=0; $c < 1; $c++) {
 
+		for ($c=0; $c < 1; $c++) {
 			$col0 = addslashes($data[0]);
 			$col1 = addslashes($data[1]);
 			$col2 = addslashes($data[2]);
@@ -342,7 +342,7 @@ while (false !== ($filename = readdir($logdir))) {
 			$col4 = trim($col4, " \n\r");
 
 			$id++;
-			mysql_query("INSERT INTO uts_temp_$uid VALUES ($id, '$col0', '$col1', '$col2', '$col3', '$col4');") or die(mysql_error());
+			mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_temp_$uid VALUES ($id, '$col0', '$col1', '$col2', '$col3', '$col4');") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	   }
 	}
 	fclose($handle);
@@ -432,8 +432,8 @@ while (false !== ($filename = readdir($logdir))) {
 	} else {
 
 		$sql_mutators = "SELECT col3 FROM uts_temp_$uid WHERE col1 = 'game' AND col2 = 'GoodMutator'";
-		$q_mutators = mysql_query($sql_mutators);
-		while ($r_mutators = mysql_fetch_array($q_mutators)) {
+		$q_mutators = mysqli_query($GLOBALS["___mysqli_link"], $sql_mutators);
+		while ($r_mutators = mysqli_fetch_array($q_mutators)) {
 			$qm_mutators .= "".$r_mutators[col3].", ";
 		}
 
@@ -486,8 +486,8 @@ while (false !== ($filename = readdir($logdir))) {
 		if ($r_gid) {
 			$gid = $r_gid['id'];
 		} else {
-			mysql_query("INSERT INTO uts_games SET gamename = '$gamename', name = '$gamename'") or die(mysql_error());
-			$gid = mysql_insert_id();
+			mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_games SET gamename = '$gamename', name = '$gamename'") or die(mysqli_error($GLOBALS["___mysqli_link"]));
+			$gid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_link"]))) ? false : $___mysqli_res);
 		}
 
 		// Check wheter we want to override the gametype for this match
@@ -498,8 +498,8 @@ while (false !== ($filename = readdir($logdir))) {
 		if (!isset($overriderules)) {
 			$overriderules = array();
 			$sql_overriderules = "SELECT id, serverip, gamename, mutator, gid FROM uts_gamestype ORDER BY id ASC;";
-			$q_overriderules = mysql_query($sql_overriderules);
-			while ($r_overriderules = mysql_fetch_array($q_overriderules)) {
+			$q_overriderules = mysqli_query($GLOBALS["___mysqli_link"], $sql_overriderules);
+			while ($r_overriderules = mysqli_fetch_array($q_overriderules)) {
 				$overriderules[$r_overriderules['id']]['serverip'] = $r_overriderules['serverip'];
 				$overriderules[$r_overriderules['id']]['gamename'] = $r_overriderules['gamename'];
 				$overriderules[$r_overriderules['id']]['mutator'] = $r_overriderules['mutator'];
@@ -544,14 +544,14 @@ while (false !== ($filename = readdir($logdir))) {
 
 		// Get Teams Info
 		$sql_tinfo = "SELECT col4 FROM uts_temp_$uid WHERE col1 = 'player' AND col2 = 'TeamName'  GROUP BY col4 ORDER BY col4 ASC";
-		$q_tinfo = mysql_query($sql_tinfo) or die(mysql_error());
+		$q_tinfo = mysqli_query($GLOBALS["___mysqli_link"], $sql_tinfo) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 		$t0info = 0;
 		$t1info = 0;
 		$t2info = 0;
 		$t3info = 0;
 
-		while ($r_tinfo = mysql_fetch_array($q_tinfo)) {
+		while ($r_tinfo = mysqli_fetch_array($q_tinfo)) {
       if ($r_tinfo[col4] == "Red") { $t0info = 1; }
       if ($r_tinfo[col4] == "Blue") { $t1info = 1; }
       if ($r_tinfo[col4] == "Green") { $t2info = 1; }
@@ -560,14 +560,14 @@ while (false !== ($filename = readdir($logdir))) {
 
 		// Get Teamscores
 		$sql_tscore = "SELECT col2 AS team, col3 AS score FROM uts_temp_$uid WHERE col1 = 'teamscore'";
-		$q_tscore = mysql_query($sql_tscore) or die(mysql_error());
+		$q_tscore = mysqli_query($GLOBALS["___mysqli_link"], $sql_tscore) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 		$t0score = 0;
 		$t1score = 0;
 		$t2score = 0;
 		$t3score = 0;
 
-		while ($r_tscore = mysql_fetch_array($q_tscore)) {
+		while ($r_tscore = mysqli_fetch_array($q_tscore)) {
 			if ($r_tscore['team'] == "0") $t0score = $r_tscore['score'];
 			if ($r_tscore['team'] == "1") $t1score = $r_tscore['score'];
 			if ($r_tscore['team'] == "2") $t2score = $r_tscore['score'];
@@ -581,8 +581,8 @@ VALUES ('$gametime', '$servername', '$serverip:$serverport', '$gamename', '$gid'
 '$teamgame', '$mapname', '$mapfile', '$serverinfo', '$gameinfo', '$s_frags', '$s_kills', '$s_suicides', '$s_teamkills', '$s_deaths',
 $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 
-		$q_serverinfo = mysql_query($sql_serverinfo) or die(mysql_error());
-		$matchid = mysql_insert_id();			// Get our Match ID
+		$q_serverinfo = mysqli_query($GLOBALS["___mysqli_link"], $sql_serverinfo) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+		$matchid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_link"]))) ? false : $___mysqli_res);			// Get our Match ID
 
 		echo "Yes (ID: $matchid)\n";
 		if ($html) echo '</td></tr>';
@@ -598,9 +598,9 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 
 		// Get List of Player IDs and Process What They Have Done
 		$sql_player = "SELECT DISTINCT col4 FROM uts_temp_$uid WHERE col1 = 'player' AND col2 = 'rename' AND col4 <> ''";
-		$q_player = mysql_query($sql_player) or die(mysql_error());
+		$q_player = mysqli_query($GLOBALS["___mysqli_link"], $sql_player) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-		while ($r_player = mysql_fetch_array($q_player)) {
+		while ($r_player = mysqli_fetch_array($q_player)) {
 			$playerid = $r_player[col4];
 
 			// Get players last name used
@@ -614,7 +614,7 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 			if ($playertype == 'True' and $import_ignore_bots) {
 				$ignored_players[] = $playername;
 				// We do not want to know who killed and who was killed by this bot...
-				mysql_query("DELETE FROM uts_temp_$uid WHERE (col1 = 'kill' OR col1 = 'teamkill') AND (col2 = '$playerid' OR col4 = '$playerid');") or die(mysql_error());
+				mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_temp_$uid WHERE (col1 = 'kill' OR col1 = 'teamkill') AND (col2 = '$playerid' OR col4 = '$playerid');") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 				if ($html) echo "<span style='text-decoration: line-through;'>";
 				echo "Bot:$playername ";
 				if ($html) echo "</span>";
@@ -640,12 +640,12 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 
 			if ($playerbanned) {
 				// Banned players don't have a rank.
-				mysql_query("DELETE FROM uts_rank WHERE pid = '$pid'");
+				mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_rank WHERE pid = '$pid'");
 
 				if ($import_ban_type == 2) {
 					// We do not want to know who killed and who was killed by this banned player
 					$ignored_players[] = $playername;
-					mysql_query("DELETE FROM uts_temp_$uid WHERE (col1 = 'kill' OR col1 = 'teamkill') AND (col2 = '$playerid' OR col4 = '$playerid');") or die(mysql_error());
+					mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_temp_$uid WHERE (col1 = 'kill' OR col1 = 'teamkill') AND (col2 = '$playerid' OR col4 = '$playerid');") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 					if ($html) echo "<span style='text-decoration: line-through;'>";
 					echo "Banned:$playername ";
 					if ($html) echo "</span>";
@@ -688,8 +688,8 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 			</tr>';
 
 			$sql_radjust = "SELECT pid, gid, rank FROM uts_player WHERE matchid = $matchid";
-			$q_radjust = mysql_query($sql_radjust) or die(mysql_error());
-			while ($r_radjust = mysql_fetch_array($q_radjust)) {
+			$q_radjust = mysqli_query($GLOBALS["___mysqli_link"], $sql_radjust) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+			while ($r_radjust = mysqli_fetch_array($q_radjust)) {
 				$pid = $r_radjust[pid];
 				$gid = $r_radjust[gid];
 				$rank = $r_radjust[rank];
@@ -702,16 +702,16 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 				$oldrank = $sql_crank[rank];
 				$matchcount = $sql_crank[matches]-1;
 
-				mysql_query("UPDATE uts_rank SET rank = $newrank, prevrank = $oldrank, matches = $matchcount WHERE id = $rid") or die(mysql_error());
+				mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_rank SET rank = $newrank, prevrank = $oldrank, matches = $matchcount WHERE id = $rid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 			}
-			mysql_query("DELETE FROM uts_rank WHERE matches = 0") or die(mysql_error());
+			mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_rank WHERE matches = 0") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 			$rem_mrecord = "DELETE FROM uts_match WHERE id = $matchid";
-			mysql_query($rem_mrecord);
+			mysqli_query($GLOBALS["___mysqli_link"], $rem_mrecord);
 			$rem_precord = "DELETE FROM uts_player WHERE matchid = $matchid";
-			mysql_query($rem_precord);
+			mysqli_query($GLOBALS["___mysqli_link"], $rem_precord);
 			$rem_precord = "DELETE FROM uts_events WHERE matchid = $matchid";
-			mysql_query($rem_precord);
+			mysqli_query($GLOBALS["___mysqli_link"], $rem_precord);
 		} else {
 			// Make our weapons statistics
 			echo "\n";
@@ -738,9 +738,9 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 			include("import/import_pcleanup.php");
 
 			echo "Done\n";
-			if ($html) echo'</td></tr>';
+			if ($html) echo "</td></tr>";
 
-			include('import/import_renderer-preconfig.php');
+			include("import/import_renderer-preconfig.php");
 
 			$updategameinfo = false;
 			if (count($ignored_players) > 0) {
@@ -755,22 +755,22 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 				}
 			}
 			if ($updategameinfo) {
-				mysql_query("UPDATE uts_match SET gameinfo = '$gameinfo' WHERE id = '$matchid'");
+				mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_match SET gameinfo = '$gameinfo' WHERE id = '$matchid'");
 				$updategameinfo = false;
 			}
 			if ($gamename == "Domination" || $gamename == "Domination (insta)" ) {
 				if ($html) echo '<tr><td class="smheading" align="left" width="350">';
 				echo "Generating dom graphs: ";
 				if ($html) echo '</td><td class="grey" align="left" width="200">';
-				include("import/import_renderer-dom.php"); 
+				include("import/import_renderer-dom.php");
 				echo "Done\n";
 				if ($html) echo'</td></tr>';
-			} 
+			}
 			else if ($gamename == "Tournament DeathMatch" || $gamename == "Tournament DeathMatch (insta)" || $gamename == "Tournament Team Game" || $gamename == "Tournament Team Game (insta)" ) {
 				if ($html) echo '<tr><td class="smheading" align="left" width="350">';
 				echo "Generating dm graphs: ";
 				if ($html) echo '</td><td class="grey" align="left" width="200">';
-				include("import/import_renderer-dm.php"); 
+				include("import/import_renderer-dm.php");
 				echo "Done\n";
 				if ($html) echo'</td></tr>';
 			}
@@ -778,7 +778,7 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 				if ($html) echo '<tr><td class="smheading" align="left" width="350">';
 				echo "Generating ctf graphs: ";
 				if ($html) echo '</td><td class="grey" align="left" width="200">';
-				include("import/import_renderer-ctf.php"); 
+				include("import/import_renderer-ctf.php");
 				echo "Done\n";
 				if ($html) echo'</td></tr>';
 			}
@@ -787,7 +787,7 @@ $t0info, $t1info, $t2info, $t3info, $t0score, $t1score, $t2score, $t3score);";
 
 	// Delete Temp MySQL Table
 	$droptable = "DROP TABLE uts_temp_$uid";
-	mysql_query($droptable) or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], $droptable) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 	if ($html) echo'<tr><td class="smheading" align="left" width="350">';
 	echo "Deleting Temp MySQL Table: ";
@@ -862,7 +862,7 @@ if ($files != 0) {
 if (rand(0, 5) == 0) {
 	if ($html) echo '<p class="pages">';
 	echo "Optimizing tables... ";
-	mysql_query("OPTIMIZE TABLE uts_match, uts_player, uts_rank, uts_killsmatrix, uts_weaponstats, uts_pinfo;") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "OPTIMIZE TABLE uts_match, uts_player, uts_rank, uts_killsmatrix, uts_weaponstats, uts_pinfo;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	echo "Done\n";
 	if ($html) echo '</p>';
 }
@@ -871,7 +871,7 @@ if (rand(0, 5) == 0) {
 if (rand(0, 10) == 0) {
 	if ($html) echo '<p class="pages">';
 	echo "Analyzing tables... ";
-	mysql_query("ANALYZE TABLE uts_match, uts_player, uts_rank, uts_killsmatrix, uts_weaponstats, uts_pinfo;") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "ANALYZE TABLE uts_match, uts_player, uts_rank, uts_killsmatrix, uts_weaponstats, uts_pinfo;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	echo "Done\n";
 	if ($html) echo '</p>';
 }

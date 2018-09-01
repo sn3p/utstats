@@ -156,8 +156,8 @@ function adminselect(&$options) {
 					}
 					
 					$sql_game = "SELECT id, gamename, name FROM uts_games ORDER BY name ASC";
-					$q_game = mysql_query($sql_game) or die(mysql_error());
-					while ($r_game = mysql_fetch_array($q_game)) {
+					$q_game = mysqli_query($GLOBALS["___mysqli_link"], $sql_game) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+					while ($r_game = mysqli_fetch_array($q_game)) {
 						if (isset($var['exclude']) and $r_game['id'] == $values[$var['exclude']]) continue;
 						$selected = (isset($values[$var['name']]) and $r_game['id'] == $values[$var['name']]) ? 'selected' : '';
 						echo '<option '.$selected.' value="'.$r_game['id'].'">'. htmlentities($r_game['name'] .' ('. $r_game['gamename'] .')') .'</option>';
@@ -179,8 +179,8 @@ function adminselect(&$options) {
 					if (isset($var['wheregid'])) {
 						$sql_server = "SELECT id, servername, serverip FROM uts_match WHERE gid = '". $values[$var['wheregid']] ."' GROUP BY servername, serverip ORDER BY servername ASC";
 					}
-					$q_server = mysql_query($sql_server) or die(mysql_error());
-					while ($r_server = mysql_fetch_array($q_server)) {
+					$q_server = mysqli_query($GLOBALS["___mysqli_link"], $sql_server) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+					while ($r_server = mysqli_fetch_array($q_server)) {
 						if (isset($var['exclude']) and $r_server['id'] == $values[$var['exclude']]) continue;
 						$selected = (isset($values[$var['name']]) and $r_server['id'] == $values[$var['name']]) ? 'selected' : '';
 						echo '<option '.$selected.' value="'.$r_server['id'].'">'. htmlentities($r_server['servername'] .' ('. $r_server['serverip'] .')').'</option>';
@@ -216,8 +216,8 @@ function adminselect(&$options) {
 					if (isset($var['wheregid'])) {
 						$sql_player = "SELECT pi.id, pi.name FROM uts_player p, uts_pinfo pi WHERE p.pid = pi.id AND p.gid = '". $values[$var['wheregid']] ."' $where_extra GROUP BY p.id ORDER BY pi.name ASC";
 					}
-					$q_player = mysql_query($sql_player) or die(mysql_error());
-					while ($r_player = mysql_fetch_array($q_player)) {
+					$q_player = mysqli_query($GLOBALS["___mysqli_link"], $sql_player) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+					while ($r_player = mysqli_fetch_array($q_player)) {
 						if (isset($var['exclude']) and $r_player['id'] == $values[$var['exclude']]) continue;
 						$selected = (isset($values[$var['name']]) and $r_player['id'] == $values[$var['name']]) ? 'selected' : '';
 						echo '<option '.$selected.' value="'.$r_player['id'].'">'. htmlentities($r_player['name']) .'</option>';
@@ -248,8 +248,8 @@ function adminselect(&$options) {
 					if (isset($var['whereplayer'])) {
 						$sql_match = "SELECT m.id AS id, m.time AS time, m.serverip AS serverip, m.mapfile AS mapfile FROM uts_match m, uts_player p WHERE pid = '". $values[$var['whereplayer']] ."' AND p.matchid = m.id ORDER BY time DESC";
 					}
-					$q_match = mysql_query($sql_match) or die(mysql_error());
-					while ($r_match = mysql_fetch_array($q_match)) {
+					$q_match = mysqli_query($GLOBALS["___mysqli_link"], $sql_match) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+					while ($r_match = mysqli_fetch_array($q_match)) {
 						if (isset($var['exclude']) and $r_match['id'] == $values[$var['exclude']]) continue;
 						$selected = (isset($values[$var['name']]) and $r_match['id'] == $values[$var['name']]) ? 'selected' : '';
 						echo '<option '.$selected.' value="'.$r_match['id'].'">'. htmlentities($r_match['id'].': '.mdate2($r_match['time']).' ('.un_ut($r_match['mapfile']).' on '.$r_match['serverip'].')').'</option>';

@@ -1,14 +1,14 @@
 <?php
 // get the caps, captimes and store them in the events database
 	$sql_capbt = "SELECT col0, col1, col2, col3, col4 FROM uts_temp_$uid WHERE (col1 = 'cap' OR col1 = 'btcap') AND col2 = $playerid";
-	$q_capbt = mysql_query($sql_capbt);
+	$q_capbt = mysqli_query($GLOBALS["___mysqli_link"], $sql_capbt);
 
 	$cap_speed = 0;
         $cap_time = 0;
 	$cap_gametime = 0;
 	$flag_capture = 0;
 
-	while ($r_capbt = mysql_fetch_array($q_capbt)) {
+	while ($r_capbt = mysqli_fetch_array($q_capbt)) {
 	      if ($cap_speed == 0 || $r_capbt['col3'] > $cap_speed) {
 		    $cap_speed = $r_capbt['col3'];
 		    $col0 = $r_capbt['col0']; // time
@@ -34,13 +34,13 @@
 		$sql_eventsbt = "INSERT INTO uts_events 
 		      (matchid, playerid, col0, col1, col2, col3, col4) VALUES
 		      ($matchid, $playerid, '$col0', '$col1', '$col2', '$col3', '$col4')";
-		mysql_query($sql_eventsbt) or die (mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], $sql_eventsbt) or die (mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 
 	if ($flag_capture > 0) {
 	$sql_playerflags = "	UPDATE 	uts_player
 								SET 	flag_capture = $flag_capture
 								WHERE 	id = $playerecordid";
-	mysql_query($sql_playerflags) or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], $sql_playerflags) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 ?>

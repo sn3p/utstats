@@ -85,9 +85,9 @@ foreach ($watchlist as $pid) {
 
   $r_pinfo = small_query($sql_pinfo);
 
-  $q_players = mysql_query($sql_players) or die(mysql_error());
+  $q_players = mysqli_query($GLOBALS["___mysqli_link"], $sql_players) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-  while ($r_players = mysql_fetch_array($q_players)) {
+  while ($r_players = mysqli_fetch_array($q_players)) {
     $i++;
     $new = (mtimestamp($r_players['time']) > $s_lastvisit) ? true : false;
     $class = ($i % 2) ? 'grey' : 'grey2';

@@ -5,25 +5,25 @@ include_once 'includes/renderer-general-output.php';
 global $renderer_heigth;
 global $renderer_width;
 
-$mid = mysql_real_escape_string($mid);
+$mid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $mid);
 $prevCategory = "";
 $chartOutput = "";
 $prevRenderedChart = "";
 
 // get all charts for this match
-$charts = mysql_query("SELECT d.* , t.charttype, t.category, t.type, t.color, t.layout,t.columns
+$charts = mysqli_query($GLOBALS["___mysqli_link"], "SELECT d.* , t.charttype, t.category, t.type, t.color, t.layout,t.columns
 	FROM uts_chartdata d
 	JOIN uts_charttypes t ON d.chartid = t.id
 	WHERE d.mid = $mid
-	ORDER BY d.id ASC") or die(mysql_error());
+	ORDER BY d.id ASC") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-$chartCount = mysql_num_rows($charts);
+$chartCount = mysqli_num_rows($charts);
 
 if ($chartCount >0) {
 	$i = 0;
 
 	// cycle over charts
-	while ($chart = mysql_fetch_array($charts)) {
+	while ($chart = mysqli_fetch_array($charts)) {
 
 		// retrieve both generic as the specific data
 		$category = $chart['category'];

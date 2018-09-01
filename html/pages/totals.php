@@ -21,9 +21,9 @@ $sql_totsumm = "SELECT g.name AS gamename, SUM(p.gamescore) AS gamescore, SUM(p.
   GROUP BY g.name
   ORDER BY gamename ASC";
 
-$q_totsumm = mysql_query($sql_totsumm) or die(mysql_error());
+$q_totsumm = mysqli_query($GLOBALS["___mysqli_link"], $sql_totsumm) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_totsumm = zero_out(mysql_fetch_array($q_totsumm))) {
+while ($r_totsumm = zero_out(mysqli_fetch_array($q_totsumm))) {
 	$gametime = sec2hour($r_totsumm[sumgametime]);
 
 	echo'
@@ -78,9 +78,9 @@ echo'
     <th align="center">Flag Returns</th>
   </tr>';
 
- $q_assgids = mysql_query("SELECT id FROM uts_games WHERE gamename LIKE '%Assault%';") or die(mysql_error());
+ $q_assgids = mysqli_query($GLOBALS["___mysqli_link"], "SELECT id FROM uts_games WHERE gamename LIKE '%Assault%';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
  $assgids = array();
- while ($r_assgids = mysql_fetch_array($q_assgids)) {
+ while ($r_assgids = mysqli_fetch_array($q_assgids)) {
  	$assgids[] = $r_assgids['id'];
  }
  $assquery = (count($assgids) > 0) ? 'SUM(IF (gid IN ('. implode(',', $assgids) .'), ass_obj, 0)) AS ass_obj' : '0 AS ass_obj';
@@ -175,7 +175,7 @@ $sql_chighttl = small_query("SELECT p.pid, pi.name, p.country, AVG(ttl) AS ttl ,
 $sql_chighflag_capture = small_query("SELECT p.pid, pi.name, p.country, SUM(flag_capture) AS flag_capture , SUM(gametime) AS sumgametime, COUNT(matchid) AS mcount FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.banned <> 'Y' GROUP BY pid, p.country HAVING sumgametime > 1800 ORDER BY flag_capture DESC LIMIT 0,1");
 $sql_chighflag_kill = small_query("SELECT p.pid, pi.name, p.country, SUM(flag_kill) AS flag_kill , SUM(gametime) AS sumgametime, COUNT(matchid) AS mcount FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.banned <> 'Y' GROUP BY pid, p.country HAVING sumgametime > 1800 ORDER BY flag_kill DESC LIMIT 0,1");
 $sql_chighdom_cp = small_query("SELECT p.pid, pi.name, p.country, SUM(dom_cp) AS dom_cp , SUM(gametime) AS sumgametime, COUNT(matchid) AS mcount FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.banned <> 'Y' GROUP BY pid, p.country HAVING sumgametime > 1800 ORDER BY dom_cp DESC LIMIT 0,1");
-$ass_obj_check = small_query("SELECT COUNT(id) AS idcount FROM uts_games WHERE gamename LIKE '%Assault%';") or die(mysql_error());
+$ass_obj_check = small_query("SELECT COUNT(id) AS idcount FROM uts_games WHERE gamename LIKE '%Assault%';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 if ($ass_obj_check[idcount] > 0 ) {
 	$sql_chighass_obj = small_query("SELECT p.pid, pi.name, p.country, SUM(ass_obj) AS ass_obj , SUM(gametime) AS sumgametime, COUNT(matchid) AS mcount FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.banned <> 'Y' GROUP BY pid HAVING sumgametime > 1800 ORDER BY ass_obj DESC LIMIT 0,1");
@@ -367,7 +367,7 @@ $sql_mhighflag_capture = small_query("SELECT p.matchid, p.pid, pi.name, p.countr
 $sql_mhighflag_kill = small_query("SELECT p.matchid, p.pid, pi.name, p.country, SUM(flag_kill) AS flag_kill , SUM(gametime) AS sumgametime FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.banned <> 'Y' AND flag_kill > 0 GROUP BY matchid, pid, country HAVING sumgametime > 600 ORDER BY flag_kill DESC LIMIT 0,1");
 $sql_mhighdom_cp = small_query("SELECT p.matchid, p.pid, pi.name, p.country, SUM(dom_cp) AS dom_cp , SUM(gametime) AS sumgametime FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.banned <> 'Y' AND dom_cp > 0 GROUP BY matchid, pid, country HAVING sumgametime > 600 ORDER BY dom_cp DESC LIMIT 0,1");
 
-$ass_obj_check = small_query("SELECT COUNT(id) AS idcount FROM uts_games WHERE gamename LIKE '%Assault%';") or die(mysql_error());
+$ass_obj_check = small_query("SELECT COUNT(id) AS idcount FROM uts_games WHERE gamename LIKE '%Assault%';") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 if ($ass_obj_check[idcount] > 0 ) {
 	$sql_mhighass_obj = small_query("SELECT p.matchid, p.pid, pi.name, p.country, SUM(ass_obj) AS ass_obj , SUM(gametime) AS sumgametime FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.banned <> 'Y' AND ass_obj > 0 GROUP BY matchid, pid, country HAVING sumgametime > 600 ORDER BY ass_obj DESC LIMIT 0,1");
 } else {
@@ -541,13 +541,13 @@ echo '
   </tr>';
 
 $sql_mweapons = "SELECT id, name, image FROM uts_weapons WHERE hide <> 'Y' ORDER BY sequence, id ASC";
-$q_mweapons = mysql_query($sql_mweapons) or die(mysql_error());
-while ($r_mweapons = mysql_fetch_array($q_mweapons)) {
+$q_mweapons = mysqli_query($GLOBALS["___mysqli_link"], $sql_mweapons) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+while ($r_mweapons = mysqli_fetch_array($q_mweapons)) {
 
 	$wid =  $r_mweapons[id];
 	$sql_mweaponsl = "SELECT w.pid AS playerid, pi.name AS name, pi.country AS country, SUM(w.kills) as kills, COUNT(DISTINCT w.matchid) AS mcount FROM uts_weaponstats AS w LEFT JOIN uts_pinfo AS pi ON w.pid = pi.id WHERE w.weapon = '$wid' AND w.pid > 0 AND w.matchid <> 0 AND pi.banned <> 'Y' GROUP BY w.pid ORDER BY kills DESC LIMIT 0,1";
-	$q_mweaponsl = mysql_query($sql_mweaponsl) or die(mysql_error());
-	while ($r_mweaponsl = mysql_fetch_array($q_mweaponsl)) {
+	$q_mweaponsl = mysqli_query($GLOBALS["___mysqli_link"], $sql_mweaponsl) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	while ($r_mweaponsl = mysqli_fetch_array($q_mweaponsl)) {
 
 	      echo '<tr>
 		    <td  align="center">'.$r_mweapons[name].'</td>
@@ -578,13 +578,13 @@ echo '<table class = "zebra box" border="0" cellpadding="0" cellspacing="0" widt
 ';
 
 $sql_mweapons = "SELECT id, name, image FROM uts_weapons WHERE hide <> 'Y' ORDER BY sequence, id ASC";
-$q_mweapons = mysql_query($sql_mweapons) or die(mysql_error());
-while ($r_mweapons = mysql_fetch_array($q_mweapons)) {
+$q_mweapons = mysqli_query($GLOBALS["___mysqli_link"], $sql_mweapons) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+while ($r_mweapons = mysqli_fetch_array($q_mweapons)) {
 
 	$wid =  $r_mweapons[id];
 	$sql_mweaponsl = "SELECT w.matchid, w.pid AS playerid, pi.name AS name, pi.country AS country, w.kills FROM uts_weaponstats AS w LEFT JOIN uts_pinfo AS pi ON w.pid = pi.id WHERE w.weapon = '$wid' AND w.pid > 0 AND w.matchid > 0 AND pi.banned <> 'Y' ORDER BY w.kills DESC LIMIT 0,1";
-	$q_mweaponsl = mysql_query($sql_mweaponsl) or die(mysql_error());
-	while ($r_mweaponsl = mysql_fetch_array($q_mweaponsl)) {
+	$q_mweaponsl = mysqli_query($GLOBALS["___mysqli_link"], $sql_mweaponsl) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	while ($r_mweaponsl = mysqli_fetch_array($q_mweaponsl)) {
 
 	      echo '<tr>
 		    <td  align="center">'.$r_mweapons[name].'</td>

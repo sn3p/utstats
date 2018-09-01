@@ -12,11 +12,11 @@
 	$r_efficiency = get_dp(($r_kills / ($r_kills + $r_deaths + $r_suicides + $r_teamkills)) * 100);
 	
 	
-	mysql_query("	UPDATE 	uts_player 
+	mysqli_query($GLOBALS["___mysqli_link"], "	UPDATE 	uts_player 
 						SET 		ass_obj = '$r_releases', 
 									suicides = '$r_suicides',
 									frags = '$r_frags',
 									eff = '$r_efficiency'
-						WHERE 	id = $playerecordid;") or die(mysql_error());	
+						WHERE 	id = $playerecordid;") or die(mysqli_error($GLOBALS["___mysqli_link"]));	
 		
 ?>

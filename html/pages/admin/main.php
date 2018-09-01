@@ -3,7 +3,7 @@ if (empty($import_adminkey) or isset($_REQUEST['import_adminkey']) or $import_ad
 if (isset($_REQUEST['droptable'])) {
 	$droptable = my_addslashes($_REQUEST['droptable']);
 	if (substr($droptable, 0, 9) == 'uts_temp_' and strlen($droptable) == 17) {
-		mysql_query("DROP TABLE $droptable;") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "DROP TABLE $droptable;") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	} else {
 		die('NO!');
 	}
@@ -22,11 +22,11 @@ echo'<table class = "box" border="0" cellpadding="0" cellspacing="0" width="600"
 	<td class="smheading" align="center" height="25" colspan="4">Database Statistics</td>
 </tr>';
 
-$q_dbsize = mysql_query("SHOW table STATUS") or die(mysql_error());
+$q_dbsize = mysqli_query($GLOBALS["___mysqli_link"], "SHOW table STATUS") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $tot_size = 0;
 $tot_rows = 0;
 $max_size = 0;
-while ($r_dbsize = mysql_fetch_array($q_dbsize)) {
+while ($r_dbsize = mysqli_fetch_array($q_dbsize)) {
 	if (substr($r_dbsize['Name'], 0, 4) != 'uts_') continue;
 	$size = $r_dbsize['Data_length'] + $r_dbsize['Index_length'];
 	$rows = $r_dbsize['Rows'];

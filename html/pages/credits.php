@@ -148,7 +148,7 @@
 					    Added an option to the admin page to delete temporary tables (if any)<br><br></dd>
 
 						<dd>Bug Fixes:<br>
-						Import fix for MySQL v3.x<br>
+  						Import fix for MySQL v3.x<br>
 					    Partial Import delete fix<br>
 					    bbcode and Clanbase Report Fix - not showing high score win reports.<br>
 					    Ranking fix (was more than 300 mins to get full ranking points)<br>

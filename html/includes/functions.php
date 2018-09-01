@@ -1,7 +1,6 @@
 <?php
 // Connect to database
-mysql_connect($hostname, $uname, $upass);
-mysql_select_db($dbname);
+$GLOBALS["___mysqli_link"] = mysqli_connect($hostname, $uname,  $upass, $dbname);
 
 // Error reporting
 // error_reporting(E_ALL & ~E_NOTICE);
@@ -29,7 +28,7 @@ srand(microtime() * 1000);
 $charimg = $charimages[rand(0, count($charimages)-1)];
 
 // Two letter codes and their corresponding country names
-require_once(dirname(__FILE__) .'/countries.php');
+require_once(dirname(__FILE__) . '/countries.php');
 
 // Addslashes if magic_quotes are off
 function my_addslashes($data) {
@@ -115,18 +114,18 @@ function my_fclose($fp, $compression) {
 
 // Small query
 function small_query($query) {
-  $sql_small = "$query";
-  $q_small = mysql_query($sql_small) or die(mysql_error());
-  $r_small = mysql_fetch_array($q_small);
-  return $r_small;
+	$sql_small = "$query";
+	$q_small = mysqli_query($GLOBALS["___mysqli_link"], $sql_small) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	$r_small = mysqli_fetch_array($q_small);
+	return $r_small;
 }
 
 // Small query count
 function small_count($query) {
-  $sql_small = "$query";
-  $q_small = mysql_query($sql_small) or die(mysql_error());
-  $r_small = mysql_num_rows($q_small);
-  return $r_small;
+	$sql_small = "$query";
+	$q_small = mysqli_query($GLOBALS["___mysqli_link"], $sql_small) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	$r_small = mysqli_num_rows($q_small);
+	return $r_small;
 }
 
 // uid generator

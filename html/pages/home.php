@@ -79,9 +79,9 @@ echo '
   </tr>';
 
 $sql_recent = "SELECT m.id, m.time, g.name AS gamename, m.mapfile, m.gametime, t0score, t1score, t2score, t3score, (SELECT count(p.id) FROM uts_player AS p WHERE m.id = p.matchid) as players FROM uts_match AS m, uts_games AS g WHERE g.id = m.gid $where ORDER BY m.time DESC LIMIT 10";
-$q_recent = mysql_query($sql_recent) or die(mysql_error());
+$q_recent = mysqli_query($GLOBALS["___mysqli_link"], $sql_recent) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_recent = mysql_fetch_array($q_recent)) {
+while ($r_recent = mysqli_fetch_array($q_recent)) {
   $r_time = mdate($r_recent[time]);
   $r_mapfile = un_ut($r_recent[mapfile]);
   $r_gametime = GetMinutes($r_recent[gametime]);
@@ -192,9 +192,9 @@ $sql_gamesummary = "SELECT g.id AS gid, g.name AS gamename, SUM(p.frags) AS frag
   GROUP BY gamename, gid
   ORDER BY gamename ASC";
 
-$q_gamesummary = mysql_query($sql_gamesummary) or die(mysql_error());
+$q_gamesummary = mysqli_query($GLOBALS["___mysqli_link"], $sql_gamesummary) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_gamesummary = mysql_fetch_array($q_gamesummary)) {
+while ($r_gamesummary = mysqli_fetch_array($q_gamesummary)) {
 	$gid = $r_gamesummary[gid];
 
 	$q_gametime = small_query("SELECT SUM(gametime) AS gametime FROM uts_match WHERE gid = '$gid'");

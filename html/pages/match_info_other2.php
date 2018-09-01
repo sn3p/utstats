@@ -28,9 +28,9 @@ echo'
 $sql_pickups = "SELECT p.pid, pi.name, p.country, SUM(p.pu_pads) AS pu_pads, SUM(p.pu_armour) AS pu_armour, SUM(p.pu_keg) AS pu_keg,
 SUM(p.pu_invis) AS pu_invis, SUM(p.pu_belt) AS pu_belt, SUM(p.pu_amp) AS pu_amp
 FROM uts_player as p, uts_pinfo AS pi  WHERE p.pid = pi.id AND pi.banned <> 'Y' AND matchid = $mid GROUP BY pid ORDER BY name ASC";
-$q_pickups = mysql_query($sql_pickups) or die(mysql_error());
+$q_pickups = mysqli_query($GLOBALS["___mysqli_link"], $sql_pickups) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 $i = 0;
-while ($r_pickups = zero_out(mysql_fetch_array($q_pickups))) {
+while ($r_pickups = zero_out(mysqli_fetch_array($q_pickups))) {
      $i++;
      $class = ($i % 2) ? 'grey' : 'grey2';
 
@@ -70,9 +70,9 @@ IF($mid2 == NULL) {
 	$sql_pickups = "SELECT p.pid, pi.name, p.country, SUM(p.pu_pads) AS pu_pads, SUM(p.pu_armour) AS pu_armour, SUM(p.pu_keg) AS pu_keg,
 	SUM(p.pu_invis) AS pu_invis, SUM(p.pu_belt) AS pu_belt, SUM(p.pu_amp) AS pu_amp
 	FROM uts_player as p, uts_pinfo AS pi  WHERE p.pid = pi.id AND pi.banned <> 'Y' AND matchid = $mid2 GROUP BY pid ORDER BY name ASC";
-	$q_pickups = mysql_query($sql_pickups) or die(mysql_error());
+	$q_pickups = mysqli_query($GLOBALS["___mysqli_link"], $sql_pickups) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	$i = 0;
-	while ($r_pickups = zero_out(mysql_fetch_array($q_pickups))) {
+	while ($r_pickups = zero_out(mysqli_fetch_array($q_pickups))) {
      $i++;
      $class = ($i % 2) ? 'grey' : 'grey2';
 

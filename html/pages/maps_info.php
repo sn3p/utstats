@@ -1,6 +1,6 @@
 <?php
-$map = mysql_real_escape_string($_GET[map]);
-$bugmap = mysql_real_escape_string($_GET[map]);
+$map = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $_GET[map]);
+$bugmap = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $_GET[map]);
 $realmap = $bugmap.".unr";
 
 $map_matches = small_query("SELECT COUNT(id) as matchcount, SUM(t0score+t1score+t2score+t3score) AS gamescore,
@@ -226,9 +226,9 @@ if($map_matches[gametime]<= 0) {
 
 	$sql_maps = "SELECT m.id, m.time, g.name AS gamename, m.gametime
 		FROM uts_match AS m, uts_games AS g WHERE (m.mapfile = '$realmap' OR m.mapfile = '$bugmap') AND m.gid = g.id ORDER BY time DESC LIMIT $qpage,25";
-	$q_maps = mysql_query($sql_maps) or die(mysql_error());
+	$q_maps = mysqli_query($GLOBALS["___mysqli_link"], $sql_maps) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-	while ($r_maps = mysql_fetch_array($q_maps)) {
+	while ($r_maps = mysqli_fetch_array($q_maps)) {
 	  $r_mapfile = un_ut($r_maps[mapfile]);
 	  $r_matchtime = mdate($r_maps[time]);
 	  $r_gametime = GetMinutes($r_maps[gametime]);
@@ -291,9 +291,9 @@ if($map_matches[gametime]<= 0) {
 		if ($cpage == "$lpage") { $lpageurl = "[Last]"; }
 
 		$sql_btrecords = "SELECT pi.id, pi.name AS name, pi.country, e.col3 AS time, e.col4 AS date FROM uts_events AS e, uts_pinfo AS pi, uts_player AS p, uts_match AS m WHERE m.id = e.matchid AND m.id = p.matchid AND p.playerid = e.playerid AND pi.id = p.pid AND (m.mapfile = '$realmap' OR m.mapfile = '$bugmap') AND e.col1 = 'btcap' GROUP BY pi.id ORDER BY (0 + e.col3) ASC, e.col4 ASC LIMIT $qpage,25";
-		$q_btrecords = mysql_query($sql_btrecords) or die (mysql_error());
+		$q_btrecords = mysqli_query($GLOBALS["___mysqli_link"], $sql_btrecords) or die (mysqli_error($GLOBALS["___mysqli_link"]));
 
-		if (mysql_num_rows($q_btrecords) > 0) {
+		if (mysqli_num_rows($q_btrecords) > 0) {
 			echo '
 			<div class="pages">Page ['.$tfpage.'/'.$tlpage.'] Selection: '.$fpageurl.' / '.$ppageurl.' / '.$npageurl.' / '.$lpageurl.'</div>
 			<table class="zebra box" border="0" cellpadding="0" cellspacing="0" width="700">
@@ -311,7 +311,7 @@ if($map_matches[gametime]<= 0) {
 			$i = $qpage;
 			$lasttime = -1;
 
-			while ($r_btrecords = mysql_fetch_array($q_btrecords)) {
+			while ($r_btrecords = mysqli_fetch_array($q_btrecords)) {
 				$i++;
 				$class = ($i%2) ? 'grey' : 'grey2';
 				echo '

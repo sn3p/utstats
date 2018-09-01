@@ -61,8 +61,8 @@ $sql_plist = "SELECT pi.name AS name, pi.country AS country, p.pid, COUNT(p.id) 
 SUM(p.deaths) AS deaths, SUM(p.suicides) as suicides, AVG(p.eff) AS eff, AVG(p.accuracy) AS accuracy, AVG(p.ttl) AS ttl, SUM(gametime) as gametime
 FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.name LIKE '%".$playersearch."%' AND pi.banned <> 'Y' GROUP BY name ORDER BY $filter $sort";
 
-$q_plist = mysql_query($sql_plist) or die(mysql_error());
-while ($r_plist = mysql_fetch_array($q_plist)) {
+$q_plist = mysqli_query($GLOBALS["___mysqli_link"], $sql_plist) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+while ($r_plist = mysqli_fetch_array($q_plist)) {
 
 	  $gametime = sec2hour($r_plist[gametime]);
 	  $eff = get_dp($r_plist[eff]);

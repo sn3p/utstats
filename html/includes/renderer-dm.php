@@ -21,25 +21,25 @@ function renderFragBarsTeams($datafragsteam,$derivfragsteam,$topTeams,$counter) 
 		}
 				
 		// Save net frags in db for first 2 teams
-		mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_TEAMDERIV.", 
-		'".mysql_real_escape_string(gzencode(serialize(array($netfragsteam,$datafragsteam))))."', 
-		'".mysql_real_escape_string(gzencode(serialize($teamLabels)))."')") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_TEAMDERIV.", 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize(array($netfragsteam,$datafragsteam))))."', 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($teamLabels)))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 	} else {
 		
 		// Save team score over team for teams
-		mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_TEAMSCORE.", 
-		'".mysql_real_escape_string(gzencode(serialize($datafragsteam)))."', 
-		'".mysql_real_escape_string(gzencode(serialize($teamLabels)))."')") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_TEAMSCORE.", 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($datafragsteam)))."', 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($teamLabels)))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
 	}
 	
 	// Generate normalized data (vs #2) & store it
 	$normalfragsteam = normalizeDMdata($datafragsteam,$topTeams,$counter);
 	
-	mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_TEAMNORMAL.", 
-	'".mysql_real_escape_string(gzencode(serialize($normalfragsteam)))."', 
-	'".mysql_real_escape_string(gzencode(serialize($teamLabels)))."')") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_TEAMNORMAL.", 
+	'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($normalfragsteam)))."', 
+	'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($teamLabels)))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 }
 
@@ -71,16 +71,16 @@ function renderFragBars($datafrags, $derivfrags, $topFraggers,$counter) {
 				$netfrags[1][$i] = $netfrags[1][$i]>0 ? $netfrags[1][$i] : 0;
 			}
 			
-			mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERDERIV.", 
-			'".mysql_real_escape_string(gzencode(serialize(array($netfrags,$datafragschunks[0]))))."', 
-			'".mysql_real_escape_string(gzencode(serialize($topFraggersLabels[0])))."')") or die(mysql_error());	
+			mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERDERIV.", 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize(array($netfrags,$datafragschunks[0]))))."', 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($topFraggersLabels[0])))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));	
 		
 		} else {
 				
 			// Generate graph for player 1 to 4
-			mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERSCORE.", 
-			'".mysql_real_escape_string(gzencode(serialize($datafragschunks[0])))."', 
-			'".mysql_real_escape_string(gzencode(serialize($topFraggersLabels[0])))."')") or die(mysql_error());
+			mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERSCORE.", 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($datafragschunks[0])))."', 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($topFraggersLabels[0])))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 			
 		}
 		
@@ -88,18 +88,18 @@ function renderFragBars($datafrags, $derivfrags, $topFraggers,$counter) {
 		$normalfrags = normalizeDMdata($datafrags,$topFraggers,$counter);
 		$normalfragschunks = array_chunk(sortDMdata($normalfrags,$topFraggers),4);
 		
-		mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERNORMAL.", 
-		'".mysql_real_escape_string(gzencode(serialize($normalfragschunks[0])))."', '".mysql_real_escape_string(gzencode(serialize($topFraggersLabels[0])))."')") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERNORMAL.", 
+		'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($normalfragschunks[0])))."', '".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($topFraggersLabels[0])))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 		// If at least 8 players, also great second graph for 5 to 8
 		if($countPlayers >= 8) {
-			mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERSCORE5.", 
-			'".mysql_real_escape_string(gzencode(serialize($datafragschunks[1])))."', 
-			'".mysql_real_escape_string(gzencode(serialize($topFraggersLabels[1])))."')") or die(mysql_error());
+			mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERSCORE5.", 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($datafragschunks[1])))."', 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($topFraggersLabels[1])))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		
-			mysql_query("INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERNORMAL5.", 
-			'".mysql_real_escape_string(gzencode(serialize($normalfragschunks[1])))."', 
-			'".mysql_real_escape_string(gzencode(serialize($topFraggersLabels[1])))."')") or die(mysql_error());		
+			mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_chartdata (mid,chartid,data,labels) VALUES (".$matchid.", ".RENDERER_CHART_FRAGS_PLAYERNORMAL5.", 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($normalfragschunks[1])))."', 
+			'".mysqli_real_escape_string($GLOBALS["___mysqli_link"], gzencode(serialize($topFraggersLabels[1])))."')") or die(mysqli_error($GLOBALS["___mysqli_link"]));		
 		}
 		
 		
@@ -164,14 +164,14 @@ function parseDMdata($uid) {
 	global $playernumberofteams;
 	global $playerteams;
 	
-	$uid = mysql_real_escape_string($uid);
+	$uid = mysqli_real_escape_string($GLOBALS["___mysqli_link"], $uid);
 	
 	// Get all frags related events + start & end
-	$q_frags = mysql_query("SELECT * FROM `uts_temp_$uid` WHERE col0>=".mysql_real_escape_string($time_gamestart)." ORDER BY id ASC") or die(mysql_error());
+	$q_frags = mysqli_query($GLOBALS["___mysqli_link"], "SELECT * FROM `uts_temp_$uid` WHERE col0>=".mysqli_real_escape_string($GLOBALS["___mysqli_link"], $time_gamestart)." ORDER BY id ASC") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	
 	// Get all unique player id's
-	$q_ids = mysql_query("SELECT DISTINCT col2 FROM `uts_temp_$uid` WHERE col1='kill'");
-	while($data = mysql_fetch_array($q_ids)) {
+	$q_ids = mysqli_query($GLOBALS["___mysqli_link"], "SELECT DISTINCT col2 FROM `uts_temp_$uid` WHERE col1='kill'");
+	while($data = mysqli_fetch_array($q_ids)) {
 		$ids[] = $data[0];
 	}
 		
@@ -183,7 +183,7 @@ function parseDMdata($uid) {
 	$firstrun = true;
 	$realTimeEnd = ($time_gameend-$time_gamestart)/$time_ratio_correction/60;
 	
-	while($data = mysql_fetch_array($q_frags)) {
+	while($data = mysqli_fetch_array($q_frags)) {
 	
 		// Collect data from utstats own table
 		$r_time = ($data[1]-$time_gamestart)/$time_ratio_correction/60;	// Transform UT time to real time

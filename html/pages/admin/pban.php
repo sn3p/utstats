@@ -32,12 +32,12 @@ if ($ban) {
 	</tr>
 	<tr>
 		<td class="smheading" align="left">Removing Player Rank:</td>';
-	mysql_query("DELETE FROM uts_rank WHERE pid = $pid") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "DELETE FROM uts_rank WHERE pid = $pid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		echo'<td class="grey" align="left">Done</td>
 	</tr>
 	<tr>
 		<td class="smheading" align="left">Updating Player Record:</td>';
-	mysql_query("UPDATE uts_pinfo SET banned = 'Y' WHERE id = $pid") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_pinfo SET banned = 'Y' WHERE id = $pid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		echo'<td class="grey" align="left">Done</td>
 	</tr>
 	
@@ -51,17 +51,17 @@ if ($ban) {
 	</tr>
 	<tr>
 		<td class="smheading" align="left">Updating Player Record:</td>';
-	mysql_query("UPDATE uts_pinfo SET banned = 'N' WHERE id = $pid") or die(mysql_error());
+	mysqli_query($GLOBALS["___mysqli_link"], "UPDATE uts_pinfo SET banned = 'N' WHERE id = $pid") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 		echo'<td class="grey" align="left">Done</td>
 	</tr>
 	<tr>
 		<td class="smheading" align="left" width="200">Restoring Rankings</td>';
 	
 	$sql_nrank = "SELECT SUM(gametime) AS time, pid, gid, SUM(rank) AS rank, COUNT(matchid) AS matches FROM uts_player WHERE pid = $pid GROUP BY pid, gid";
-	$q_nrank = mysql_query($sql_nrank) or die(mysql_error());
-	while ($r_nrank = mysql_fetch_array($q_nrank)) {
+	$q_nrank = mysqli_query($GLOBALS["___mysqli_link"], $sql_nrank) or die(mysqli_error($GLOBALS["___mysqli_link"]));
+	while ($r_nrank = mysqli_fetch_array($q_nrank)) {
 	
-		mysql_query("INSERT INTO uts_rank SET time = '$r_nrank[time]', pid = $pid, gid = $r_nrank[gid], rank = '$r_nrank[rank]', prevrank = '$r_nrank[rank]', matches = $r_nrank[matches]") or die(mysql_error());
+		mysqli_query($GLOBALS["___mysqli_link"], "INSERT INTO uts_rank SET time = '$r_nrank[time]', pid = $pid, gid = $r_nrank[gid], rank = '$r_nrank[rank]', prevrank = '$r_nrank[rank]', matches = $r_nrank[matches]") or die(mysqli_error($GLOBALS["___mysqli_link"]));
 	}
 	
 		echo'<td class="grey" align="left" width="400">Done</td>

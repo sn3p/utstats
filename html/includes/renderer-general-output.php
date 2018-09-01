@@ -3,23 +3,22 @@
 require_once('encoding.php');
 use \ForceUTF8\Encoding;
 
-function renderChart($target,$layout,$color,$title,$data,$labels,$categories,$width,$height,$charttype) {
-
+function renderChart($target, $layout, $color, $title, $data, $labels, $categories, $width, $height, $charttype) {
 	// Add categories if required
-	if(!empty($categories) && count($categories)>0) {
+	if (!empty($categories) && count($categories)>0) {
 		$categoriesString = "categories: ".json_encode($categories).", ";
 		$categoriesStringPos = strpos($layout,"{",strpos($layout,"xAxis"))+1;
-		if($categoriesStringPos !== false)
+		if ($categoriesStringPos !== false)
 			$layout = substr_replace($layout,$categoriesString,$categoriesStringPos,0);
 	}
 
 	// Replace title if required
-	if(!empty($title) && strlen($title)>0) {
+	if (!empty($title) && strlen($title)>0) {
 		$titleStringPosStart = strpos($layout,":",strpos($layout,"text"))+1;
 		$titleStringPosEnd = strpos($layout,"}",strpos($layout,"text"))-1;
 
-		if($categoriesStringPos !== false)
-			$layout = substr_replace($layout,json_encode($title),$titleStringPosStart,$titleStringPosEnd-$titleStringPosStart);
+		if ($categoriesStringPos !== false)
+			$layout = substr_replace($layout, json_encode($title), $titleStringPosStart, $titleStringPosEnd - $titleStringPosStart);
 	}
 
 	$chart = "
@@ -30,7 +29,7 @@ function renderChart($target,$layout,$color,$title,$data,$labels,$categories,$wi
 			chart: {
 				renderTo: '$target'	";
 
-	if($charttype == RENDERER_CHARTTYPE_RADAR)
+	if ($charttype == RENDERER_CHARTTYPE_RADAR)
 		$chart .= ", polar: true, type: 'area'";
 
 	// Encoding::toUTF8() required for $data & $labels in offline use
@@ -43,7 +42,7 @@ function renderChart($target,$layout,$color,$title,$data,$labels,$categories,$wi
 	return $chart;
 }
 
-function jsonEncodeMultiSeries($data,$labels,$color,$charttype) {
+function jsonEncodeMultiSeries($data, $labels, $color, $charttype) {
 	$countSeries = count($data);
 
 	for($i=0;$i<$countSeries;$i++) {
@@ -74,19 +73,17 @@ function jsonEncodeMultiSeries($data,$labels,$color,$charttype) {
 
 		}
 
-		$jsonData .= jsonEncodeSingleSerie($data[$i],$labels,$color,$charttypeSingle,$layoutSerie,$colorTransparant);
+		$jsonData .= jsonEncodeSingleSerie($data[$i], $labels, $color, $charttypeSingle, $layoutSerie, $colorTransparant);
 
-		if($i<($countSeries-1))
-				$jsonData .=  ",";
+		if ($i<($countSeries-1))
+			$jsonData .=  ",";
 
 	}
 
 	return $jsonData;
 }
 
-
-
-function jsonEncodeSingleSerie($data,$labels,$color,$charttype,$layoutSerie='',$colorTransparant=false) {
+function jsonEncodeSingleSerie($data, $labels, $color, $charttype, $layoutSerie='', $colorTransparant=false) {
 	global $renderer_color;
 	global $renderer_color_transparancy;
 
@@ -119,37 +116,33 @@ function jsonEncodeSingleSerie($data,$labels,$color,$charttype,$layoutSerie='',$
 				data: ".json_encode($data[$i])." }";
 
 			if($i<($countSeries-1))
-				$jsonData .=  ",";
+				$jsonData .= ",";
 
 		}
 
 	} else if(countSeries==1) {
-		$jsonData .=  "data: { ".$layoutSerie.json_encode($data[0])." }";
+		$jsonData .= "data: { ".$layoutSerie.json_encode($data[0])." }";
 	}
 
 	return $jsonData;
 }
 
-function jsonEncodeRadarSerie($data,$labels,$color,$charttype) {
-	return jsonEncodeSingleSerie($data,$labels,$color,$charttype,'',true);
+function jsonEncodeRadarSerie($data, $labels, $color, $charttype) {
+	return jsonEncodeSingleSerie($data, $labels, $color, $charttype, '', true);
 }
 
-
-function jsonEncodeSeries($data,$labels,$color,$charttype) {
-
-	if($charttype == RENDERER_CHARTTYPE_LINECOLUMN || $charttype ==  RENDERER_CHARTTYPE_LINESTEPCOLUMN)
-		return jsonEncodeMultiSeries($data,$labels,$color,$charttype);
+function jsonEncodeSeries($data, $labels, $color, $charttype) {
+	if ($charttype == RENDERER_CHARTTYPE_LINECOLUMN || $charttype ==  RENDERER_CHARTTYPE_LINESTEPCOLUMN)
+		return jsonEncodeMultiSeries($data, $labels, $color, $charttype);
 
 	else
-		return jsonEncodeSingleSerie($data,$labels,$color,$charttype);
+		return jsonEncodeSingleSerie($data, $labels, $color, $charttype);
 }
 
-
-/**
+/*
 Functions to render block in which the graphs are shown
 */
 function renderHeaderBlock($category) {
-
 	return '
 		<table class="box" border="0" cellpadding="0" cellspacing="0">
 		  <thead>
@@ -189,7 +182,6 @@ function hex2rgb($hex) {
    }
    $rgb = array($r, $g, $b);
    return implode(",", $rgb); // returns the rgb values separated by commas
-
 }
 
 ?>

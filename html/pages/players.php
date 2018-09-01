@@ -100,9 +100,9 @@ echo'
 $sql_plist = "SELECT pi.name AS name, pi.country AS country, p.pid, COUNT(p.id) AS games, SUM(p.gamescore) as gamescore, SUM(p.frags) AS frags, SUM(p.kills) AS kills,
 SUM(p.deaths) AS deaths, SUM(p.suicides) as suicides, AVG(p.eff) AS eff, AVG(p.accuracy) AS accuracy, AVG(p.ttl) AS ttl, SUM(gametime) as gametime
 FROM uts_player AS p, uts_pinfo AS pi WHERE p.pid = pi.id AND pi.banned <> 'Y' GROUP BY p.pid ORDER BY $filter $sort LIMIT $qpage,50";
-$q_plist = mysql_query($sql_plist) or die(mysql_error());
+$q_plist = mysqli_query($GLOBALS["___mysqli_link"], $sql_plist) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_plist = mysql_fetch_array($q_plist)) {
+while ($r_plist = mysqli_fetch_array($q_plist)) {
   $gametime = sec2hour($r_plist[gametime]);
   $eff = get_dp($r_plist[eff]);
   $acc = get_dp($r_plist[accuracy]);

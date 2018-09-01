@@ -1,8 +1,8 @@
 <?php
 $sql_rgame = "SELECT DISTINCT(p.gid), g.name FROM uts_player AS p, uts_games AS g WHERE p.gid = g.id ORDER BY g.name ASC";
-$q_rgame = mysql_query($sql_rgame) or die(mysql_error());
+$q_rgame = mysqli_query($GLOBALS["___mysqli_link"], $sql_rgame) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-while ($r_rgame = mysql_fetch_array($q_rgame)) {
+while ($r_rgame = mysqli_fetch_array($q_rgame)) {
 
     echo'
     <table class="box zebra" border="0" cellpadding="0" cellspacing="0" width="700">
@@ -21,9 +21,9 @@ while ($r_rgame = mysql_fetch_array($q_rgame)) {
   $ranking = 0;
 
   $sql_rplayer = "SELECT pi.id AS pid, pi.name, pi.country, r.rank, r.prevrank, r.matches FROM uts_rank AS r, uts_pinfo AS pi WHERE r.pid = pi.id AND r.gid =  '$r_rgame[gid]' AND pi.banned <> 'Y' ORDER BY r.rank DESC LIMIT 0,10";
-  $q_rplayer = mysql_query($sql_rplayer) or die(mysql_error());
+  $q_rplayer = mysqli_query($GLOBALS["___mysqli_link"], $sql_rplayer) or die(mysqli_error($GLOBALS["___mysqli_link"]));
 
-  if (mysql_num_rows($q_rplayer) == 0) {
+  if (mysqli_num_rows($q_rplayer) == 0) {
     echo '
     <tr>
 	    <th align="center" colspan = "4">No players entered the rankings yet.</th>
@@ -35,7 +35,7 @@ while ($r_rgame = mysql_fetch_array($q_rgame)) {
 		<br>';
   }
   else {
-    while ($r_rplayer = mysql_fetch_array($q_rplayer)) {
+    while ($r_rplayer = mysqli_fetch_array($q_rplayer)) {
 
       $ranking++;
       $myurl = urlencode($r_rplayer[name]);

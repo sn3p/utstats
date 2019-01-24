@@ -103,47 +103,9 @@ input[type="submit"]:hover {
   cursor: pointer;
 }
 
-.navbar {
-  background: rgba(0, 0, 0, 0.7);
-  height: 56px;
-  line-height: 56px;
-  position: relative;
-  text-align: right;
-}
-.navbar ul {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  max-width: 900px;
-}
-.navbar li {
-  display: inline-block;
-}
-.navbar a {
-  font-size: 17px;
-  display: block;
-  text-decoration: none;
-  color: white;
-  padding: 0 18px;
-  -webkit-transition: background-color 0.4s;
-  -moz-transition: background-color 0.4s;
-  -o-transition: background-color 0.4s;
-  -ms-transition: background-color 0.4s;
-  transition: background-color 0.4s;
-}
-.navbar a:hover {
-  background-color: #2069a1;
-  opacity: 1;
-}
-.navbar .logo {
-  float: left;
-}
-.navbar .logo a {
-  height: 100%;
-}
-.navbar .logo img {
-  height: 36px;
-  margin-top: 10px;
+.logo {
+  height: 4%;
+  margin-right: 10px;
 }
 
 .phantom {
@@ -159,7 +121,6 @@ input[type="submit"]:hover {
   text-align: center;
   color: #ffffff;
   padding: 20px 0px;
-  margin-top: 50px;
   position: absolute;
   width: 100%;
   bottom: 0;

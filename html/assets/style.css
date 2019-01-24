@@ -149,6 +149,7 @@ input[type="submit"]:hover {
 .phantom {
   display: block;
   padding: 20px 0px;
+  margin-top: 50px;
   height: 60px;
   width: 100%;
 }

@@ -12,7 +12,7 @@
     <br />
     <br />
     <a href="https://github.com/sn3p/utstats" target="_blank">UTStats Beta 4.4.1</a>
-    &copy; <?php echo date("Y"); ?> azazel, AnthraX, toa, elsheepo and sn3p
+    &copy; <?php echo date("Y"); ?> azazel, AnthraX, toa, <a href="https://github.com/elsheepo" rel="noopener noreferrer" target="_blank">elsheepo</a> and sn3p
     </div>
   </footer>
 

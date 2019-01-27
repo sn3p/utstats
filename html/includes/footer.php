@@ -1,7 +1,10 @@
 
-  <footer>
-    <div class="phantom"></div>
-    <div class ="footer">
+      </main>
+    </div>
+  </div>
+  <div class="phantom"></div>
+  <footer class="footer">
+    <div class ="container">
     <a href="./?p=totals">Totals</a>
     <a href="./?p=maps">Maps</a>
     <a href="./?p=servers">Servers</a>

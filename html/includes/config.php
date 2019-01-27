@@ -114,7 +114,7 @@ $import_ac_log_purge_after = 0;
 $import_ace_download_enable = true;
 
 // Log files start with...
-$import_ace_log_start = "[ACE]";
+$import_ace_log_start = "[ACEPLAYER]";
 
 // Log files end with...
 $import_ace_log_extension = ".log";
@@ -139,9 +139,9 @@ $pic_enable = true;
 
 
 // FTP Connection Details
-$ftp_use = false;             // Whether to auto get the log files
+$ftp_use = true;             // Whether to auto get the log files
 $ftp_interval = 0;            // How often in minutes to allow stats update
-$ftp_debug = false;           // Debugging output that may help you to resolve ftp problems
+$ftp_debug = true;           // Debugging output that may help you to resolve ftp problems
 $ftp_type = 'sockets';        // Which FTP module do you want to use?
                               // sockets - (recommended)
                               //           Use PHP's socket extension to connect to the FTP server
@@ -154,12 +154,12 @@ $ftp_type = 'sockets';        // Which FTP module do you want to use?
 
 // UT Server 1
 $i = 0;
-$ftp_hostname[$i] = '';       // FTP server location here
+$ftp_hostname[$i] = '74.91.112.56';       // FTP server location here
 $ftp_port[$i]     = 21;       // FTP Port - do not remove this even if you do not use ftp
                               // Do not add '' around the port either
-$ftp_uname[$i]    = '';       // FTP Username
-$ftp_upass[$i]    = '';       // FTP Password
-$ftp_dir[$i][]    = '/';      // Directory of the log files - MUST NOT end with a /
+$ftp_uname[$i]    = 'ut99';       // FTP Username
+$ftp_upass[$i]    = 'H@ppyhalloween';       // FTP Password
+$ftp_dir[$i][]    = '/Logs';      // Directory of the log files - MUST NOT end with a /
 // $ftp_dir[$i][]    = '/';     // You may repeat this entry as often as you wish but please remember
 // $ftp_dir[$i][]    = '/';     // to enter the directory relative to the last one
 // $ftp_dir[$i][]    = '/';     // (or use an absolute path)

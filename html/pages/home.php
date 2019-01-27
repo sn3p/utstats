@@ -21,34 +21,38 @@ if (!file_exists($mappic) || $mappic == "assets/images/maps/blank_large.png") {
 }
 
 echo '
-<center>
-<table width="900"><tr><th class="heading"><center>Last Map Updated</center></th></tr></table>
+          <table width="900">
+            <tr>
+              <th class="heading">
+                <div class="text-center">Last Map Updated</div>
+              </th>
+            </tr>
+          </table>
 
-<div class="recentheader" style="background-image: url(\''.$mappic.'\');background-size: 100% 100%;">
-  <div class="carousel-caption">
+          <div class="recentheader" style="background-image: url(\''.$mappic.'\');background-size: 100% 100%;">
+            <div class="carousel-caption">
 
-    <table style="width:100%; padding-top: 25px;">
-			<tr>
-        <td colspan=3><p class="carousel-header">'.$lastMapFileName.'</p></td>
-      </tr>
-			<tr>
-				<td class="carousel-red';
+              <table style="width:100%; padding-top: 25px;">
+			    <tr>
+                  <td colspan=3><p class="carousel-header">'.$lastMapFileName.'</p></td>
+                </tr>
+			    <tr>
+				  <td class="carousel-red';
 				if ($moreThan2Teams) {
 					echo '-small';
 				}
 				echo '">'.$lastMapScore0.'</td>
-				<td ';
+				  <td ';
 				if ($moreThan2Teams) {
 					echo 'rowspan=2 ';
 				}
-				echo '
-				class="carousel-text" style="width:30%;">'.mdate($lastMapTime).' </td>
-				<td class="carousel-blue';
-				if  ($moreThan2Teams) {
+				echo 'class="carousel-text" style="width:30%;">'.mdate($lastMapTime).' </td>
+				  <td class="carousel-blue';
+				if ($moreThan2Teams) {
 					echo '-small';
 				}
 				echo '">'.$lastMapScore1.'</td>
-			</tr>';
+			    </tr>';
 
 			if ($moreThan2Teams) {
   			echo '
@@ -58,24 +62,25 @@ echo '
 				</tr>';
 			}
 
-		echo '</table>
-    <p></p>
-    <a class="navCTA" href="?p=match&mid='.$lastMapId.'" role="button">View stats</a>
-  </div>
-</div>
-<br>
+    echo '
+              </table>
+              <p></p>
+              <a class="navCTA" href="?p=match&mid='.$lastMapId.'" role="button">View stats</a>
+            </div>
+          </div>
+          <br />
 
-<table width="900" class="box zebra" border="0" cellpadding="0" cellspacing="0">
+<table width="900" class="box zebra text-center" border="0" cellpadding="0" cellspacing="0">
 <tbody>
   <tr>
     <th class="heading" colspan="7" align="center">Last 10 Matches</th>
   </tr>
   <tr>
-    <th class="smheading" align="center" width="40">ID</th>
-    <th class="smheading" align="center" width="220">Date/Time</th>
-    <th class="smheading" align="center" width="140">Match Type</th>
-    <th class="smheading" align="center">Map</th>
-    <th class="smheading" align="center" width="200">Scores</th>
+    <th class="smheading" width="40">ID</th>
+    <th class="smheading" width="220">Date/Time</th>
+    <th class="smheading" width="140">Match Type</th>
+    <th class="smheading">Map</th>
+    <th class="smheading" width="200">Scores</th>
   </tr>';
 
 $sql_recent = "SELECT m.id, m.time, g.name AS gamename, m.mapfile, m.gametime, t0score, t1score, t2score, t3score, (SELECT count(p.id) FROM uts_player AS p WHERE m.id = p.matchid) as players FROM uts_match AS m, uts_games AS g WHERE g.id = m.gid $where ORDER BY m.time DESC LIMIT 10";
@@ -140,7 +145,7 @@ echo'
   </tr>
   <tr>
     <th class="smheading" align="center">Players</th>
-    <th class="smheading" align="center">Servers</th>
+    <th class="smheading"  >Servers</th>
     <th class="smheading" align="center">Maps</th>
     <th class="smheading" align="center">Matches Logged</th>
     <th class="smheading" align="center">Player Hours</th>

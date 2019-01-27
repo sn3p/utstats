@@ -30,18 +30,15 @@ setcookie('uts_lastvisit', time(), time() + 60 * 60 * 24 * 30 * 365);
 
 echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-  <title>Unreal Tournament Stats - Powered by UTStats</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <link rel="icon" href="assets/images/favicon.ico" type="image/ico">
+  <head>
+    <title>Unreal Tournament Stats - Powered by UTStats</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/ico">
 
-  <link rel="stylesheet" href="assets/lib/tooltipster/tooltipster.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>';
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/lib/tooltipster/tooltipster.css">
+    <link rel="stylesheet" href="assets/style.css">
+  </head>
+  <body>';
 
 include 'includes/navbar.php';
-
-echo '  <center>
-    <br />';

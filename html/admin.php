@@ -59,8 +59,7 @@ if (empty($adminkey)) {
 		  </form>
 		</td>
 	  </tr>
-	</table>
-  </center>';
+	</table>';
 	include 'includes/footer.php';
 	return;
 }
@@ -75,8 +74,7 @@ if (!file_exists($fn) or !is_file($fn)) {
 require $fn;
 
 echo '</table>
-</center>
-	<br>';
+<br>';
 
 include 'includes/footer.php';
 

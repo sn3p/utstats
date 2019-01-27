@@ -1,6 +1,13 @@
 <?php
 // Connect to database
 $GLOBALS["___mysqli_link"] = mysqli_connect($hostname, $uname,  $upass, $dbname);
+// try {
+//   $GLOBALS["___mysqli_link"] = new PDO("mysql:host=$hostname;dbname=$dbname", $uname, $upass);
+//   $GLOBALS["___mysqli_link"]->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// } catch(PDOException $e) {
+//   $conn = null;
+//   echo "Connection failed: " . $e->getMessage();
+// }
 
 // Error reporting
 // error_reporting(E_ALL & ~E_NOTICE);

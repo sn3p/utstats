@@ -1,5 +1,5 @@
 <?php
-// test commit
+
 // Connect to database
 $GLOBALS["___mysqli_link"] = mysqli_connect($hostname, $uname, $upass, $dbname);
 

@@ -6,10 +6,10 @@ if (isset($_COOKIE['uts_adminkey'])) {
 	$adminkey = $_REQUEST['uts_adminkey'];
 }
 
-include 'includes/config.php';
-include 'includes/functions.php';
-include 'includes/functions_admin.php';
-include 'includes/header.php';
+require 'includes/config.php';
+require 'includes/functions.php';
+require 'includes/functions_admin.php';
+require 'includes/header.php';
 
 // Get key from web browser
 if (isset($_REQUEST['key'])) {
@@ -23,43 +23,45 @@ if (!isset($adminkey)) {
 $action = (!empty($_REQUEST['action'])) ? $_REQUEST['action'] : 'main';
 
 echo '
-    <table class = "box" border="0" cellpadding="1" cellspacing="2" width="100%">
-      <tr>
-	    <td class="heading text-center" colspan="2">UTStats Administration</td>
-      </tr>';
+          <table class = "box" border="0" cellpadding="1" cellspacing="2" width="100%">
+            <tr>
+	          <td class="heading text-center" colspan="2">UTStats Administration</td>
+            </tr>';
 
 if (empty($import_adminkey)) {
 	echo '
-	  <tr>
-	<td class="smheading" align="left" width="150">Error:</td>
-	<td class="grey" align="left">No key set in config.php</td>
-	</tr>
-	</table>';
+	        <tr>
+	          <td class="smheading" align="left" width="150">Error:</td>
+	          <td class="grey" align="left">No key set in config.php</td>
+	        </tr>
+	      </table>';
 	include 'includes/footer.php';
 	return;
 }
 
 
 if (!empty($adminkey) and $adminkey != $import_adminkey) {
-	echo '<tr><td class="smheading" align="left" width="150">Error:</td>
-	<td class="grey" align="left">Keys do not match</td>
-	</tr>';
+	echo '
+	        <tr>
+	          <td class="smheading" align="left" width="150">Error:</td>
+	          <td class="grey" align="left">Keys do not match</td>
+	        </tr>';
 	$adminkey = '';
 }
 
 if (empty($adminkey)) {
 	echo '
-	  <tr>
-		<td class="smheading" align="left" width="150">Enter Admin key:</td>
-		<td class="grey" align="left">
-		  <form NAME="adminkey" ACTION="admin.php">
-		    <input TYPE="text" NAME="key" MAXLENGTH="35" SIZE="20" CLASS="searchform">
-		    <input TYPE="submit" VALUE="Submit" CLASS="searchformb">
-		    <input TYPE="checkbox" NAME="rememberkey"> Remember the key
-		  </form>
-		</td>
-	  </tr>
-	</table>';
+	        <tr>
+		      <td class="smheading" align="left" width="150">Enter Admin key:</td>
+		      <td class="grey" align="left">
+		        <form NAME="adminkey" ACTION="admin.php">
+		          <input TYPE="text" NAME="key" MAXLENGTH="35" SIZE="20" CLASS="searchform">
+		          <input TYPE="submit" VALUE="Submit" CLASS="searchformb">
+		          <input TYPE="checkbox" NAME="rememberkey"> Remember the key
+		        </form>
+		      </td>
+	        </tr>
+	      </table>';
 	include 'includes/footer.php';
 	return;
 }
@@ -74,8 +76,8 @@ if (!file_exists($fn) or !is_file($fn)) {
 require $fn;
 
 echo '</table>
-<br>';
+ <br>';
 
-include 'includes/footer.php';
+require 'includes/footer.php';
 
 ?>

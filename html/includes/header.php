@@ -26,35 +26,19 @@ if (isset($_COOKIE['uts_lastvisit'])) {
 } else {
   $s_lastvisit = time();
 }
-setcookie('uts_lastvisit', time(), time()+60*60*24*30*365);
+setcookie('uts_lastvisit', time(), time() + 60 * 60 * 24 * 30 * 365);
 
 echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-  <title>Unreal Tournament Stats - Powered by UTStats</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <link rel="icon" href="assets/images/favicon.ico" type="image/ico">
+  <head>
+    <title>Unreal Tournament Stats - Powered by UTStats</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/ico">
 
-  <link rel="stylesheet" href="assets/lib/tooltipster/tooltipster.css">
-  <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/lib/tooltipster/tooltipster.css">
+    <link rel="stylesheet" href="assets/style.css">
+  </head>
+  <body>';
 
-  <script type="text/javascript" src="assets/lib/jquery-1.11.1.min.js"></script>
-  <script type="text/javascript">
-    <!--
-    var ol_fgclass="dark"; var ol_bgclass="darkbox"; var ol_textfontclass="dark"; var ol_captionfontclass="hlheading";
-    -->
-  </script>
-  <script type="text/javascript" src="assets/lib/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
-  <script type="text/javascript" src="assets/lib/highcharts/adapters/standalone-framework.js"></script>
-  <script type="text/javascript" src="assets/lib/highcharts/highcharts.js"></script>
-  <script type="text/javascript" src="assets/lib/highcharts/highcharts-more.js"></script>
-  <script type="text/javascript" src="assets/lib/highcharts/highcharts-functions.js"></script>
-  <script type="text/javascript" src="assets/lib/highcharts/themes/utstats.js"></script>
-  <script type="text/javascript" src="assets/lib/tooltipster/jquery.tooltipster.min.js"></script>
-	<script type="text/javascript" src="assets/main.js"></script>
-</head>
-<body>';
-
-include("includes/navbar.php");
-
-echo '<center><br>';
+include 'includes/navbar.php';
